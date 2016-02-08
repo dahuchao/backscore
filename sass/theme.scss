@@ -1,0 +1,60 @@
+$vert: #99cc00;
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* toute la hauteur du viewport */
+  padding: 1em;
+}
+
+header {
+  color: white;
+  background-color: grey;
+  margin-bottom: 1em;
+  padding: 0.8em;
+}
+.cadre {
+  border-style: solid;
+  border-color: red;
+}
+#tableau {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px;
+  border-style: solid;
+  border-color: back;
+  height: 300px;
+  @mixin element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .equipe {
+    @include element;
+    flex: 2;
+  }
+  #hote {
+  }
+  #visiteur {
+  }
+  #marque {
+    @include element;
+    flex: 1;
+    .compteur {
+      color:black;
+      font-weight: bold;
+      font-size: 2em;
+      border-radius: 10%;
+      padding: 5px;
+      background-color: white;
+    }
+  }
+}
+footer {
+  color: white;
+  background-color: grey;
+  margin-top: 1em;
+  padding: 0.8em;
+}
