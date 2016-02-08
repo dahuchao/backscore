@@ -7,6 +7,10 @@ var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
+// Tache pour controler l'execution de gulp dans Atom
+gulp.task('stop', function() {
+});
+
 // Browser-sync task, only cares about compiled CSS
 gulp.task('browser-sync', function() {
   browserSync({
