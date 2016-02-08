@@ -45,7 +45,7 @@ gulp.task('es6', function() {
     }));
 });
 
-gulp.task('test', ['es6'], function() {
+gulp.task('test', ['es6','styles'], function() {
 
   // Serve files from the root of this project
   browserSync.init({
@@ -54,7 +54,7 @@ gulp.task('test', ['es6'], function() {
     }
   });
 
-  gulp.watch(['*.html', 'app.js', 'src/*.js'], ['es6'])
+  gulp.watch(['*.html', 'index.js', 'src/*.js'], ['es6'])
   gulp.watch('sass/**/*.scss',['styles']);
 });
 
