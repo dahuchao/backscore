@@ -14,7 +14,7 @@ class Tableau extends React.Component {
       <div>
         <div id="tableau">
             <div id="hote" className="equipe">h</div>
-            <Marque hote="21" visiteur="18"/>
+            <Marque hote="22" visiteur="18"/>
             <div id="visiteur" className="equipe">v</div>
         </div>
       </div>)
