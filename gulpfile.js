@@ -46,16 +46,19 @@ gulp.task('es6', function() {
 });
 
 gulp.task('test', ['es6','styles'], function() {
-
   // Serve files from the root of this project
   browserSync.init({
     server: {
       baseDir: "./"
     }
   });
-
   gulp.watch(['*.html', 'index.js', 'src/*.js'], ['es6'])
   gulp.watch('sass/**/*.scss',['styles']);
+});
+
+gulp.task('service', function() {
+  console.log('Lancement du serveur');
+  server.run(['serveur.js']);
 });
 
 gulp.task('default', ['test']);

@@ -5,23 +5,24 @@ import Equipe from "./equipe.js"
 class Tableau extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      hote: {
-        nom: "NEC",
-        marque: 21
-      },
-      visiteur: {
-        nom: "USJA",
-        marque: 17
-      }
-    }
-    console.info("sur panier marque " + JSON.stringify(this.state));
+    // this.state = {
+    //   hote: {
+    //     nom: "NEC",
+    //     marque: 21
+    //   },
+    //   visiteur: {
+    //     nom: "USJA",
+    //     marque: 17
+    //   }
+    // }
+    this.state = this.props.rencontre
+    console.info("sur panier marque " + JSON.stringify(this.state))
     this.surPanierHote = () => {
       var marque = this.state.hote.marque
-      console.info("marque avant: " + JSON.stringify(marque));
+      console.info("marque avant: " + JSON.stringify(marque))
       this.state.hote.marque=marque+1
-      console.info("marque apres: " + JSON.stringify(this.state.hote.marque));
-      this.setState(this.state);
+      console.info("marque apres: " + JSON.stringify(this.state.hote.marque))
+      this.setState(this.state)
     }
     this.surPanierVisiteur = () => {
       console.info("sur panier marque");

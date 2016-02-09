@@ -1,9 +1,9 @@
 import React from 'react'
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import ActionInfo from 'material-ui/lib/svg-icons/action/info';
-import Avatar from 'material-ui/lib/avatar';
-import FileFolder from 'material-ui/lib/svg-icons/file/folder';
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
+import ActionInfo from 'material-ui/lib/svg-icons/action/info'
+import Avatar from 'material-ui/lib/avatar'
+import FileFolder from 'material-ui/lib/svg-icons/file/folder'
 import Tableau from "./tableau.js"
 
 let rencontres = [
@@ -15,7 +15,7 @@ let rencontres = [
     },
     visiteur: {
       nom: "USJA",
-      marque: 17
+      marque: 18
     }
   },
   {
@@ -45,7 +45,7 @@ let rencontres = [
 class Rencontre extends React.Component {
   constructor(props) {
     super(props)
-    console.info("Rencontre: " + JSON.stringify(this.props.rencontre));
+    console.info("Rencontre: " + JSON.stringify(this.props.rencontre))
     this.rencontreSelectionnee = () => {
       console.info("Rencontre selectionnee: " + JSON.stringify(this.props.rencontre));
       this.props.surSelectionRencontre(this.props.rencontre)
@@ -68,27 +68,30 @@ class Rencontre extends React.Component {
 export default class Rencontres extends React.Component {
   constructor(props) {
     super(props)
-    console.info("sur panier marque " + JSON.stringify(this.state));
-  }
-  rencontreSelectionnee(rencontre) {
-    console.info("Rencontre selectionnee: " + JSON.stringify(rencontre));
-    this.state = {rencontre: rencontre}
+    console.info("sur panier marque " + JSON.stringify(this.state))
+    //this.state={rencontre:rencontres[0]}
+    this.rencontreSelectionnee = (rencontre) => {
+      console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
+      this.state = {rencontre: rencontre}
+    }
   }
   render() {
-      var liRencontres = rencontres.map(rencontre => {
-        return (
-          <Rencontre
-            rencontre={rencontre}
-            surSelectionRencontre={this.rencontreSelectionnee}
-          />
-        );
-      });
+    var liRencontres = rencontres.map(rencontre => {
+      return (
+        <Rencontre
+          rencontre={rencontre}
+          surSelectionRencontre={this.rencontreSelectionnee}
+        />
+      );
+    });
     return (
       <div>
         <List>
           {liRencontres}
         </List>
-        <Tableau />
+        <Tableau
+          rencontre={this.state.rencontre}
+          />
       </div>
     )
   }
