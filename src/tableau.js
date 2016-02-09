@@ -16,17 +16,19 @@ class Tableau extends React.Component {
       }
     }
     console.info("sur panier marque " + JSON.stringify(this.state));
-  }
-  surPanierHote() {
-    var marque = this.state;
-    console.info("sur panier marque" + marque);
-    this.setState(this.state);
-  }
-  surPanierVisiteur() {
-    console.info("sur panier marque");
-  }
-  surCorrection() {
-    console.info("sur correction");
+    this.surPanierHote = () => {
+      var marque = this.state.hote.marque
+      console.info("marque avant: " + JSON.stringify(marque));
+      this.state.hote.marque=marque+1
+      console.info("marque apres: " + JSON.stringify(this.state.hote.marque));
+      this.setState(this.state);
+    }
+    this.surPanierVisiteur = () => {
+      console.info("sur panier marque");
+    }
+    this.surCorrection = () => {
+      console.info("sur correction");
+    }
   }
   render() {
     return (
