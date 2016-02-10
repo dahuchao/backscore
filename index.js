@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import Rencontres from "./src/rencontres.js"
 import AppBar from 'material-ui/lib/app-bar';
 
@@ -40,4 +41,4 @@ class App extends React.Component {
     )
   }
 }
-React.render(<App />, document.querySelector('#content'))
+ReactDOM.render(<App />, document.querySelector('#content'))

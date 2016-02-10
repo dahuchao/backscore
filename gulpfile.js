@@ -6,6 +6,7 @@ var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
+var server = require('gulp-express');
 
 // Tache pour controler l'execution de gulp dans Atom
 gulp.task('stop', function() {

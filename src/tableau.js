@@ -21,15 +21,16 @@ class Tableau extends React.Component {
     this.surCorrection = () => {
       console.info("sur correction");
     }
-  }
-  render() {
-    return (
-      <div id="tableau">
-        <Equipe nom={this.state.hote.nom} surPanier={this.surPanierHote}/>
-        <Marque hote={this.state.hote.marque} visiteur={this.state.visiteur.marque} surCorrection={this.surCorrection}/>
-        <Equipe nom={this.state.visiteur.nom} surPanier={this.props.surPanierVisiteur}/>
-      </div>
-    )
+
+    this.render = () => {
+      return (
+        <div id="tableau">
+          <Equipe nom={this.state.hote.nom} surPanier={this.surPanierHote}/>
+          <Marque hote={this.state.hote.marque} visiteur={this.state.visiteur.marque} surCorrection={this.surCorrection}/>
+          <Equipe nom={this.state.visiteur.nom} surPanier={this.props.surPanierVisiteur}/>
+        </div>
+      )
+    }
   }
 }
 
