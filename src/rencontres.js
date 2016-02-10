@@ -15,7 +15,7 @@ let rencontres = [
     },
     visiteur: {
       nom: "USJA",
-      marque: 18
+      marque: 19
     }
   },
   {
@@ -69,7 +69,7 @@ export default class Rencontres extends React.Component {
   constructor(props) {
     super(props)
     console.info("sur panier marque " + JSON.stringify(this.state))
-    //this.state={rencontre:rencontres[0]}
+    this.state={rencontre:rencontres[0]}
     this.rencontreSelectionnee = (rencontre) => {
       console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
       this.state = {rencontre: rencontre}
