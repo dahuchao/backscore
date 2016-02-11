@@ -55,13 +55,15 @@ class Rencontre extends React.Component {
     var rencontre = this.props.rencontre
     var versus = rencontre.id + "/ " + rencontre.hote.nom + "-" + rencontre.visiteur.nom
     return (
-      <ListItem
-        leftAvatar={<Avatar icon={<FileFolder />} />}
-        primaryText={versus}
-        secondaryText="18 janvier 2016"
-        rightIcon={<ActionInfo />}
-        onClick={this.rencontreSelectionnee}
-      />
+      <div>
+        <ListItem
+          leftAvatar={<Avatar icon={<FileFolder />} />}
+          primaryText={versus}
+          secondaryText="18 janvier 2016"
+          rightIcon={<ActionInfo />}
+          onClick={this.rencontreSelectionnee}
+          />
+      </div>
     )
   }
 }
@@ -90,7 +92,7 @@ export default class Rencontres extends React.Component {
           {liRencontres}
         </List>
         <Tableau
-          rencontre={this.state.rencontre}
+          rencontre={this.state.rencontre.id}
           />
       </div>
     )

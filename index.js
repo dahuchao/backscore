@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import Rencontres from "./src/rencontres.js"
 import AppBar from 'material-ui/lib/app-bar';
 
-class App extends React.Component {
-  constructor () {
-    super()
-  }
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      nom: "unNom"
+    }
+  },
   render () {
     return (
       <div>
@@ -40,5 +42,5 @@ class App extends React.Component {
       </div>
     )
   }
-}
+})
 ReactDOM.render(<App />, document.querySelector('#content'))

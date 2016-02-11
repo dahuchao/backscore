@@ -1,7 +1,7 @@
 // Chargement du module expressjs
 var express = require('express');
 // Codec base 64
-var base64 = require('base-64')
+//var base64 = require('base-64')
   // Création de l'application express
 var app = express();
 // Définition du port d'écoute
@@ -9,9 +9,6 @@ app.set('port', (process.env.PORT || 80));
 // Répertoire des pages du site web
 var repertoireSite = 'public';
 console.log('Ouverture du répertoire des pages du site web : %s', repertoireSite);
-if (!fs.existsSync(repertoireSite)) {
-  console.error('Répertoire des pages indisponible');
-}
 // Répertoire racine
 app.use('/', express.static(repertoireSite));
 //**********************************************
@@ -29,14 +26,14 @@ var serveur = app.listen(app.get('port'), function() {
 //**********************************************
 // Serveur de publication mesures de la sonde de température
 var rencontres = [{
-  id: 12,
+  id: 1,
   hote: {
     nom: "CTC NEC",
-    marque: 92
+    marque: 22
   },
   visiteur: {
     nom: "UFAB Angers",
-    marque: 78
+    marque: 22
   }
 }, {
   id: 17,
