@@ -12,15 +12,6 @@ var server = require('gulp-express');
 gulp.task('stop', function() {
 });
 
-// Browser-sync task, only cares about compiled CSS
-gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-      baseDir: "./public"
-    }
-  });
-});
-
 gulp.task('styles', function() {
     gulp.src('sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
@@ -30,9 +21,10 @@ gulp.task('styles', function() {
         }));
 });
 
-gulp.task('es6', function() {
+// Convertit es6 en es5 et assemble les morceaux
+gulp.task('fabrique', function() {
   browserify({
-      entries: './index.js',
+      entries: './src/app.js',
       debug: true
     })
     .transform(babelify)
@@ -46,14 +38,14 @@ gulp.task('es6', function() {
     }));
 });
 
-gulp.task('test', ['es6','styles'], function() {
+gulp.task('test', ['fabrique','styles'], function() {
   // Serve files from the root of this project
   browserSync.init({
     server: {
       baseDir: "./public"
     }
   });
-  gulp.watch(['*.html', 'index.js', 'src/*.js'], ['es6'])
+  gulp.watch(['public/*.html', 'src/app.js', 'src/*.js'], ['fabrique'])
   gulp.watch('sass/**/*.scss',['styles']);
 });
 

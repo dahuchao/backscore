@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import Rencontres from "./src/rencontres.js"
+import Rencontres from "./rencontres.js"
 import AppBar from 'material-ui/lib/app-bar';
 
 var App = React.createClass({
