@@ -4,11 +4,6 @@ import Rencontres from "./src/rencontres.js"
 import AppBar from 'material-ui/lib/app-bar';
 
 var App = React.createClass({
-  getInitialState: function() {
-    return {
-      nom: "unNom"
-    }
-  },
   render () {
     return (
       <div>

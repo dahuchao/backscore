@@ -12,18 +12,21 @@ console.log('Ouverture du répertoire des pages du site web : %s', repertoireSit
 // Répertoire racine
 app.use('/', express.static(repertoireSite));
 //**********************************************
-// Traitement de la requête GET http://localhost/documents/nom-doc.pdf
+// Traitement de la requête GET http://localhost/rencontres
+app.get('/rencontres', function(req, res) {
+  // Lecture de la liste des rencontres
+  res.jsonp(rencontres);
+  console.log('*** Rencontres ***', rencontres);
+})
+// Traitement de la requête GET http://localhost/rencontres/:id
 app.get('/rencontres/:id', function(req, res) {
   // Calcul du nom de la page recherchée
   var idRencontre = req.params.id;
+  // Lecture de la rencontre
+  res.jsonp(rencontres[idRencontre]);
   console.log('*** Rencontre : %s ***', idRencontre);
-});
 //**********************************************
-// Démarrage du serveur
-var serveur = app.listen(app.get('port'), function() {
-  console.log('Ecoute sur le port %d', serveur.address().port);
-});
-//**********************************************
+})
 // Serveur de publication mesures de la sonde de température
 var rencontres = [{
   id: 1,
@@ -74,4 +77,9 @@ io.sockets.on('connect', function(socket) {
       console.log('Envoie de la nouvelle marque ! ' + JSON.stringify(marque));
     })
   });
-});
+})
+//**********************************************
+// Démarrage du serveur
+var serveur = app.listen(app.get('port'), function() {
+  console.log('Ecoute sur le port %d', serveur.address().port);
+})

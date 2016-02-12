@@ -16,7 +16,7 @@ gulp.task('stop', function() {
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
-      baseDir: "./"
+      baseDir: "./public"
     }
   });
 });
@@ -50,7 +50,7 @@ gulp.task('test', ['es6','styles'], function() {
   // Serve files from the root of this project
   browserSync.init({
     server: {
-      baseDir: "./"
+      baseDir: "./public"
     }
   });
   gulp.watch(['*.html', 'index.js', 'src/*.js'], ['es6'])
