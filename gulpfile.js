@@ -38,20 +38,22 @@ gulp.task('fabrique', function() {
     }));
 });
 
-gulp.task('test', ['fabrique','styles'], function() {
+// Refabrique automatiquement sur tout Chargement des sources
+gulp.task('dev', ['fabrique','styles'], function() {
   // Serve files from the root of this project
   browserSync.init({
     server: {
-      baseDir: "./public"
+      baseDir: "./"
     }
   });
-  gulp.watch(['public/*.html', 'src/app.js', 'src/*.js'], ['fabrique'])
+  gulp.watch(['*.html', 'app.js', 'src/*.js'], ['fabrique'])
   gulp.watch('sass/**/*.scss',['styles']);
+  //server.run(['serveur.js']);
 });
 
-gulp.task('service', function() {
+gulp.task('start',['fabrique','styles'], function() {
   console.log('Lancement du serveur');
   server.run(['serveur.js']);
 });
 
-gulp.task('default', ['test']);
+gulp.task('default', ['dev']);
