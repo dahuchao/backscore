@@ -32,7 +32,7 @@ gulp.task('styles', function() {
 
 gulp.task('es6', function() {
   browserify({
-      entries: './index.js',
+      entries: 'src/index.js',
       debug: true
     })
     .transform(babelify)
