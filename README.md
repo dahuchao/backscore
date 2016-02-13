@@ -14,7 +14,7 @@ npm Install
 ```
 npm start
 ```
-Lance browserSync
+ouvrir l'application à l'adresse http://localhost
 
 ## Utilisation
 

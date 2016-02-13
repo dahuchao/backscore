@@ -15,31 +15,31 @@ let rencontres = [
     id: 1,
     hote: {
       nom: "NEC",
-      marque: 21
+      marque: 1
     },
     visiteur: {
       nom: "USJA",
-      marque: 19
+      marque: 1
     }
   }, {
     id: 2,
     hote: {
       nom: "NEC",
-      marque: 46
+      marque: 2
     },
     visiteur: {
       nom: "Montaigu",
-      marque: 24
+      marque: 2
     }
   }, {
     id: 3,
     hote: {
       nom: "NEC",
-      marque: 54
+      marque: 3
     },
     visiteur: {
       nom: "Coulaine",
-      marque: 28
+      marque: 3
     }
   }
 ]
@@ -68,13 +68,12 @@ var Rencontres = React.createClass({
   },
   rencontreSelectionnee: function(rencontre) {
     console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
-    this.state = {
-      rencontre: rencontre
-    }
+    this.state.rencontre= rencontre
     this.setState(this.state)
     console.info("Etat rencontre: " + JSON.stringify(this.state))
   },
   render() {
+    console.info("Raffraichissement: " + this.state.rencontre.id)
     console.info("Raffraichissement: " + JSON.stringify(this.state))
     var liRencontres = rencontres.map(rencontre => {
       return (<Rencontre rencontre={rencontre} surSelectionRencontre={this.rencontreSelectionnee}/>);

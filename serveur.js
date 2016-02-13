@@ -2,7 +2,7 @@
 var express = require('express');
 // Codec base 64
 //var base64 = require('base-64')
-  // Création de l'application express
+// Création de l'application express
 var app = express();
 // Définition du port d'écoute
 app.set('port', (process.env.PORT || 80));
@@ -14,47 +14,57 @@ app.use('/', express.static(repertoireSite));
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres
 app.get('/rencontres', function(req, res) {
-  // Lecture de la liste des rencontres
-  res.jsonp(rencontres);
-  console.log('*** Rencontres ***', rencontres);
-})
-// Traitement de la requête GET http://localhost/rencontres/:id
+    // Lecture de la liste des rencontres
+    res.jsonp(rencontres);
+    console.log('*** Rencontres ***', rencontres);
+  })
+  // Traitement de la requête GET http://localhost/rencontres/:id
 app.get('/rencontres/:id', function(req, res) {
-  // Calcul du nom de la page recherchée
-  var idRencontre = req.params.id;
-  // Lecture de la rencontre
-  res.jsonp(rencontres[idRencontre]);
-  console.log('*** Rencontre : %s ***', idRencontre);
-//**********************************************
-})
-// Serveur de publication mesures de la sonde de température
+    // Calcul du nom de la page recherchée
+    var idRencontre = req.params.id;
+    // Lecture de la rencontre
+    res.jsonp(rencontres[idRencontre]);
+    console.log('*** Rencontre : %s ***', idRencontre);
+    //**********************************************
+  })
+  // Serveur de publication mesures de la sonde de température
 var rencontres = [{
   id: 1,
   hote: {
-    nom: "CTC NEC",
-    marque: 22
+    nom: "NEC",
+    marque: 11
   },
   visiteur: {
-    nom: "UFAB Angers",
-    marque: 22
+    nom: "USJA",
+    marque: 11
   }
 }, {
-  id: 17,
+  id: 2,
   hote: {
-    nom: "CTC NEC",
-    marque: 56
+    nom: "NEC",
+    marque: 22
   },
   visiteur: {
     nom: "Montaigu",
-    marque: 26
+    marque: 22
+  }
+}, {
+  id: 3,
+  hote: {
+    nom: "NEC",
+    marque: 33
+  },
+  visiteur: {
+    nom: "Coulaine",
+    marque: 33
   }
 }];
 //**********************************************
 // Démarrage du serveur
 var serveur = app.listen(app.get('port'), function() {
-  console.log('Ecoute sur le port %d', serveur.address().port);
-})
-// Chargement de socket.io
+    console.log('Ecoute sur le port %d', serveur.address().port);
+  })
+  // Chargement de socket.io
 var io = require('socket.io').listen(serveur);
 // Socket des abonnés au flux de publication des mesures de la sonde de température
 var socketAbonnes = new Array();

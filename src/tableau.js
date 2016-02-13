@@ -72,7 +72,7 @@ var Tableau = React.createClass({
       <div id="tableau">
         <Equipe nom={this.state.hote.nom} surPanier={this.surPanierHote}/>
         <Marque hote={this.state.hote.marque} visiteur={this.state.visiteur.marque} surCorrectionHote={this.surCorrectionHote} surCorrectionVisiteur={this.surCorrectionVisiteur}/>
-        <Equipe nom={this.state.visiteur.nom} surPanier={this.props.surPanierVisiteur}/>
+        <Equipe nom={this.state.visiteur.nom} surPanier={this.surPanierVisiteur}/>
       </div>
     )
   }
