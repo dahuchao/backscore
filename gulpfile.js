@@ -43,12 +43,12 @@ gulp.task('dev', ['fabrique','styles'], function() {
   // Serve files from the root of this project
   browserSync.init({
     server: {
-      baseDir: "./"
+      baseDir: "public/"
     }
   });
   gulp.watch(['*.html', 'app.js', 'src/*.js'], ['fabrique'])
   gulp.watch('sass/**/*.scss',['styles']);
-  //server.run(['serveur.js']);
+  server.run(['serveur.js']);
 });
 
 gulp.task('start',['fabrique','styles'], function() {
