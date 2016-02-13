@@ -12,15 +12,6 @@ var server = require('gulp-express');
 gulp.task('stop', function() {
 });
 
-// Browser-sync task, only cares about compiled CSS
-gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-      baseDir: "./"
-    }
-  });
-});
-
 gulp.task('styles', function() {
     gulp.src('sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
