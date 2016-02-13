@@ -24,7 +24,7 @@ gulp.task('styles', function() {
 // Convertit es6 en es5 et assemble les morceaux
 gulp.task('fabrique', function() {
   browserify({
-      entries: './src/app.js',
+      entries: 'src/index.js',
       debug: true
     })
     .transform(babelify)
