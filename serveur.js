@@ -49,6 +49,11 @@ var rencontres = [{
     marque: 26
   }
 }];
+//**********************************************
+// Démarrage du serveur
+var serveur = app.listen(app.get('port'), function() {
+  console.log('Ecoute sur le port %d', serveur.address().port);
+})
 // Chargement de socket.io
 var io = require('socket.io').listen(serveur);
 // Socket des abonnés au flux de publication des mesures de la sonde de température
@@ -77,9 +82,4 @@ io.sockets.on('connect', function(socket) {
       console.log('Envoie de la nouvelle marque ! ' + JSON.stringify(marque));
     })
   });
-})
-//**********************************************
-// Démarrage du serveur
-var serveur = app.listen(app.get('port'), function() {
-  console.log('Ecoute sur le port %d', serveur.address().port);
 })
