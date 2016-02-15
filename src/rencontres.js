@@ -5,44 +5,7 @@ import ActionInfo from 'material-ui/lib/svg-icons/action/info'
 import Avatar from 'material-ui/lib/avatar'
 import FileFolder from 'material-ui/lib/svg-icons/file/folder'
 import Tableau from "./tableau.js"
-// import request from 'request';
-// import restful, { requestBackend } from 'restful.js';
-//
-// const api = restful('http://api.example.com', requestBackend(request));
-
-let rencontres = [
-  {
-    id: 1,
-    hote: {
-      nom: "NEC",
-      marque: 1
-    },
-    visiteur: {
-      nom: "USJA",
-      marque: 1
-    }
-  }, {
-    id: 2,
-    hote: {
-      nom: "NEC",
-      marque: 2
-    },
-    visiteur: {
-      nom: "Montaigu",
-      marque: 2
-    }
-  }, {
-    id: 3,
-    hote: {
-      nom: "NEC",
-      marque: 3
-    },
-    visiteur: {
-      nom: "Coulaine",
-      marque: 3
-    }
-  }
-]
+var request = require('request');
 
 var Rencontre = React.createClass({
   rencontreSelectionnee: function() {
@@ -61,29 +24,37 @@ var Rencontre = React.createClass({
 })
 var Rencontres = React.createClass({
   getInitialState: function() {
-    console.info("sur panier marque " + JSON.stringify(this.state))
+    request('http://localhost/rencontres',this.ref)
     return {
-      rencontre: rencontres[0]
+      rencontres:[],
+      rencontre:null
+    }
+  },
+  ref:function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.info("Initialisation des rencontres " + JSON.stringify(body))
+      this.state.rencontres = JSON.parse(body)
+      this.setState(this.state);
     }
   },
   rencontreSelectionnee: function(rencontre) {
     console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
-    this.state.rencontre= rencontre
+    this.state.rencontre = rencontre
     this.setState(this.state)
     console.info("Etat rencontre: " + JSON.stringify(this.state))
   },
   render() {
-    console.info("Raffraichissement: " + this.state.rencontre.id)
+    //console.info("Raffraichissement: " + this.state.rencontre.id)
     console.info("Raffraichissement: " + JSON.stringify(this.state))
-    var liRencontres = rencontres.map(rencontre => {
+    var liRencontres = this.state.rencontres.map(rencontre => {
       return (<Rencontre rencontre={rencontre} surSelectionRencontre={this.rencontreSelectionnee}/>);
-    });
+    })
     return (
       <div>
         <List>
           {liRencontres}
         </List>
-        <Tableau rencontre={this.state.rencontre.id}/>
+        { this.state.rencontre ? <Tableau rencontre={this.state.rencontre.id}/> : null }
       </div>
     )
   }
