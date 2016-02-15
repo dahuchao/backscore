@@ -33,12 +33,7 @@ var Tableau = React.createClass({
   surPremiereMarque: function(rencontre) {
     console.info("Reception première marque" + JSON.stringify(rencontre));
     this.state.rencontre = rencontre
-    //this.state.rencontre.hote.nom = rencontre.hote.nom
-    //this.state.rencontre.hote.marque = rencontre.hote.marque
-    //this.state.rencontre.visiteur.nom = rencontre.visiteur.nom
-    //this.state.rencontre.visiteur.marque = rencontre.visiteur.marque
     this.setState(this.state)
-    console.info("-Marque:" + JSON.stringify(this.state))
   },
   surNouvelleMarque: function(marque) {
     console.info("Reception d'une nouvelle marque: " + + JSON.stringify(marque))
@@ -49,14 +44,13 @@ var Tableau = React.createClass({
     this.state.rencontre.hote.marque = marque + 1
     this.setState(this.state)
     socket.emit('panierMarque', this.state.rencontre.hote.marque);
-    console.info("-Marque: " + JSON.stringify(this.state.rencontre.hote.marque))
   },
   surPanierVisiteur: function() {
     console.info("Panier marque: " + JSON.stringify(this.state.rencontre.visiteur.marque))
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque + 1
     this.setState(this.state)
-    console.info("-Marque: " + JSON.stringify(this.state.rencontre.visiteur.marque))
+    socket.emit('panierMarque', this.state.rencontre.hote.marque);
   },
   surCorrectionHote: function() {
     console.info("Correction de la marque");
@@ -64,14 +58,13 @@ var Tableau = React.createClass({
     this.state.rencontre.hote.marque = marque - 1
     this.setState(this.state)
     socket.emit('panierMarque', this.state.rencontre.hote.marque);
-    console.info("-Marque: " + JSON.stringify(this.state.rencontre.hote.marque))
   },
   surCorrectionVisiteur: function() {
     console.info("Correction de la marque");
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque - 1
     this.setState(this.state)
-    console.info("-Marque: " + JSON.stringify(this.state.rencontre.visiteur.marque))
+    socket.emit('panierMarque', this.state.rencontre.hote.marque);
   },
   render: function() {
     // Si la rencontre a changé
