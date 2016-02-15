@@ -47,6 +47,7 @@ header {
   }
   .equipe {
     @include element;
+    cursor: pointer;
     font-size: 3em;
     color: white;
     flex: 2;
@@ -66,6 +67,12 @@ header {
       border-radius: 10%;
       padding: 15px;
       background-color: white;
+      .hote{
+        cursor: pointer;
+      }
+      .visiteur{
+        cursor: pointer;
+      }
     }
   }
 }
