@@ -44,7 +44,8 @@ header {
     flex: 2; }
     #tableau .equipe .blason {
       width: 60%;
-      height: 40%; }
+      height: 40%;
+      max-width: 110px; }
   #tableau #marque {
     display: flex;
     flex-direction: column;
