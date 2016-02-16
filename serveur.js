@@ -1,5 +1,6 @@
 // Chargement du module expressjs
-var express = require('express');
+var express = require('express')
+var MongoClient = require('mongodb').MongoClient;
 // Codec base 64
 //var base64 = require('base-64')
 // Création de l'application express
@@ -11,6 +12,9 @@ var repertoireSite = 'public';
 console.log('Ouverture du répertoire des pages du site web : %s', repertoireSite);
 // Répertoire racine
 app.use('/', express.static(repertoireSite));
+//**********************************************
+// Connection à la base de données
+var url = 'mongodb://localhost:27017/test';
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres
 app.get('/rencontres', function(req, res) {
