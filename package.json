@@ -28,6 +28,7 @@
     "node": "4.2.6"
   },
   "scripts": {
-    "start": "gulp start"
+    "start": "gulp start",
+    "test": "gulp dev"
   }
 }

@@ -50,7 +50,7 @@ var Tableau = React.createClass({
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque + 1
     this.setState(this.state)
-    socket.emit('panierMarque', this.state.rencontre.hote.marque);
+    socket.emit('panierMarque', this.state.rencontre.visiteur.marque);
   },
   surCorrectionHote: function() {
     console.info("Correction de la marque");
@@ -77,7 +77,7 @@ var Tableau = React.createClass({
       <div id="tableau">
         <Equipe nom={this.state.rencontre.hote.nom} surPanier={this.surPanierHote}/>
         <Marque hote={this.state.rencontre.hote.marque} visiteur={this.state.rencontre.visiteur.marque} surCorrectionHote={this.surCorrectionHote} surCorrectionVisiteur={this.surCorrectionVisiteur}/>
-        <Equipe nom={this.state.rencontre.visiteur.nom} surPanier={this.props.surPanierVisiteur}/>
+        <Equipe nom={this.state.rencontre.visiteur.nom} surPanier={this.surPanierVisiteur}/>
       </div>
     )
   }
