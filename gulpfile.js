@@ -9,16 +9,15 @@ var reload = browserSync.reload;
 var server = require('gulp-express');
 
 // Tache pour controler l'execution de gulp dans Atom
-gulp.task('stop', function() {
-});
+gulp.task('stop', function() {});
 
 gulp.task('styles', function() {
-    gulp.src('sass/**/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('public/'))
-        .pipe(reload({
-          stream: true
-        }));
+  gulp.src('sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public/'))
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 // Convertit es6 en es5 et assemble les morceaux
@@ -39,7 +38,7 @@ gulp.task('fabrique', function() {
 });
 
 // Refabrique automatiquement sur tout Chargement des sources
-gulp.task('dev', ['fabrique','styles'], function() {
+gulp.task('dev', ['fabrique', 'styles'], function() {
   // Serve files from the root of this project
   browserSync.init({
     server: {
@@ -47,11 +46,21 @@ gulp.task('dev', ['fabrique','styles'], function() {
     }
   });
   gulp.watch(['*.html', 'app.js', 'src/*.js'], ['fabrique'])
-  gulp.watch('sass/**/*.scss',['styles']);
+  gulp.watch('sass/**/*.scss', ['styles']);
   server.run(['serveur.js']);
 });
 
-gulp.task('start',['fabrique','styles'], function() {
+gulp.task('start', ['styles'], function() {
+  browserify({
+      entries: 'src/index.js',
+      debug: true
+    })
+    .transform(babelify)
+    .on('error', gutil.log)
+    .bundle()
+    .on('error', gutil.log)
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('public'))
   console.log('Lancement du serveur');
   server.run(['serveur.js']);
 });

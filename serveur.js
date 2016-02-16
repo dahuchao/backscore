@@ -62,7 +62,7 @@ var rencontres = [{
 //**********************************************
 // Démarrage du serveur
 var serveur = app.listen(app.get('port'), function() {
-    console.log('Ecoute sur le port %d', serveur.address().port);
+    console.log("Ecoute sur le port %d, à l'adresse http://localhost:80", serveur.address().port);
   })
   // Chargement de socket.io
 var io = require('socket.io').listen(serveur);
