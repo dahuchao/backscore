@@ -24,7 +24,7 @@ var Rencontre = React.createClass({
 })
 var Rencontres = React.createClass({
   getInitialState: function() {
-    request('http://localhost/rencontres',this.ref)
+    request('/rencontres',this.ref)
     return {
       rencontres:[],
       rencontre:null

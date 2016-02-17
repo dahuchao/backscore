@@ -1,7 +1,7 @@
 import React from 'react'
 import Marque from "./marque.js"
 import Equipe from "./equipe.js"
-var socket = require('socket.io-client')('http://localhost')
+var socket = require('socket.io-client')('/')
 
 var Tableau = React.createClass({
   getInitialState: function() {
