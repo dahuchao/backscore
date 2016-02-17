@@ -23,6 +23,9 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "gulp-exec": "^2.1.2",
+    "install": "^0.4.4",
+    "npm": "^3.7.2",
     "watchify": "^3.2.3"
   },
   "engines": {
