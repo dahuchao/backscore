@@ -14,11 +14,22 @@ console.log('Ouverture du répertoire des pages du site web : %s', repertoireSit
 app.use('/', express.static(repertoireSite));
 //**********************************************
 // Connection à la base de données
-var url = 'mongodb://localhost:27017/test';
-//**********************************************
-// Traitement de la requête GET http://localhost/rencontres
+var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
+  //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
+const url = (process.env.MONGOLAB_URI || urlParDefaut)
+console.log("url de la base de donnée: " + url)
+  //**********************************************
+  // Traitement de la requête GET http://localhost/rencontres
 app.get('/rencontres', function(req, res) {
-    // Lecture de la liste des rencontres
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        db.collection("rencontres").find().toArray(function(err, docs) {
+          test.equal(null, err);
+          console.log("Nombre de rencontre en base", docs.length);
+          db.close();
+        });
+      })
+      // Lecture de la liste des rencontres
     res.jsonp(rencontres);
     console.log('*** Rencontres ***', rencontres);
   })

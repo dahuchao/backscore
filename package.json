@@ -24,7 +24,9 @@
   },
   "devDependencies": {
     "gulp-exec": "^2.1.2",
+    "gulp-jasmine": "^2.2.1",
     "install": "^0.4.4",
+    "jasmine-core": "^2.4.1",
     "npm": "^3.7.2",
     "watchify": "^3.2.3"
   },

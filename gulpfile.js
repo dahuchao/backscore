@@ -8,7 +8,16 @@ var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var server = require('gulp-express');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var gulp = require('gulp');
+var jasmine = require('gulp-jasmine');
 
+gulp.task('test', function () {
+	return gulp.src('test/tableau-test.js')
+		// gulp-jasmine works on filepaths so you can't have any plugins before it
+		.pipe(jasmine());
+});
 
 gulp.task('styles', function() {
   gulp.src('sass/**/*.scss')
@@ -70,6 +79,20 @@ gulp.task('start', ["fabrique", 'styles'], function() {
 gulp.task('stop', function() {
   //server.stop()
   browserSync.exit();
+});
+
+// Tache pour controler l'execution de gulp dans Atom
+gulp.task('essai', function() {
+  console.log("Lancement de l'utilitaire: ")
+  var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
+    //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
+  const url = (process.env.PROD_MONGODB || urlParDefaut)
+  console.log("url de la base de donnée: " + url)
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(err, null, "Erreur de connexion");
+    console.log("connexion réussie.");
+    db.close();
+  })
 });
 
 gulp.task('default', ['dev']);
