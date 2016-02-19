@@ -1,10 +1,16 @@
 // Chargement du module expressjs
 var express = require('express')
+var cors = require('express-cors')
 var MongoClient = require('mongodb').MongoClient;
 // Codec base 64
 //var base64 = require('base-64')
 // Création de l'application express
 var app = express();
+app.use(cors({
+	allowedOrigins: [
+		'localhost:3000'
+	]
+}))
 // Définition du port d'écoute
 app.set('port', (process.env.PORT || 80));
 // Répertoire des pages du site web

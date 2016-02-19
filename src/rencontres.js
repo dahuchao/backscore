@@ -24,13 +24,12 @@ var Rencontre = React.createClass({
 })
 var Rencontres = React.createClass({
   getInitialState: function() {
-    request('/api/rencontres',this.ref)
-    return {
-      rencontres:[],
-      rencontre:null
-    }
+    var adresse = location + "api/rencontres"
+    console.info("localhost: " + adresse)
+    request(adresse, this.ref)
+    return {rencontres: [], rencontre: null}
   },
-  ref:function (error, response, body) {
+  ref: function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.info("Initialisation des rencontres " + JSON.stringify(body))
       this.state.rencontres = JSON.parse(body)
@@ -54,7 +53,9 @@ var Rencontres = React.createClass({
         <List>
           {liRencontres}
         </List>
-        { this.state.rencontre ? <Tableau rencontre={this.state.rencontre.id}/> : null }
+        {this.state.rencontre
+          ? <Tableau rencontre={this.state.rencontre.id}/>
+          : null}
       </div>
     )
   }

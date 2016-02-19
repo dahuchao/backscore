@@ -43,7 +43,6 @@ gulp.task('fabrique', function() {
     .pipe(gulp.dest('public'));
 });
 
-
 // Convertit es6 en es5 et assemble les morceaux
 gulp.task('charger', function() {
   exec('node util/util.js', function(err, stdout, stderr) {
@@ -55,37 +54,19 @@ gulp.task('charger', function() {
 
 // Refabrique automatiquement sur tout Chargement des sources
 gulp.task('dev', ['fabrique', 'styles'], function() {
-
-
-  var proxy = proxyMiddleware('/api', {
-    target: 'http://www.example.org'
-  });
-
   // configure proxy middleware
   // context: '/' will proxy all requests
   //     use: '/api' to proxy request when path starts with '/api'
-  var proxy = proxyMiddleware('/api/**', {
-    target: 'http://localhost',
-    ws:true // for vhosted sites, changes host header to match to target's host
+  var proxy = proxyMiddleware(["/api/**"], {
+    target: 'http://localhost'//,
+    //ws: true // for vhosted sits, changes host header to match to target's host
   });
 
-  // browserSync.init({
-  //     server: {
-  //         baseDir: "./",
-  //         port: 3000,
-  //         middleware: [proxy],         // add the proxy to browser-sync
-  //     },
-  //     startPath: "/api"
-  // });
-  // Serve files from the root of this project
   browserSync.init({
-    //serveStatic: ["public/"],
     server: {
       baseDir: "public/",
       middleware: [proxy]
     },
-    // Tells BrowserSync on where the express app is running
-    //proxy: 'http://localhost:80',
     browser: "google chrome"
   });
   gulp.watch(['*.html', 'app.js', 'src/*.js'], ['fabrique'])
