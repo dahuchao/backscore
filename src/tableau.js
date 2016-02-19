@@ -1,7 +1,7 @@
 import React from 'react'
 import Marque from "./marque.js"
 import Equipe from "./equipe.js"
-var socket = require('socket.io-client')('/')
+//var socket = require('socket.io-client')('/')
 
 var Tableau = React.createClass({
   getInitialState: function() {
@@ -19,11 +19,11 @@ var Tableau = React.createClass({
         }
       }
     }
-    socket.on('connect', function() {
-      console.info("Connecté avec la table de marque");
-    })
-    socket.on('fournitureRencontre', this.surPremiereMarque)
-    socket.on('nouvelleMarque', this.surNouvelleMarque)
+    // socket.on('connect', function() {
+    //   console.info("Connecté avec la table de marque");
+    // })
+    // socket.on('fournitureRencontre', this.surPremiereMarque)
+    // socket.on('nouvelleMarque', this.surNouvelleMarque)
     return rencontreCourante
   },
   connexionTableMarque: function(idRencontre) {

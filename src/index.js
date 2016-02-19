@@ -21,7 +21,7 @@ var App = React.createClass({
             <div className="organisateur">
               Ligue régionale de basket des Pays de la Loire, Saison régulière
             </div>
-            <div className="date" itemprop="datePublished" content="(none)">
+            <div className="date">
               Dim. 10 janvier 2016
             </div>
           </div>
@@ -34,7 +34,7 @@ var App = React.createClass({
             <div className="organisateur">
               Ligue régionale de basket des Pays de la Loire, Saison régulière
             </div>
-            <div className="date" itemprop="datePublished" content="(none)">
+            <div className="date">
               Dim. 10 janvier 2016
             </div>
           </div>

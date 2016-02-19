@@ -25,6 +25,7 @@
   "devDependencies": {
     "gulp-exec": "^2.1.2",
     "gulp-jasmine": "^2.2.1",
+    "http-proxy-middleware": "^0.10.0",
     "install": "^0.4.4",
     "jasmine-core": "^2.4.1",
     "npm": "^3.7.2",

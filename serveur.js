@@ -20,21 +20,21 @@ const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
   //**********************************************
   // Traitement de la requête GET http://localhost/rencontres
-app.get('/rencontres', function(req, res) {
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
-        db.collection("rencontres").find().toArray(function(err, docs) {
-          test.equal(null, err);
-          console.log("Nombre de rencontre en base", docs.length);
-          db.close();
-        });
-      })
+app.get('/api/rencontres', function(req, res) {
+    // MongoClient.connect(url, function(err, db) {
+    //     assert.equal(null, err);
+    //     db.collection("rencontres").find().toArray(function(err, docs) {
+    //       test.equal(null, err);
+    //       console.log("Nombre de rencontre en base", docs.length);
+    //       db.close();
+    //     });
+    //   })
       // Lecture de la liste des rencontres
     res.jsonp(rencontres);
     console.log('*** Rencontres ***', rencontres);
   })
   // Traitement de la requête GET http://localhost/rencontres/:id
-app.get('/rencontres/:id', function(req, res) {
+app.get('/api/rencontres/:id', function(req, res) {
     // Calcul du nom de la page recherchée
     var idRencontre = req.params.id;
     // Lecture de la rencontre

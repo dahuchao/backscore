@@ -12,11 +12,12 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var gulp = require('gulp');
 var jasmine = require('gulp-jasmine');
+var proxyMiddleware = require('http-proxy-middleware');
 
-gulp.task('test', function () {
-	return gulp.src('test/tableau-test.js')
-		// gulp-jasmine works on filepaths so you can't have any plugins before it
-		.pipe(jasmine());
+gulp.task('test', function() {
+  return gulp.src('test/tableau-test.js')
+    // gulp-jasmine works on filepaths so you can't have any plugins before it
+    .pipe(jasmine());
 });
 
 gulp.task('styles', function() {
@@ -54,11 +55,34 @@ gulp.task('charger', function() {
 
 // Refabrique automatiquement sur tout Chargement des sources
 gulp.task('dev', ['fabrique', 'styles'], function() {
+
+
+  var proxy = proxyMiddleware('/api', {
+    target: 'http://www.example.org'
+  });
+
+  // configure proxy middleware
+  // context: '/' will proxy all requests
+  //     use: '/api' to proxy request when path starts with '/api'
+  var proxy = proxyMiddleware('/api/**', {
+    target: 'http://localhost',
+    ws:true // for vhosted sites, changes host header to match to target's host
+  });
+
+  // browserSync.init({
+  //     server: {
+  //         baseDir: "./",
+  //         port: 3000,
+  //         middleware: [proxy],         // add the proxy to browser-sync
+  //     },
+  //     startPath: "/api"
+  // });
   // Serve files from the root of this project
   browserSync.init({
     //serveStatic: ["public/"],
     server: {
-      baseDir: "public/"
+      baseDir: "public/",
+      middleware: [proxy]
     },
     // Tells BrowserSync on where the express app is running
     //proxy: 'http://localhost:80',
