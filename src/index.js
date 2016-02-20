@@ -4,11 +4,11 @@ import AppBar from 'material-ui/lib/app-bar'
 import List from 'material-ui/lib/lists/list'
 import Rencontre from "./rencontre.js"
 import Tableau from "./tableau.js"
-var request = require('request')
+import request from 'request'
 
 var App = React.createClass({
   getInitialState: function() {
-    var adresse = location + "api/rencontres"
+    var adresse = location.href + "api/rencontres"
     console.info("Requete de l'API web: " + adresse)
     request(adresse, this.listerRencontres)
     return {rencontres: [], rencontre: null}
@@ -17,11 +17,11 @@ var App = React.createClass({
     this.setState(this.state)
     console.info("Liste les rencontres ")
   },
-  listerRencontres: function(error, response, body) {
+  listerRencontres: function(error, response, rencontres) {
     this.state.rencontre = null
     if (!error && response.statusCode == 200) {
-      console.info("Initialisation des rencontres " + JSON.stringify(body))
-      this.state.rencontres = JSON.parse(body)
+      console.info("Initialisation des rencontres " + rencontres)
+      this.state.rencontres = JSON.parse(rencontres)
     }
     this.setState(this.state)
   },
@@ -32,13 +32,13 @@ var App = React.createClass({
     console.info("Etat rencontre: " + JSON.stringify(this.state))
   },
   render() {
-    console.info("Raffraichissement: " + JSON.stringify(this.state))
+    //console.info("Raffraichissement: " + JSON.stringify(this.state))
     var liRencontres = this.state.rencontres.map(rencontre => {
       return (<Rencontre rencontre={rencontre} surSelectionRencontre={this.rencontreSelectionnee}/>);
     })
     return (
       <div>
-        <AppBar title="Title" onClick={this.listerRencontres} iconClassNameRight="muidocs-icon-navigation-expand-more"/>
+        <AppBar title="Rencontres" onClick={this.listerRencontres} iconClassNameRight="muidocs-icon-navigation-expand-more"/>
         <section>
           <List>
             {!this.state.rencontre

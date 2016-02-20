@@ -2,15 +2,20 @@ import React from 'react'
 import Marque from "./marque.js"
 import Equipe from "./equipe.js"
 import io from "socket.io-client"
+import request from 'request'
 
 var Tableau = React.createClass({
   getInitialState: function() {
     var adresse = location.href
     console.info("Adresse web socket: " + adresse)
     this.socket = io(adresse)
-    console.info("Taleau de la rencontre " + JSON.stringify(this.props.rencontre))
+    console.info("Tableau de la rencontre " + JSON.stringify(this.props.rencontre))
+    this.socket.on('connect', function() {
+      console.info("Connecté avec la table de marque")
+    })
+    this.socket.on('nouvelleMarque', this.surNouvelleMarque)
     var rencontreCourante = {
-      rencontre:{
+      rencontre: {
         "id": 0,
         "hote": {
           "nom": "hote",
@@ -22,20 +27,17 @@ var Tableau = React.createClass({
         }
       }
     }
-    this.socket.on('connect', function() {
-      console.info("Connecté avec la table de marque")
-    })
-    this.socket.on('fournitureRencontre', this.surPremiereMarque)
-    this.socket.on('nouvelleMarque', this.surNouvelleMarque)
     return rencontreCourante
   },
   connexionTableMarque: function(idRencontre) {
-    console.info("Connexion à la table de marque" + JSON.stringify(idRencontre))
-    this.socket.emit('ouvrirRencontre', idRencontre);
+    console.info("Connexion à la table de marque: " + JSON.stringify(idRencontre))
+    var adresse = location.href + "api/rencontres/" + this.props.rencontre
+    console.info("Requete de l'API web: " + adresse)
+    request(adresse, this.surInitialisationMarque)
   },
-  surPremiereMarque: function(rencontre) {
-    console.info("Reception première marque" + JSON.stringify(rencontre))
-    this.state.rencontre = rencontre
+  surInitialisationMarque: function(error, response, rencontre) {
+    console.info("Reception première marque" + rencontre)
+    this.state.rencontre = JSON.parse(rencontre)
     this.setState(this.state)
   },
   surNouvelleMarque: function(marque) {
@@ -63,15 +65,15 @@ var Tableau = React.createClass({
     this.socket.emit('panierMarque', this.state.rencontre.hote.marque)
   },
   surCorrectionVisiteur: function() {
-    console.info("Correction de la marque");
+    console.info("Correction de la marque")
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque - 1
     this.setState(this.state)
     this.socket.emit('panierMarque', this.state.rencontre.hote.marque)
   },
   render: function() {
-    if (this.props.rencontre != this.state.rencontre.id)
-    {
+    //console.info("if (" + this.props.rencontre + " != " + this.state.rencontre.id + ")")
+    if (this.props.rencontre != this.state.rencontre.id) {
       this.connexionTableMarque(this.props.rencontre)
     }
     return (

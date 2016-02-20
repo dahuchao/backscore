@@ -58,7 +58,6 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
   // context: '/' will proxy all requests
   //     use: '/api' to proxy request when path starts with '/api'
   var proxies = [];
-
   proxies.push(proxyMiddleware(["/api/**"], {
     target: 'http://localhost'
   }));
@@ -66,8 +65,6 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
     target: 'http://localhost/',
     ws: true
   }));
-
-
   browserSync.init({
     server: {
       baseDir: "public/",

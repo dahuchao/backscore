@@ -7,11 +7,11 @@ var MongoClient = require('mongodb').MongoClient;
 // Création de l'application express
 var app = express();
 app.use(cors({
-	allowedOrigins: [
-		'localhost:3000'
-	]
-}))
-// Définition du port d'écoute
+    allowedOrigins: [
+      'localhost:3000'
+    ]
+  }))
+  // Définition du port d'écoute
 app.set('port', (process.env.PORT || 80));
 // Répertoire des pages du site web
 var repertoireSite = 'public';
@@ -35,7 +35,7 @@ app.get('/api/rencontres', function(req, res) {
     //       db.close();
     //     });
     //   })
-      // Lecture de la liste des rencontres
+    // Lecture de la liste des rencontres
     res.jsonp(rencontres);
     console.log('*** Rencontres ***', rencontres);
   })
@@ -43,10 +43,14 @@ app.get('/api/rencontres', function(req, res) {
 app.get('/api/rencontres/:id', function(req, res) {
     // Calcul du nom de la page recherchée
     var idRencontre = req.params.id;
-    // Lecture de la rencontre
-    res.jsonp(rencontres[idRencontre]);
-    console.log('*** Rencontre : %s ***', idRencontre);
-    //**********************************************
+    console.log('Ouverture de la recontre:' + idRencontre)
+    rencontres.filter(function(rencontre) {
+      return rencontre.id == idRencontre
+    }).forEach(function(rencontre) {
+      // Lecture de la rencontre
+      res.jsonp(rencontre);
+      console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+    })
   })
   // Serveur de publication mesures de la sonde de température
 var rencontres = [{
