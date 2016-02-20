@@ -57,15 +57,21 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
   // configure proxy middleware
   // context: '/' will proxy all requests
   //     use: '/api' to proxy request when path starts with '/api'
-  var proxy = proxyMiddleware(["/api/**"], {
-    target: 'http://localhost'//,
-    //ws: true // for vhosted sits, changes host header to match to target's host
-  });
+  var proxies = [];
+
+  proxies.push(proxyMiddleware(["/api/**"], {
+    target: 'http://localhost'
+  }));
+  proxies.push(proxyMiddleware('/socket.io', {
+    target: 'http://localhost/',
+    ws: true
+  }));
+
 
   browserSync.init({
     server: {
       baseDir: "public/",
-      middleware: [proxy]
+      middleware: proxies
     },
     browser: "google chrome"
   });

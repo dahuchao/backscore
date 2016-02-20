@@ -22,43 +22,41 @@ var Rencontre = React.createClass({
     )
   }
 })
-var Rencontres = React.createClass({
-  getInitialState: function() {
-    var adresse = location + "api/rencontres"
-    console.info("localhost: " + adresse)
-    request(adresse, this.ref)
-    return {rencontres: [], rencontre: null}
-  },
-  ref: function(error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.info("Initialisation des rencontres " + JSON.stringify(body))
-      this.state.rencontres = JSON.parse(body)
-      this.setState(this.state);
-    }
-  },
-  rencontreSelectionnee: function(rencontre) {
-    console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
-    this.state.rencontre = rencontre
-    this.setState(this.state)
-    console.info("Etat rencontre: " + JSON.stringify(this.state))
-  },
-  render() {
-    //console.info("Raffraichissement: " + this.state.rencontre.id)
-    console.info("Raffraichissement: " + JSON.stringify(this.state))
-    var liRencontres = this.state.rencontres.map(rencontre => {
-      return (<Rencontre rencontre={rencontre} surSelectionRencontre={this.rencontreSelectionnee}/>);
-    })
-    return (
-      <div>
-        <List>
-          {liRencontres}
-        </List>
-        {this.state.rencontre
-          ? <Tableau rencontre={this.state.rencontre.id}/>
-          : null}
-      </div>
-    )
-  }
-})
+// var Rencontres = React.createClass({
+//   getInitialState: function() {
+//     var adresse = location + "api/rencontres"
+//     console.info("Requete de l'API web: " + adresse)
+//     request(adresse, this.listerRencontres)
+//     return {rencontres: [], rencontre: null}
+//   },
+//   listerRencontres: function(error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//       console.info("Initialisation des rencontres " + JSON.stringify(body))
+//       this.state.rencontres = JSON.parse(body)
+//       this.setState(this.state);
+//     }
+//   },
+//   rencontreSelectionnee: function(rencontre) {
+//     console.info("Rencontre selectionnee: " + JSON.stringify(rencontre))
+//     this.state.rencontre = rencontre
+//     this.setState(this.state)
+//     console.info("Etat rencontre: " + JSON.stringify(this.state))
+//   },
+//   render() {
+//     //console.info("Raffraichissement: " + this.state.rencontre.id)
+//     console.info("Raffraichissement: " + JSON.stringify(this.state))
+//     var liRencontres = this.state.rencontres.map(rencontre => {
+//       return (<Rencontre rencontre={rencontre} surSelectionRencontre={this.rencontreSelectionnee}/>);
+//     })
+//     return (
+//       <div>
+//         <List>
+//           {!this.state.rencontre ? liRencontres : null}
+//         </List>
+//         {this.state.rencontre ? <Tableau rencontre={this.state.rencontre.id}/> : null}
+//       </div>
+//     )
+//   }
+// })
 
 export default Rencontres
