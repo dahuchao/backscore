@@ -45,7 +45,9 @@ gulp.task('fabrique', function() {
 
 // Convertit es6 en es5 et assemble les morceaux
 gulp.task('charger', function() {
+  console.log("Chargement de la base de données");
   exec('node util/util.js', function(err, stdout, stderr) {
+    console.log(err);
     console.log(stdout);
     console.log(stderr);
     cb(err);
@@ -92,12 +94,12 @@ gulp.task('stop', function() {
 // Tache pour controler l'execution de gulp dans Atom
 gulp.task('essai', function() {
   console.log("Lancement de l'utilitaire: ")
-  var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
+  var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
     //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
   const url = (process.env.PROD_MONGODB || urlParDefaut)
   console.log("url de la base de donnée: " + url)
   MongoClient.connect(url, function(err, db) {
-    assert.equal(err, null, "Erreur de connexion");
+    assert.equal(err, null, "Erreur de connexion: " + err);
     console.log("connexion réussie.");
     db.close();
   })

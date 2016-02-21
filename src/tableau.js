@@ -2,7 +2,7 @@ import React from 'react'
 import Marque from "./marque.js"
 import Equipe from "./equipe.js"
 import io from "socket.io-client"
-import request from 'request'
+import request from "request"
 
 var Tableau = React.createClass({
   getInitialState: function() {
@@ -48,28 +48,28 @@ var Tableau = React.createClass({
     let marque = this.state.rencontre.hote.marque
     this.state.rencontre.hote.marque = marque + 1
     this.setState(this.state)
-    this.socket.emit('panierMarque', this.state.rencontre.hote.marque)
+    this.socket.emit('panierMarque', this.state.rencontre)
   },
   surPanierVisiteur: function() {
     console.info("Panier marque: " + JSON.stringify(this.state.rencontre.visiteur.marque))
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque + 1
     this.setState(this.state)
-    this.socket.emit('panierMarque', this.state.rencontre.visiteur.marque)
+    this.socket.emit('panierMarque', this.state.rencontre)
   },
   surCorrectionHote: function() {
     console.info("Correction de la marque");
     let marque = this.state.rencontre.hote.marque
     this.state.rencontre.hote.marque = marque - 1
     this.setState(this.state)
-    this.socket.emit('panierMarque', this.state.rencontre.hote.marque)
+    this.socket.emit('panierMarque', this.state.rencontre)
   },
   surCorrectionVisiteur: function() {
     console.info("Correction de la marque")
     let marque = this.state.rencontre.visiteur.marque
     this.state.rencontre.visiteur.marque = marque - 1
     this.setState(this.state)
-    this.socket.emit('panierMarque', this.state.rencontre.hote.marque)
+    this.socket.emit('panierMarque', this.state.rencontre)
   },
   render: function() {
     //console.info("if (" + this.props.rencontre + " != " + this.state.rencontre.id + ")")

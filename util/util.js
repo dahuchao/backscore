@@ -13,7 +13,7 @@ MongoClient.connect(url, function(err, db) {
     assert.equal(err, null);
     console.log("Rencontres chargées.");
     db.close();
-  });
+  })
   // rencontres.forEach((rencontre) => {
   //   db.collection("rencontres").insert(rencontre)
   //   console.log("Insertion rencontre: " + rencontre.id)

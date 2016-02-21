@@ -20,36 +20,55 @@ console.log('Ouverture du répertoire des pages du site web : %s', repertoireSit
 app.use('/', express.static(repertoireSite));
 //**********************************************
 // Connection à la base de données
-var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
+var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
   //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
   //**********************************************
   // Traitement de la requête GET http://localhost/rencontres
-app.get('/api/rencontres', function(req, res) {
-    // MongoClient.connect(url, function(err, db) {
-    //     assert.equal(null, err);
-    //     db.collection("rencontres").find().toArray(function(err, docs) {
-    //       test.equal(null, err);
-    //       console.log("Nombre de rencontre en base", docs.length);
-    //       db.close();
-    //     });
-    //   })
-    // Lecture de la liste des rencontres
-    res.jsonp(rencontres);
-    console.log('*** Rencontres ***', rencontres);
+app.get("/api/rencontres", function(req, res) {
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log("Base de données indisponible: " + err)
+      console.log("Utilisation liste statique de test.")
+      res.jsonp(rencontres);
+    } else {
+      db.collection("rencontres").find().toArray(function(err, rencontres) {
+        if (err) {
+          console.log("Les données rencontres indisponible: " + err)
+        } else {
+          // Lecture de la liste des rencontres
+          console.log("Nombre de rencontre en base", rencontres.length)
+          res.jsonp(rencontres);
+          //db.close()
+        }
+      })
+    }
   })
-  // Traitement de la requête GET http://localhost/rencontres/:id
+})
 app.get('/api/rencontres/:id', function(req, res) {
-    // Calcul du nom de la page recherchée
-    var idRencontre = req.params.id;
-    console.log('Ouverture de la recontre:' + idRencontre)
-    rencontres.filter(function(rencontre) {
-      return rencontre.id == idRencontre
-    }).forEach(function(rencontre) {
-      // Lecture de la rencontre
-      res.jsonp(rencontre);
-      console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+    MongoClient.connect(url, function(err, db) {
+      if (err) {
+        console.log("Base de données indisponible.")
+      } else {
+        db.collection("rencontres").find().toArray(function(err, rencontres) {
+          if (err) {
+            console.log("Les rencontres.")
+          } else {
+            // Calcul du nom de la page recherchée
+            var idRencontre = req.params.id;
+            console.log('Ouverture de la recontre:' + idRencontre)
+            rencontres.filter(function(rencontre) {
+                return rencontre.id == idRencontre
+              }).forEach(function(rencontre) {
+                // Lecture de la rencontre
+                res.jsonp(rencontre);
+                console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+              })
+              //db.close()
+          }
+        })
+      }
     })
   })
   // Serveur de publication mesures de la sonde de température
@@ -109,12 +128,27 @@ io.sockets.on('connect', function(socket) {
     })
   });
   // Un panier est marqué
-  socket.on('panierMarque', function(marque) {
-    console.log('Nouvelle marque:' + marque);
+  socket.on('panierMarque', function(rencontre) {
+    console.log('Nouvelle marque:' + rencontre);
     console.log('Nombre de tableau de marque:' + socketAbonnes.length);
     socketAbonnes.forEach(function(soc) {
-      soc.emit('nouvelleMarque', marque);
-      console.log('Envoie de la nouvelle marque ! ' + JSON.stringify(marque));
+      soc.emit('nouvelleMarque', rencontre);
+      console.log('Envoie de la nouvelle marque ! ' + JSON.stringify(rencontre));
     })
-  });
+    MongoClient.connect(url, function(err, db) {
+      if (err) {
+        console.log("Base de données indisponible.")
+      } else {
+        console.log("Enregistrement de la nouvelle marque.")
+        db.collection("rencontres").update({
+          id: rencontre.id
+        }, {
+          $set: {
+            "hote.marque": rencontre.hote.marque,
+            "visiteur.marque": rencontre.visiteur.marque
+          }
+        })
+      }
+    })
+  })
 })
