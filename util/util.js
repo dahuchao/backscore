@@ -2,8 +2,9 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 console.log("Lancement de l'utilitaire: ")
-var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
-  //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
+//var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
+var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+//PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
 
@@ -23,30 +24,30 @@ var rencontres = [{
   id: 1,
   hote: {
     nom: "NEC",
-    marque: 11
+    marque: 111
   },
   visiteur: {
     nom: "USJA",
-    marque: 11
+    marque: 111
   }
 }, {
   id: 2,
   hote: {
     nom: "NEC",
-    marque: 22
+    marque: 222
   },
   visiteur: {
     nom: "Montaigu",
-    marque: 22
+    marque: 222
   }
 }, {
   id: 3,
   hote: {
     nom: "NEC",
-    marque: 33
+    marque: 333
   },
   visiteur: {
     nom: "Coulaine",
-    marque: 33
+    marque: 333
   }
 }]

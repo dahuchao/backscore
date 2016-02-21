@@ -94,8 +94,9 @@ gulp.task('stop', function() {
 // Tache pour controler l'execution de gulp dans Atom
 gulp.task('essai', function() {
   console.log("Lancement de l'utilitaire: ")
-  var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
-    //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
+  //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
+  var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+  //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
   const url = (process.env.PROD_MONGODB || urlParDefaut)
   console.log("url de la base de donnée: " + url)
   MongoClient.connect(url, function(err, db) {
