@@ -14,7 +14,7 @@ app.use(cors({
   // Définition du port d'écoute
 app.set('port', (process.env.PORT || 80));
 // Répertoire des pages du site web
-var repertoireSite = 'public';
+var repertoireSite = "./public";
 console.log('Ouverture du répertoire des pages du site web : %s', repertoireSite);
 // Répertoire racine
 app.use('/', express.static(repertoireSite));

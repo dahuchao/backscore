@@ -9,7 +9,7 @@ var Tableau = React.createClass({
     var adresse = location.href
     console.info("Adresse web socket: " + adresse)
     this.socket = io(adresse)
-    console.info("Tableau de la rencontre " + JSON.stringify(this.props.rencontre))
+    console.info("Tableau de la rencontre: " + JSON.stringify(this.props.rencontre))
     this.socket.on('connect', function() {
       console.info("Connecté avec la table de marque")
     })
@@ -36,7 +36,7 @@ var Tableau = React.createClass({
     request(adresse, this.surInitialisationMarque)
   },
   surInitialisationMarque: function(error, response, rencontre) {
-    console.info("Reception première marque" + rencontre)
+    console.info("Reception première marque: " + rencontre)
     this.state.rencontre = JSON.parse(rencontre)
     this.setState(this.state)
   },

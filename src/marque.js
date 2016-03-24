@@ -2,7 +2,7 @@ import React from 'react'
 
 var Marque = React.createClass({
   getInitialState: function() {
-    console.info("Création du tableau de marque" + this.props.hote);
+    console.info("Création du tableau de marque: " + this.props.hote);
     //var idRencontre = this.props.idRencontre;
     var marque = {
       hote: this.props.hote,

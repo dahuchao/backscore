@@ -80,6 +80,7 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
   server.run(['serveur.js']);
 });
 
+// Tache de démarrage du serveur
 gulp.task('start', ["fabrique", 'styles'], function() {
   console.log('Lancement du serveur');
   server.run(['serveur.js']);
@@ -91,7 +92,7 @@ gulp.task('stop', function() {
   browserSync.exit();
 });
 
-// Tache pour controler l'execution de gulp dans Atom
+// Tache pour tester la bonne connexion à la base de données
 gulp.task('essai', function() {
   console.log("Lancement de l'utilitaire: ")
   //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
