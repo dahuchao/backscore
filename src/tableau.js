@@ -14,7 +14,7 @@ var Tableau = React.createClass({
       console.info("Connecté avec la table de marque")
     })
     this.socket.on('nouvelleMarque', this.surNouvelleMarque)
-    var rencontreCourante = {
+    var rencontreParDefaut = {
       rencontre: {
         "id": 0,
         "hote": {
@@ -27,7 +27,7 @@ var Tableau = React.createClass({
         }
       }
     }
-    return rencontreCourante
+    return rencontreParDefaut
   },
   connexionTableMarque: function(idRencontre) {
     console.info("Connexion à la table de marque: " + JSON.stringify(idRencontre))
@@ -37,11 +37,11 @@ var Tableau = React.createClass({
   },
   surInitialisationMarque: function(error, response, rencontre) {
     console.info("Reception première marque: " + rencontre)
-    this.state.rencontre = JSON.parse(rencontre)
-    this.setState(this.state)
+    //this.state.rencontre = rencontre
+    this.setState({recontre: rencontre})
   },
   surNouvelleMarque: function(marque) {
-    console.info("Reception d'une nouvelle marque: " + + JSON.stringify(marque))
+    console.info("Reception d'une nouvelle marque: " + JSON.stringify(marque))
   },
   surPanierHote: function() {
     console.info("Panier marque: " + JSON.stringify(this.state.rencontre.hote.marque))
