@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import AppBar from 'material-ui/lib/app-bar'
 import DatePicker from 'material-ui/lib/date-picker/date-picker'
 import Card from 'material-ui/lib/card/card'

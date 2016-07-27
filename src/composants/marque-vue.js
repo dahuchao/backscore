@@ -1,15 +1,6 @@
 import React from 'react'
 
 var Marque = React.createClass({
-  getInitialState: function() {
-    console.info("Création du tableau de marque: " + this.props.hote);
-    //var idRencontre = this.props.idRencontre;
-    var marque = {
-      hote: this.props.hote,
-      visiteur: this.props.visiteur
-    }
-    return marque;
-  },
   render: function() {
     return (
       <div id="marque">

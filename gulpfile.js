@@ -32,7 +32,7 @@ gulp.task('styles', function() {
 // Convertit es6 en es5 et assemble les morceaux
 gulp.task('fabrique', function() {
   browserify({
-      entries: 'src/index.js',
+      entries: 'src/app.js',
       debug: true
     })
     .transform(babelify)
@@ -61,10 +61,10 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
   //     use: '/api' to proxy request when path starts with '/api'
   var proxies = [];
   proxies.push(proxyMiddleware(["/api/**"], {
-    target: 'http://localhost'
+    target: "http://localhost"
   }));
-  proxies.push(proxyMiddleware('/socket.io', {
-    target: 'http://localhost/',
+  proxies.push(proxyMiddleware("/socket.io/**", {
+    target: "http://localhost",
     ws: true
   }));
   browserSync.init({
@@ -74,9 +74,9 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
     },
     browser: "google chrome"
   });
-  gulp.watch(['*.html', 'app.js', 'src/*.js'], ['fabrique'])
+  gulp.watch(['*.html', 'src/**/*.js'], ['fabrique'])
   gulp.watch('sass/**/*.scss', ['styles'])
-  gulp.watch("public/**").on('change', browserSync.reload);
+  gulp.watch("public/**/*").on('change', browserSync.reload);
   server.run(['serveur.js']);
 });
 

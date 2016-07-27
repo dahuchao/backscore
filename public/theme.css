@@ -3,7 +3,8 @@ body {
   flex-direction: column;
   min-height: 100vh;
   /* toute la hauteur du viewport */
-  padding: 1em; }
+  padding: 0px;
+  margin: 0px; }
 
 header {
   color: white;
@@ -72,5 +73,4 @@ header {
 footer {
   color: white;
   background-color: grey;
-  margin-top: 1em;
   padding: 0.8em; }
