@@ -128,11 +128,6 @@ io.sockets.on('connect', function (socket) {
       console.log("Nombres abonnés: " + socketAbonnes.count());
     })
   });
-  socket.on('fermerRencontre', function () {
-    console.log('Fermer abonnement')
-    socketAbonnes = socketAbonnes.delete(socket);
-    console.log("Nombres abonnés: " + socketAbonnes.count());
-  });
   // Un panier est marqué
   socket.on('panierMarque', function (rencontre) {
     console.log("Panier marqué !");

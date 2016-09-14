@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 import store from '../store'
 import request from 'request'
 import Tableau from "./tableau-vue.js"
+import AppBar from 'material-ui/lib/app-bar'
+import {IconButton} from "material-ui"
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close'
+import NavigationArrowBack from "material-ui/lib/svg-icons/navigation/arrow-back"
 import * as types from '../actions/actions-types'
 
 const RencontreConteneur = React.createClass({
@@ -25,6 +29,9 @@ const RencontreConteneur = React.createClass({
   render: function () {
     return (
       <div>
+        <AppBar title="Rencontre"
+          iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}>
+        </AppBar>
         <Tableau rencontre={this.props.rencontre}/>
         {this.props.children}
       </div>

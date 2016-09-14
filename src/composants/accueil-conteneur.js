@@ -28,7 +28,7 @@ export default function (props) {
   }
   return (
     <div>
-      <AppBar title="Rencontres" onClick={listerRencontres} iconClassNameRight="muidocs-icon-navigation-expand-more">
+      <AppBar title="BACKSCORE" onClick={listerRencontres} iconClassNameRight="muidocs-icon-navigation-expand-more">
         <div className="flottant">
           <FloatingActionButton onMouseDown={ajoutRencontre} style={style}>
             <ContentAdd/>
