@@ -1,18 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import * as types from '../actions/actions-types'
 import { connect } from 'react-redux'
 import request from 'request'
-import * as types from '../actions/actions-types'
 import store from '../store'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
-import ActionInfo from 'material-ui/lib/svg-icons/action/info'
-import RaisedButton from 'material-ui/lib/raised-button'
-import Avatar from 'material-ui/lib/avatar'
-import FileFolder from 'material-ui/lib/svg-icons/file/folder'
-import { Link } from 'react-router';
+import Rencontres from './rencontres';
 
 const RencontresConteneur = React.createClass({
   componentDidMount: function () {
@@ -30,32 +22,21 @@ const RencontresConteneur = React.createClass({
     })
   },
 
+  listerRencontres: function (error, response, rencontres) {
+    this.state.rencontre = null
+    if (!error && response.statusCode == 200) {
+      console.info("Initialisation des rencontres " + rencontres)
+      let rrencontres = JSON.parse(rencontres)
+      this.setState({ rencontres: rrencontres })
+    }
+    this.setState(this.state)
+  },
+  ajoutRencontre: function (rencontre) {
+    console.info("Ajout d'une rencontre: " + JSON.stringify(rencontre))
+  },
+
   render: function () {
-    return (
-      <div>
-        <Card>
-          <CardText>
-            <List>
-              {this.props.rencontres.map(rencontre => {
-                return (
-                  <ListItem
-                    leftAvatar={<Avatar icon={<FileFolder/>}/>}
-                    primaryText={
-                      <Link to={'/rencontres/' + rencontre.id}>{rencontre.hote.nom}</Link>
-                    }
-                    secondaryText="18 janvier 2016"
-                    rightIcon={<ActionInfo/>}
-                    rightIconButton={<RaisedButton
-                      label="Supprimer"
-                      primary={true} />}/>
-                )
-              }) }
-            </List>
-          </CardText>
-        </Card>
-        {this.props.children }
-      </div>
-    )
+    return <Rencontres rencontres={this.props.rencontres}/>
   }
 })
 

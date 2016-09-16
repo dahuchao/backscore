@@ -1,7 +1,7 @@
 import React from 'react'
 
-var Marque = React.createClass({
-  render: function() {
+export default React.createClass({
+  render() {
     return (
       <div id="marque">
         <div className="compteur">
@@ -9,8 +9,7 @@ var Marque = React.createClass({
           <span className="visiteur" onClick={this.props.surCorrectionVisiteur}>{this.props.visiteur}</span>
         </div>
       </div>
-    );
+    )
   }
 })
 
-export default Marque;

@@ -1,7 +1,7 @@
 import React from 'react'
 
 var Equipe = React.createClass({
-  render: function() {
+  render() {
     return (
       <div className="equipe" onClick={this.props.surPanier}>
         <div className="nom">{this.props.nom}</div>
