@@ -14,6 +14,7 @@ var Tableau = React.createClass({
     this.socket.on("connect", this.connexionTableMarque)
   },
   componentWillUnmount: function () {
+    const idRencontre = this.props.rencontre.id
     console.info("Fermeture tableau rencontre " + idRencontre)
     this.socket.emit("fermerRencontre", idRencontre)
   },

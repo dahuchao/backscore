@@ -7,8 +7,8 @@ import RencontreConteneur from "./composants/rencontre-conteneur.js"
 export default (
   <Router history={hashHistory} >
     <Route path="/" component={AccueilConteneur} >
-      <Route path="rencontres" component={RencontresConteneur} />
-      <Route path="rencontres/:idRencontre" component={RencontreConteneur} />
+      <Route path="/rencontres" component={RencontresConteneur} />
+      <Route path="/rencontres/:idRencontre" component={RencontreConteneur} />
     </Route>
   </Router>
 )

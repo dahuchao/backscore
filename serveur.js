@@ -128,6 +128,17 @@ io.sockets.on('connect', function (socket) {
       console.log("Nombres abonnés: " + socketAbonnes.count());
     })
   });
+  // Quand la table de marque recoit une demande d'abonnement à un tableau de marque
+  socket.on('fermerRencontre', function (idRencontre) {
+    console.log('Des-abonnement à la recontre:' + idRencontre)
+    rencontres.filter(function (rencontre) {
+      return rencontre.id == idRencontre
+    }).forEach(function (rencontre) {
+      socketAbonnes = socketAbonnes.delete(socket);
+      console.log("Fermeture abonnement rencontre: " + rencontre.id);
+      console.log("Nombres abonnés: " + socketAbonnes.count());
+    })
+  });
   // Un panier est marqué
   socket.on('panierMarque', function (rencontre) {
     console.log("Panier marqué !");
