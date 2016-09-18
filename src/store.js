@@ -28,6 +28,7 @@ function rencontreReducer (state = initState, action) {
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
             break;
         case types.POST_RENCONTRE_SUCCESS:
+        rencontres.
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
             break;
         case types.NOUVELLE_MARQUE:
