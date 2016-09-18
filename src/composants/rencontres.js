@@ -1,18 +1,24 @@
-import React from 'react'
-import { Link } from 'react-router'
-import AppBar from 'material-ui/lib/app-bar'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
+import React from "react"
+import { Link } from "react-router"
+import {AppBar,
+  Card,
+  CardText,
+  List,
+  ListItem,
+  RaisedButton,
+  Avatar,
+  FloatingActionButton,
+  TextField,
+  DatePicker
+} from "material-ui/lib"
 import ActionInfo from 'material-ui/lib/svg-icons/action/info'
-import RaisedButton from 'material-ui/lib/raised-button'
-import Avatar from 'material-ui/lib/avatar'
 import FileFolder from 'material-ui/lib/svg-icons/file/folder'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
 import ContentAdd from 'material-ui/lib/svg-icons/content/add'
 
 const Rencontres = React.createClass({
+  getInitialState: function () {
+    return { hote: "", visiteur: "", date: new Date() }
+  },
   render: function () {
     const style = {
       marginRight: 20
@@ -23,10 +29,12 @@ const Rencontres = React.createClass({
           onClick={this.props.listerRencontres}
           iconClassNameRight="muidocs-icon-navigation-expand-more">
           <div className="flottant">
-            <FloatingActionButton style={style}
+            <Link to="/rencontres-plus">
+              <FloatingActionButton style={style}
                 onMouseDown={this.props.ajoutRencontre}>
-              <ContentAdd/>
-            </FloatingActionButton>
+                <ContentAdd/>
+              </FloatingActionButton>
+            </Link>
           </div>
         </AppBar>
         <Card>

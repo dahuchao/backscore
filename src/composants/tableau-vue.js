@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import Marque from "./marque-vue.js"
 import Equipe from "./equipe-vue.js"
 import store from '../store'

@@ -1,9 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
-import store from '../store'
-import * as types from '../actions/actions-types'
-import request from 'request'
+import React from "react"
+import { connect } from "react-redux"
+import store from "../store"
+import * as types from "../actions/actions-types"
+import request from "request"
 import Rencontre from "./rencontre"
 
 const RencontreConteneur = React.createClass({

@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import * as types from '../actions/actions-types'
-import { connect } from 'react-redux'
-import request from 'request'
-import store from '../store'
-import Rencontres from './rencontres';
+import React from "react"
+import { connect } from "react-redux"
+import store from "../store"
+import * as types from "../actions/actions-types"
+import request from "request"
+import Rencontres from "./rencontres"
+import RencontreAjout from "./rencontre-ajout"
 
 const RencontresConteneur = React.createClass({
   componentDidMount: function () {
@@ -21,29 +21,29 @@ const RencontresConteneur = React.createClass({
       }
     })
   },
-
-  listerRencontres: function (error, response, rencontres) {
-    this.state.rencontre = null
-    if (!error && response.statusCode == 200) {
-      console.info("Initialisation des rencontres " + rencontres)
-      let rrencontres = JSON.parse(rencontres)
-      this.setState({ rencontres: rrencontres })
-    }
-    this.setState(this.state)
-  },
-  ajoutRencontre: function (rencontre) {
-    console.info("Ajout d'une rencontre: " + JSON.stringify(rencontre))
+  ajoutRencontre: function () {
+    console.log("Ajout rencontre : " + JSON.stringify(this.props.rencontre))
+    store.dispatch({
+      type: types.POST_RENCONTRE_SUCCESS,
+      rencontre: this.props.rencontre
+    })
   },
 
   render: function () {
-    return <Rencontres rencontres={this.props.rencontres}/>
+    return (
+      <div>
+        <Rencontres rencontres={this.props.rencontres}/>
+        <RencontreAjout rencontre={this.props.rencontre}  ajoutRencontre={this.ajoutRencontre}/>
+      </div>
+    )
   }
 })
 
 const mapStateToProps = function (store) {
-  console.log(store.rencontreState)
+  console.log("Etat du magasin : " + JSON.stringify(store.rencontreState))
   return {
-    rencontres: store.rencontreState.rencontres
+    rencontres: store.rencontreState.rencontres,
+    rencontre: store.rencontreState.rencontre
   }
 }
 

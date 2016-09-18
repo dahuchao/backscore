@@ -1,13 +1,4 @@
-import React from 'react'
-import AppBar from 'material-ui/lib/app-bar'
-import DatePicker from 'material-ui/lib/date-picker/date-picker'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import TextField from 'material-ui/lib/text-field'
-import FlatButton from 'material-ui/lib/flat-button'
-import List from 'material-ui/lib/lists/list'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
-import ContentAdd from 'material-ui/lib/svg-icons/content/add'
+import React from "react"
 
 export default function (props) {
   return (

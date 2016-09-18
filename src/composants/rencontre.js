@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react"
 import { Link } from 'react-router'
-import AppBar from 'material-ui/lib/app-bar'
-import Tableau from "./tableau-vue.js"
+import {AppBar} from "material-ui/lib"
 import {IconButton} from "material-ui"
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close'
 import NavigationArrowBack from "material-ui/lib/svg-icons/navigation/arrow-back"
+import Tableau from "./tableau-vue"
 
 const Rencontre = React.createClass({
   render: function () {

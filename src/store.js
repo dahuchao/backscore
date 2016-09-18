@@ -4,14 +4,15 @@ import * as types from './actions/actions-types'
 const initState = {
     rencontres: [],
     rencontre: {
-        "id": 0,
-        "hote": {
-          "nom": "hote",
-          "marque": 1
+        id: 0,
+        date: new Date(),
+        hote: {
+          nom: "hote",
+          marque: 0
         },
-        "visiteur": {
-          "nom": "visiteur",
-          "marque": 1
+        visiteur: {
+          nom: "visiteur",
+          marque: 0
         }
     }
 }
@@ -24,6 +25,9 @@ function rencontreReducer (state = initState, action) {
             nouveauState = Object.assign({}, state, { rencontres: action.rencontres });
             break;
         case types.GET_RENCONTRE_SUCCESS:
+            nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
+            break;
+        case types.POST_RENCONTRE_SUCCESS:
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
             break;
         case types.NOUVELLE_MARQUE:
