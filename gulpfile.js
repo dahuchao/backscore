@@ -71,8 +71,7 @@ gulp.task('dev', ['fabrique', 'styles'], function() {
     server: {
       baseDir: "public/",
       middleware: proxies
-    },
-    browser: "google chrome"
+    }
   });
   gulp.watch(['*.html', 'src/**/*.js'], ['fabrique'])
   gulp.watch('sass/**/*.scss', ['styles'])

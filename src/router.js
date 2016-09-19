@@ -3,14 +3,16 @@ import { Router, Route, hashHistory } from 'react-router';
 import AccueilConteneur from "./composants/accueil-conteneur.js"
 import RencontresConteneur from "./composants/rencontres-conteneur.js"
 import RencontreConteneur from "./composants/rencontre-conteneur.js"
-import RencontreAjoutConteneur from "./composants/rencontre-ajout-conteneur.js"
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 export default (
-  <Router history={hashHistory} >
-    <Route path="/" component={AccueilConteneur} >
-      <Route path="/rencontres" component={RencontresConteneur}/>
-      <Route path="/rencontres-plus" component={RencontreAjoutConteneur} />
-      <Route path="/rencontres/:idRencontre" component={RencontreConteneur} />
-    </Route>
-  </Router>
+  <MuiThemeProvider>
+    <Router history={hashHistory} >
+      <Route path="/" component={AccueilConteneur} >
+        <Route path="/rencontres" component={RencontresConteneur}/>
+        <Route path="/rencontres/:idRencontre" component={RencontreConteneur} />
+      </Route>
+    </Router>
+  </MuiThemeProvider>
 )

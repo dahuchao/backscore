@@ -6,7 +6,7 @@ import { AppBar,
   ContentAdd,
   CardText,
   TextField,
-  DatePicker } from "material-ui/lib"
+  DatePicker } from "material-ui"
 
 const RencontreAjout = React.createClass({
   render: function () {

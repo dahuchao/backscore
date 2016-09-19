@@ -10,10 +10,10 @@ import {AppBar,
   FloatingActionButton,
   TextField,
   DatePicker
-} from "material-ui/lib"
-import ActionInfo from 'material-ui/lib/svg-icons/action/info'
-import FileFolder from 'material-ui/lib/svg-icons/file/folder'
-import ContentAdd from 'material-ui/lib/svg-icons/content/add'
+} from "material-ui"
+import ActionInfo from 'material-ui/svg-icons/action/info'
+import FileFolder from 'material-ui/svg-icons/file/folder'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const Rencontres = React.createClass({
   getInitialState: function () {
@@ -29,12 +29,10 @@ const Rencontres = React.createClass({
           onClick={this.props.listerRencontres}
           iconClassNameRight="muidocs-icon-navigation-expand-more">
           <div className="flottant">
-            <Link to="/rencontres-plus">
-              <FloatingActionButton style={style}
-                onMouseDown={this.props.ajoutRencontre}>
-                <ContentAdd/>
-              </FloatingActionButton>
-            </Link>
+            <FloatingActionButton style={style}
+              onMouseDown={this.props.ajouterRencontre}>
+              <ContentAdd/>
+            </FloatingActionButton>
           </div>
         </AppBar>
         <Card>
@@ -45,9 +43,7 @@ const Rencontres = React.createClass({
                   <Link to={'/rencontres/' + rencontre.id}>
                     <ListItem
                       leftAvatar={<Avatar icon={<FileFolder/>}/>}
-                      primaryText={
-                        rencontre.hote.nom
-                      }
+                      primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                       secondaryText="18 janvier 2016"
                       rightIcon={<ActionInfo/>}
                       rightIconButton={

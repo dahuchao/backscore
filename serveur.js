@@ -29,10 +29,11 @@ console.log("url de la base de donnée: " + url)
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres
 app.get("/api/rencontres", function (req, res) {
+  console.log("GET rencontres.")
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
-      console.log("Utilisation liste statique de test.")
+      console.log("Utilisation liste statique de test : "+rencontres)
       res.jsonp(rencontres);
     } else {
       db.collection("rencontres").find().toArray(function (err, rencontres) {
@@ -49,9 +50,22 @@ app.get("/api/rencontres", function (req, res) {
   })
 })
 app.get('/api/rencontres/:id', function (req, res) {
+  // Calcul du nom de la page recherchée
+  var idRencontre = req.params.id;
+  console.log("GET rencontre: " + idRencontre)
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
+      // Calcul du nom de la page recherchée
+      var idRencontre = req.params.id;
+      console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
+      rencontres.filter(function (rencontre) {
+        return rencontre.id == idRencontre
+      }).forEach(function (rencontre) {
+        // Lecture de la rencontre
+        res.jsonp(rencontre);
+        console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+      })
     } else {
       db.collection("rencontres").find().toArray(function (err, rencontres) {
         if (err) {
@@ -69,6 +83,26 @@ app.get('/api/rencontres/:id', function (req, res) {
           })
           //db.close()
         }
+      })
+    }
+  })
+})//**********************************************
+// Traitement de la requête POST http://localhost/rencontres
+app.post("/api/rencontres", function (req, res) {
+  let rencontre = req.body
+  console.log("POST nouvelle rencontre: " + rencontre)
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log("Base de données indisponible: " + err)
+      console.log("Utilisation liste statique de test.")
+      rencontre.id=1004
+      rencontres = [...rencontres, rencontre]
+      res.jsonp(rencontres);
+    } else {
+      db.collection("rencontres").insert(rencontre, function (err, result) {
+        assert.equal(err, null);
+        console.log("Rencontres chargées.");
+        //db.close();
       })
     }
   })

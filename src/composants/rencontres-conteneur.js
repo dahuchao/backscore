@@ -21,19 +21,31 @@ const RencontresConteneur = React.createClass({
       }
     })
   },
-  ajoutRencontre: function () {
-    console.log("Ajout rencontre : " + JSON.stringify(this.props.rencontre))
+  ajouterRencontre: function () {
+    console.log("Ajouter rencontre.")
     store.dispatch({
-      type: types.POST_RENCONTRE_SUCCESS,
-      rencontre: this.props.rencontre
+      type: types.POST_RENCONTRE
     })
   },
-
+  ajoutRencontre: function () {
+    console.log("Ajout rencontre : " + JSON.stringify(this.props.rencontre))
+    var adresse = location.protocol + "//" + location.host + "/api/rencontres"
+    console.info("Requete de l'API web: " + adresse)
+    request.post({ url: adresse, body: this.props.rencontre }, function (error, response, rencontre) {
+      if (!error && response.statusCode == 200) {
+        console.info("Rencontre créée :")
+        store.dispatch({
+          type: types.POST_RENCONTRE_SUCCESS,
+          rencontre: rencontre
+        })
+      }
+    })
+  },
   render: function () {
     return (
       <div>
-        <Rencontres rencontres={this.props.rencontres}/>
-        <RencontreAjout rencontre={this.props.rencontre}  ajoutRencontre={this.ajoutRencontre}/>
+        <Rencontres rencontres={this.props.rencontres} ajouterRencontre={this.ajouterRencontre}/>
+        <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/>
       </div>
     )
   }

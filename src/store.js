@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from "redux"
-import * as types from './actions/actions-types'
+import * as types from "./actions/actions-types"
 
 const initState = {
     rencontres: [],
@@ -7,17 +7,17 @@ const initState = {
         id: 0,
         date: new Date(),
         hote: {
-          nom: "hote",
-          marque: 0
+            nom: "hote",
+            marque: 0
         },
         visiteur: {
-          nom: "visiteur",
-          marque: 0
+            nom: "visiteur",
+            marque: 0
         }
     }
 }
 
-function rencontreReducer (state = initState, action) {
+function rencontreReducer(state = initState, action) {
     console.log("Reducteur action : " + JSON.stringify(action))
     var nouveauState = state
     switch (action.type) {
@@ -27,9 +27,24 @@ function rencontreReducer (state = initState, action) {
         case types.GET_RENCONTRE_SUCCESS:
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
             break;
+        case types.POST_RENCONTRE:
+            let initRencontre = {
+                id: 0,
+                date: new Date(),
+                hote: {
+                    nom: "",
+                    marque: 0
+                },
+                visiteur: {
+                    nom: "",
+                    marque: 0
+                }
+            }
+            nouveauState = Object.assign({}, state, { rencontre: initRencontre });
+            break;
         case types.POST_RENCONTRE_SUCCESS:
-        rencontres.
-            nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
+            let rencontres = [...state.rencontres, action.rencontre]
+            nouveauState = Object.assign({}, state, { rencontres: rencontres });
             break;
         case types.NOUVELLE_MARQUE:
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
