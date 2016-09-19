@@ -45,7 +45,9 @@ const RencontresConteneur = React.createClass({
     return (
       <div>
         <Rencontres rencontres={this.props.rencontres} ajouterRencontre={this.ajouterRencontre}/>
-        <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/>
+        {
+          this.props.rencontre ? <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/> : null
+        }
       </div>
     )
   }

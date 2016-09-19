@@ -2,19 +2,7 @@ import { createStore, combineReducers } from "redux"
 import * as types from "./actions/actions-types"
 
 const initState = {
-    rencontres: [],
-    rencontre: {
-        id: 0,
-        date: new Date(),
-        hote: {
-            nom: "hote",
-            marque: 0
-        },
-        visiteur: {
-            nom: "visiteur",
-            marque: 0
-        }
-    }
+    rencontres: []
 }
 
 function rencontreReducer(state = initState, action) {
