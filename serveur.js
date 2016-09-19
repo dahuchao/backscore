@@ -1,3 +1,4 @@
+"use strict";
 // Chargement du module expressjs
 var express = require('express')
 var cors = require('express-cors')
