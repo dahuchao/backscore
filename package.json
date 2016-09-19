@@ -38,7 +38,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": "4.2.6"
+    "node": "6.6.0"
   },
   "scripts": {
     "start": "gulp start",
