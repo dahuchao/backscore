@@ -4,7 +4,7 @@ import store from "../store"
 import * as types from "../actions/actions-types"
 import request from "request"
 import Rencontres from "./rencontres"
-import RencontreAjout from "./rencontre-ajout"
+import RencontreAjout from "./rencontres-ajout"
 
 const RencontresConteneur = React.createClass({
   componentDidMount: function () {

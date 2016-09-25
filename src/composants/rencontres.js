@@ -23,6 +23,9 @@ const Rencontres = React.createClass({
     const style = {
       marginRight: 20
     }
+    const styleRencontre = {
+      'text-decoration': 'none'
+    }
     return (
       <div>
         <AppBar title="BACKSCORE"
@@ -37,11 +40,13 @@ const Rencontres = React.createClass({
         </AppBar>
         <Card>
           <CardText>
-            <List>
+            <List id="rencontres" >
               {this.props.rencontres.map(rencontre => {
                 return (
-                  <Link to={'/rencontres/' + rencontre.id}>
+                  <Link style={styleRencontre}
+                    key={rencontre.id} to={'/rencontres/' + rencontre.id}>
                     <ListItem
+                      key={rencontre.id}
                       leftAvatar={<Avatar icon={<FileFolder/>}/>}
                       primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                       secondaryText="18 janvier 2016"

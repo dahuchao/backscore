@@ -22,7 +22,10 @@ const RencontreConteneur = React.createClass({
     })
   },
   render: function () {
-    return <Rencontre rencontre={this.props.rencontre}/>
+    return (
+      this.props.rencontre ? <Rencontre rencontre={this.props.rencontre}/> : null
+    )
+
   }
 })
 const mapStateToProps = function (store) {
