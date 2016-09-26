@@ -2,7 +2,8 @@ import { createStore, combineReducers } from "redux"
 import * as types from "./actions/actions-types"
 
 const initState = {
-    rencontres: []
+    rencontres: [],
+    modeEdition: false
 }
 
 function rencontreReducer(state = initState, action) {
@@ -34,8 +35,13 @@ function rencontreReducer(state = initState, action) {
             let rencontres = [...state.rencontres, action.rencontre]
             nouveauState = Object.assign({}, state, { rencontres: rencontres });
             break;
+        case types.PUT_RENCONTRE_SUCCESS:
+            break;
         case types.NOUVELLE_MARQUE:
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre });
+            break;
+        case types.EDITER_RENCONTRE:
+            nouveauState = Object.assign({}, state, { modeEdition: !state.modeEdition });
             break;
     }
     console.log("Reducteur state : " + JSON.stringify(nouveauState))
