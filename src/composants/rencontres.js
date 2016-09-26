@@ -58,7 +58,7 @@ const Rencontres = React.createClass({
                     rightIcon={<ActionInfo/>}
                     rightIconButton={
                       <RaisedButton
-                        label="Edition" primary={true} />
+                        label="Supprimer" primary={true} />
                     }/>
                 )
               }) }

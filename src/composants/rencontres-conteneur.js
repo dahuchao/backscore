@@ -24,14 +24,19 @@ const RencontresConteneur = React.createClass({
   ajouterRencontre: function () {
     console.log("Ajouter rencontre.")
     store.dispatch({
-      type: types.POST_RENCONTRE
+      type: types.AJOUTER_RENCONTRE
     })
   },
-  ajoutRencontre: function () {
-    console.log("Ajout rencontre : " + JSON.stringify(this.props.rencontre))
+  ajoutRencontre: function (infos) {
+    let rencontre = this.props.rencontre
+    console.info("Info: " + JSON.stringify(infos))
+    rencontre.date = infos.date
+    rencontre.hote.nom = infos.hote
+    rencontre.visiteur.nom = infos.visiteur
+    console.log("Ajout rencontre : " + JSON.stringify(rencontre))
     var adresse = location.protocol + "//" + location.host + "/api/rencontres"
     console.info("Requete de l'API web: " + adresse)
-    request({ url: adresse, method: "POST", json: this.props.rencontre }, function (error, response, rencontre) {
+    request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontre) {
       if (!error && response.statusCode == 200) {
         console.info("Rencontre créée :")
         store.dispatch({
@@ -46,7 +51,7 @@ const RencontresConteneur = React.createClass({
       <div>
         <Rencontres rencontres={this.props.rencontres} ajouterRencontre={this.ajouterRencontre}/>
         {
-          this.props.rencontre ? <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/> : null
+          this.props.modeAjout ? <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/> : null
         }
       </div>
     )
@@ -57,7 +62,8 @@ const mapStateToProps = function (store) {
   console.log("Etat du magasin : " + JSON.stringify(store.rencontreState))
   return {
     rencontres: store.rencontreState.rencontres,
-    rencontre: store.rencontreState.rencontre
+    rencontre: store.rencontreState.rencontre,
+    modeAjout: store.rencontreState.modeAjout
   }
 }
 

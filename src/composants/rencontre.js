@@ -14,16 +14,22 @@ import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 import Tableau from "./tableau"
 
 const Rencontre = React.createClass({
+  getInitialState: function () {
+    let rencontre = this.props.rencontre
+    return { date: rencontre.date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
+  },
   majDate: function (e) {
     this.setState({ date: e.target.value })
   },
   majHote: function (e) {
     this.setState({ hote: e.target.value })
+    console.info("Info: " + JSON.stringify(this.state))
   },
-  majvisiteur: function (e) {
+  majVisiteur: function (e) {
     this.setState({ visiteur: e.target.value })
+    console.info("Info: " + JSON.stringify(this.state))
   },
-  sauver: function (e) {
+  sauver: function () {
     this.props.sauver(this.state)
   },
   render: function () {
@@ -34,7 +40,7 @@ const Rencontre = React.createClass({
           <DatePicker defaultValue={this.props.rencontre.date} onChange={this.majDate} hintText="Date de la rencontre"/>
           <TextField defaultValue={this.props.rencontre.hote.nom} onChange={this.majHote} hintText="Hote"/><br/>
           <TextField defaultValue={this.props.rencontre.visiteur.nom} onChange={this.majVisiteur} hintText="Visiteur"/><br/>
-          <RaisedButton onClick={this.props.sauver} primary={true} label="Sauver"/>
+          <RaisedButton onClick={this.sauver} primary={true} label="Sauver"/>
         </CardText>
       </Card >)
     return (

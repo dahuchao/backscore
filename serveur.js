@@ -84,10 +84,9 @@ app.get("/api/rencontres/:id", function (req, res) {
             return rencontre.id == idRencontre
           }).forEach(function (rencontre) {
             // Lecture de la rencontre
-            res.jsonp(rencontre);
             console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+            res.jsonp(rencontre);
           })
-          //db.close()
         }
       })
     }
@@ -116,19 +115,32 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
       res.jsonp(rencontreMAJ);
       console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
     } else {
-      db.collection("rencontres").update({ id: idRencontre }, rencontreMAJ)
-      // Lecture de la rencontre
-      res.jsonp(rencontreMAJ);
-      console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
+      db.collection("rencontres").find().toArray(function (err, rencontres) {
+        if (err) {
+          console.log("Les rencontres.")
+        } else {
+          console.log('Ouverture de la recontre:' + idRencontre)
+          rencontres.filter(function (rencontre) {
+            return rencontre.id == idRencontre
+          }).forEach(function (rencontre) {
+            // rencontre.date=rencontreMAJ.date
+            rencontre.hote.nom = rencontreMAJ.hote.nom
+            rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
+            db.collection("rencontres").update({ _id: rencontre._id }, rencontre)
+            res.jsonp(rencontre);
+            console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+          })
+        }
+      })
     }
   })
 })
 
 //**********************************************
 // Traitement de la requête POST http://localhost/rencontres
-app.post("/api/rencontres", function (req, res) {
+app.post("/api/rencontres", upload.array(), function (req, res) {
   let rencontre = req.body
-  console.log("POST nouvelle rencontre: " + rencontre)
+  console.log("POST nouvelle rencontre: " + JSON.stringify(rencontre))
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
@@ -138,9 +150,11 @@ app.post("/api/rencontres", function (req, res) {
       res.jsonp(rencontres);
     } else {
       db.collection("rencontres").insert(rencontre, function (err, result) {
-        assert.equal(err, null);
-        console.log("Rencontres chargées.");
-        //db.close();
+        if (err) {
+          console.log("Chargement rencontres en erreur.");
+        } else {
+          console.log("Rencontres chargées.");
+        }
       })
     }
   })
