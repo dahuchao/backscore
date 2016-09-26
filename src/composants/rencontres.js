@@ -24,7 +24,7 @@ const Rencontres = React.createClass({
       marginRight: 20
     }
     const styleRencontre = {
-      'text-decoration': 'none'
+      textDecoration: 'none'
     }
     return (
       <div>
@@ -43,18 +43,23 @@ const Rencontres = React.createClass({
             <List id="rencontres" >
               {this.props.rencontres.map(rencontre => {
                 return (
-                  <Link style={styleRencontre}
-                    key={rencontre.id} to={'/rencontres/' + rencontre.id}>
-                    <ListItem
-                      key={rencontre.id}
-                      leftAvatar={<Avatar icon={<FileFolder/>}/>}
-                      primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
-                      secondaryText="18 janvier 2016"
-                      rightIcon={<ActionInfo/>}
-                      rightIconButton={
-                        <RaisedButton label="Supprimer" primary={true} />
-                      }/>
-                  </Link>
+                  <ListItem
+                    key={rencontre.id}
+                    value={rencontre}
+                        onClick={this.props.ouvrirEdition}
+                    leftAvatar={
+                      <Link style={styleRencontre}
+                        key={rencontre.id} to={'/rencontres/' + rencontre.id}>
+                        <Avatar icon={<FileFolder/>}/>
+                      </Link>
+                    }
+                    primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
+                    secondaryText="18 janvier 2016"
+                    rightIcon={<ActionInfo/>}
+                    rightIconButton={
+                      <RaisedButton
+                        label="Edition" primary={true} />
+                    }/>
                 )
               }) }
             </List>
