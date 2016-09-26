@@ -31,7 +31,7 @@ const RencontresConteneur = React.createClass({
     console.log("Ajout rencontre : " + JSON.stringify(this.props.rencontre))
     var adresse = location.protocol + "//" + location.host + "/api/rencontres"
     console.info("Requete de l'API web: " + adresse)
-    request.post({ url: adresse, body: this.props.rencontre }, function (error, response, rencontre) {
+    request({ url: adresse, method: "POST", json: this.props.rencontre }, function (error, response, rencontre) {
       if (!error && response.statusCode == 200) {
         console.info("Rencontre créée :")
         store.dispatch({

@@ -3,6 +3,10 @@ var express = require('express')
 var cors = require('express-cors')
 var Immutable = require('immutable')
 var MongoClient = require('mongodb').MongoClient;
+var bodyParser = require('body-parser');
+var multer = require('multer'); // v1.0.5
+var upload = multer(); // for parsing multipart/form-data
+
 // Codec base 64
 //var base64 = require('base-64')
 // Création de l'application express
@@ -12,6 +16,8 @@ app.use(cors({
     'localhost:3000'
   ]
 }))
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 // Définition du port d'écoute
 app.set('port', (process.env.PORT || 80));
 // Répertoire des pages du site web
@@ -33,7 +39,7 @@ app.get("/api/rencontres", function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
-      console.log("Utilisation liste statique de test : "+rencontres)
+      console.log("Utilisation liste statique de test : " + rencontres)
       res.jsonp(rencontres);
     } else {
       db.collection("rencontres").find().toArray(function (err, rencontres) {
@@ -49,7 +55,7 @@ app.get("/api/rencontres", function (req, res) {
     }
   })
 })
-app.get('/api/rencontres/:id', function (req, res) {
+app.get("/api/rencontres/:id", function (req, res) {
   // Calcul du nom de la page recherchée
   var idRencontre = req.params.id;
   console.log("GET rencontre: " + idRencontre)
@@ -86,7 +92,39 @@ app.get('/api/rencontres/:id', function (req, res) {
       })
     }
   })
-})//**********************************************
+})
+
+//**********************************************
+// Traitement de la requête PUT http://localhost/rencontres/id
+app.put("/api/rencontres/:id", upload.array(), function (req, res) {
+  // Calcul du nom de la page recherchée
+  let idRencontre = req.params.id;
+  console.log("PUT rencontre: " + idRencontre)
+  console.log("body: " + JSON.stringify(req.body))
+  let rencontreMAJ = req.body
+  console.log("mise à jour rencontre: " + rencontreMAJ)
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log("Base de données indisponible.")
+      console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
+      rencontres.filter(function (rencontre) {
+        return rencontre.id == idRencontre
+      }).map(function (rencontre) {
+        return rencontreMAJ
+      })
+      // Lecture de la rencontre
+      res.jsonp(rencontreMAJ);
+      console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
+    } else {
+      db.collection("rencontres").update({ id: idRencontre }, rencontreMAJ)
+      // Lecture de la rencontre
+      res.jsonp(rencontreMAJ);
+      console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
+    }
+  })
+})
+
+//**********************************************
 // Traitement de la requête POST http://localhost/rencontres
 app.post("/api/rencontres", function (req, res) {
   let rencontre = req.body
@@ -95,7 +133,7 @@ app.post("/api/rencontres", function (req, res) {
     if (err) {
       console.log("Base de données indisponible: " + err)
       console.log("Utilisation liste statique de test.")
-      rencontre.id=1004
+      rencontre.id = 1004
       rencontres = [...rencontres, rencontre]
       res.jsonp(rencontres);
     } else {

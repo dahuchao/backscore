@@ -8,7 +8,7 @@ import Rencontre from "./rencontre"
 const RencontreConteneur = React.createClass({
   componentDidMount: function () {
     const idRencontre = this.props.params.idRencontre
-    var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + idRencontre
+    let adresse = location.protocol + "//" + location.host + "/api/rencontres/" + idRencontre
     console.info("Requete de l'API web: " + adresse)
     request(adresse, function (error, response, rencontre) {
       if (!error && response.statusCode == 200) {
@@ -21,16 +21,45 @@ const RencontreConteneur = React.createClass({
       }
     })
   },
+  sauver: function (infos) {
+    let rencontre = this.props.rencontre
+    console.info("Info: " + JSON.stringify(infos))
+    rencontre.date = infos.date
+    rencontre.hote.nom = infos.hote
+    rencontre.visiteur.nom = infos.visiteur
+    console.info("Rencontre mise à jour: " + JSON.stringify(rencontre))
+    var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + this.props.rencontre.id
+    console.info("Requete de l'API web: " + adresse)
+    request({ url: adresse, method: "PUT", json: rencontre }, function (error, response, rencontre) {
+      if (!error && response.statusCode == 200) {
+        console.info("Rencontre modifiée :")
+        store.dispatch({
+          type: types.PUT_RENCONTRE_SUCCESS,
+          rencontre: rencontre
+        })
+      }
+    })
+  },
+  editer: function () {
+    console.info("Editer rencontre : ")
+    store.dispatch({
+      type: types.EDITER_RENCONTRE
+    })
+  },
   render: function () {
     return (
-      this.props.rencontre ? <Rencontre rencontre={this.props.rencontre}/> : null
+      !this.props.rencontre ? null : <Rencontre rencontre={this.props.rencontre}
+        editer={this.editer}
+        sauver={this.sauver}
+        modeEdition={this.props.modeEdition} />
     )
-
   }
 })
 const mapStateToProps = function (store) {
+  console.info("Nouvel état ... construction des propriétés: " + store.rencontreState.modeEdition)
   return {
-    rencontre: store.rencontreState.rencontre
+    rencontre: store.rencontreState.rencontre,
+    modeEdition: store.rencontreState.modeEdition
   }
 }
 
