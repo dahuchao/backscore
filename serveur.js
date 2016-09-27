@@ -172,7 +172,7 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
 
 //**********************************************
 // Traitement de la requête DEL http://localhost/rencontres/id
-app.delete("/api/rencontres/:id", upload.array(),function (req, res) {
+app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("DEL rencontre: " + JSON.stringify(idRencontre))
@@ -202,6 +202,7 @@ app.delete("/api/rencontres/:id", upload.array(),function (req, res) {
 // Serveur de publication mesures de la sonde de température
 var rencontres = [{
   id: 1,
+  date: new Date(),
   hote: {
     nom: "NEC",
     marque: 11
@@ -212,6 +213,7 @@ var rencontres = [{
   }
 }, {
     id: 2,
+    date: new Date(),
     hote: {
       nom: "NEC",
       marque: 22
@@ -222,6 +224,7 @@ var rencontres = [{
     }
   }, {
     id: 3,
+    date: new Date(),
     hote: {
       nom: "NEC",
       marque: 33

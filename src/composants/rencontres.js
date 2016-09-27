@@ -22,7 +22,7 @@ const Rencontres = React.createClass({
     }
     const styleRencontre = {
       textDecoration: 'none'
-    }    
+    }
     console.info("REncontres +++++++++: " + JSON.stringify(this.props.rencontres))
 
     return (
@@ -51,7 +51,7 @@ const Rencontres = React.createClass({
                       </Link>
                     }
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
-                    secondaryText="18 janvier 2016"
+                    secondaryText={rencontre.date ? rencontre.date : null}
                     rightIcon={<ActionInfo/>}
                     rightIconButton={
                       <RaisedButton onClick={ this.props.supprimeRencontre.bind(null, rencontre.id) }
