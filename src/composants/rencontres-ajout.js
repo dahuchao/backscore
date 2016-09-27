@@ -15,16 +15,17 @@ const RencontreAjout = React.createClass({
     let rencontre = this.props.rencontre
     return { date: rencontre.date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
-  majDate: function (e) {
-    this.setState({ date: e.target.value })
+  majDate: function (x, date) {
+    this.setState({ date: date })
+    console.info("Ajout date: " + JSON.stringify(this.state))
   },
   majHote: function (e) {
     this.setState({ hote: e.target.value })
-    console.info("Info: " + JSON.stringify(this.state))
+    console.info("Ajout hote: " + JSON.stringify(this.state))
   },
   majVisiteur: function (e) {
     this.setState({ visiteur: e.target.value })
-    console.info("Info: " + JSON.stringify(this.state))
+    console.info("Ajout visiteur: " + JSON.stringify(this.state))
   },
   sauver: function () {
     this.props.ajoutRencontre(this.state)
