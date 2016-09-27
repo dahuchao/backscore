@@ -22,7 +22,9 @@ const Rencontres = React.createClass({
     }
     const styleRencontre = {
       textDecoration: 'none'
-    }
+    }    
+    console.info("REncontres +++++++++: " + JSON.stringify(this.props.rencontres))
+
     return (
       <div>
         <AppBar title="BACKSCORE"

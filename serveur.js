@@ -172,7 +172,7 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
 
 //**********************************************
 // Traitement de la requête DEL http://localhost/rencontres/id
-app.delete("/api/rencontres/:id", function (req, res) {
+app.delete("/api/rencontres/:id", upload.array(),function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("DEL rencontre: " + JSON.stringify(idRencontre))
@@ -231,7 +231,7 @@ var rencontres = [{
       marque: 33
     }
   }];
-  
+
 //**********************************************
 // Démarrage du serveur
 var serveur = app.listen(app.get('port'), function () {

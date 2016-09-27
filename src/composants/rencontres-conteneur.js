@@ -33,10 +33,11 @@ const RencontresConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "DELETE" }, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
-        console.info("Rencontre supprimée :")
+        console.info("Rencontre supprimée.")
+        let oRencontres = JSON.parse(rencontres)
         store.dispatch({
           type: types.DELETE_RENCONTRE_SUCCESS,
-          rencontres: rencontres
+          rencontres: oRencontres
         })
       }
     })
