@@ -16,9 +16,6 @@ import FileFolder from 'material-ui/svg-icons/file/folder'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const Rencontres = React.createClass({
-  getInitialState: function () {
-    return { hote: "", visiteur: "", date: new Date() }
-  },
   render: function () {
     const style = {
       marginRight: 20
@@ -45,8 +42,6 @@ const Rencontres = React.createClass({
                 return (
                   <ListItem
                     key={rencontre.id}
-                    value={rencontre}
-                        onClick={this.props.ouvrirEdition}
                     leftAvatar={
                       <Link style={styleRencontre}
                         key={rencontre.id} to={'/rencontres/' + rencontre.id}>
@@ -57,7 +52,7 @@ const Rencontres = React.createClass({
                     secondaryText="18 janvier 2016"
                     rightIcon={<ActionInfo/>}
                     rightIconButton={
-                      <RaisedButton
+                      <RaisedButton onClick={ this.props.supprimeRencontre.bind(null, rencontre.id) }
                         label="Supprimer" primary={true} />
                     }/>
                 )

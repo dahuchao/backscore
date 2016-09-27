@@ -25,6 +25,7 @@ var repertoireSite = "./public";
 console.log('Ouverture du répertoire des pages du site web : %s', repertoireSite);
 // Répertoire racine
 app.use('/', express.static(repertoireSite));
+
 //**********************************************
 // Connection à la base de données
 //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
@@ -32,6 +33,7 @@ var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/h
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
+
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres
 app.get("/api/rencontres", function (req, res) {
@@ -39,7 +41,8 @@ app.get("/api/rencontres", function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
-      console.log("Utilisation liste statique de test : " + rencontres)
+      console.log("Utilisation liste statique de test : " + JSON.stringify(rencontres))
+      console.log("Nb rencontre dans la liste: " + rencontres.length)
       res.jsonp(rencontres);
     } else {
       db.collection("rencontres").find().toArray(function (err, rencontres) {
@@ -55,9 +58,12 @@ app.get("/api/rencontres", function (req, res) {
     }
   })
 })
+
+//**********************************************
+// Traitement de la requête GET http://localhost/rencontres/2
 app.get("/api/rencontres/:id", function (req, res) {
   // Calcul du nom de la page recherchée
-  var idRencontre = req.params.id;
+  let idRencontre = req.params.id
   console.log("GET rencontre: " + idRencontre)
   MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -77,8 +83,6 @@ app.get("/api/rencontres/:id", function (req, res) {
         if (err) {
           console.log("Les rencontres.")
         } else {
-          // Calcul du nom de la page recherchée
-          var idRencontre = req.params.id;
           console.log('Ouverture de la recontre:' + idRencontre)
           rencontres.filter(function (rencontre) {
             return rencontre.id == idRencontre
@@ -97,7 +101,7 @@ app.get("/api/rencontres/:id", function (req, res) {
 // Traitement de la requête PUT http://localhost/rencontres/id
 app.put("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
-  let idRencontre = req.params.id;
+  let idRencontre = req.params.id
   console.log("PUT rencontre: " + idRencontre)
   console.log("body: " + JSON.stringify(req.body))
   let rencontreMAJ = req.body
@@ -112,7 +116,7 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
         return rencontreMAJ
       })
       // Lecture de la rencontre
-      res.jsonp(rencontreMAJ);
+      res.jsonp(rencontreMAJ)
       console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
     } else {
       db.collection("rencontres").find().toArray(function (err, rencontres) {
@@ -145,8 +149,14 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
     if (err) {
       console.log("Base de données indisponible: " + err)
       console.log("Utilisation liste statique de test.")
-      rencontre.id = 1004
+      // Calcul du plus grand identifiant
+      idCalcule = rencontres.reduce((max, rencontre) => rencontre.id > max ? rencontre.id : max, 0)
+      // Calcul de l'identifiant de la nouvelle rencontre
+      rencontre.id = idCalcule + 1
+      // Calcul de la nouvelle liste des rencontres
       rencontres = [...rencontres, rencontre]
+      console.log("Nb rencontre dans la liste: " + rencontres.length)
+      // Retour de la nouvelle liste de rencontres
       res.jsonp(rencontres);
     } else {
       db.collection("rencontres").insert(rencontre, function (err, result) {
@@ -159,6 +169,36 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
     }
   })
 })
+
+//**********************************************
+// Traitement de la requête DEL http://localhost/rencontres/id
+app.delete("/api/rencontres/:id", function (req, res) {
+  // Calcul du nom de la page recherchée
+  let idRencontre = req.params.id
+  console.log("DEL rencontre: " + JSON.stringify(idRencontre))
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log("Base de données indisponible.")
+      console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
+      // Suppression de la rencontre
+      rencontres = rencontres.filter((rencontre) => rencontre.id != idRencontre)
+      console.log("Nb rencontre dans la liste: " + rencontres.length)
+      // Retour de la nouvelle liste de rencontres
+      res.jsonp(rencontres);
+    } else {
+      db.collection("rencontres").remove({
+        id: rencontre.id, function(err, result) {
+          if (err) {
+            console.log("Chargement rencontres en erreur.");
+          } else {
+            console.log("Rencontres chargées.");
+          }
+        }
+      })
+    }
+  })
+})
+
 // Serveur de publication mesures de la sonde de température
 var rencontres = [{
   id: 1,
@@ -191,6 +231,7 @@ var rencontres = [{
       marque: 33
     }
   }];
+  
 //**********************************************
 // Démarrage du serveur
 var serveur = app.listen(app.get('port'), function () {

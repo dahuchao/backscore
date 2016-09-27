@@ -27,6 +27,20 @@ const RencontresConteneur = React.createClass({
       type: types.AJOUTER_RENCONTRE
     })
   },
+  supprimeRencontre: function (idRencontre) {
+    console.info("Suppression: " + idRencontre)
+    var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + idRencontre
+    console.info("Requete de l'API web: " + adresse)
+    request({ url: adresse, method: "DELETE" }, function (error, response, rencontres) {
+      if (!error && response.statusCode == 200) {
+        console.info("Rencontre supprimée :")
+        store.dispatch({
+          type: types.DELETE_RENCONTRE_SUCCESS,
+          rencontres: rencontres
+        })
+      }
+    })
+  },
   ajoutRencontre: function (infos) {
     let rencontre = this.props.rencontre
     console.info("Info: " + JSON.stringify(infos))
@@ -36,24 +50,26 @@ const RencontresConteneur = React.createClass({
     console.log("Ajout rencontre : " + JSON.stringify(rencontre))
     var adresse = location.protocol + "//" + location.host + "/api/rencontres"
     console.info("Requete de l'API web: " + adresse)
-    request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontre) {
+    request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
         console.info("Rencontre créée :")
         store.dispatch({
           type: types.POST_RENCONTRE_SUCCESS,
-          rencontre: rencontre
+          rencontres: rencontres
         })
       }
     })
   },
   render: function () {
     return (
-      <div>
-        <Rencontres rencontres={this.props.rencontres} ajouterRencontre={this.ajouterRencontre}/>
-        {
-          this.props.modeAjout ? <RencontreAjout rencontre={this.props.rencontre} ajoutRencontre={this.ajoutRencontre}/> : null
-        }
-      </div>
+      this.props.modeAjout ?
+        <RencontreAjout
+          rencontre={this.props.rencontre}
+          ajoutRencontre={this.ajoutRencontre}/>
+        :
+        <Rencontres rencontres={this.props.rencontres}
+          supprimeRencontre={this.supprimeRencontre}
+          ajouterRencontre={this.ajouterRencontre}/>
     )
   }
 })

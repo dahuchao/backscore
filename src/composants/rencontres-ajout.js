@@ -1,12 +1,14 @@
 import React from "react"
 import { AppBar,
   Card,
+  IconButton,
   FlatButton,
   RaisedButton,
   ContentAdd,
   CardText,
   TextField,
   DatePicker } from "material-ui"
+import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 
 const RencontreAjout = React.createClass({
   getInitialState: function () {
@@ -31,13 +33,12 @@ const RencontreAjout = React.createClass({
     return (
       <div>
         <AppBar title="Ajouter rencontre"
-          iconElementRight={<FlatButton label="Sauver" />}/>
+          iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack/></IconButton>} />
         <Card>
           <CardText>
             <DatePicker defaultValue={this.props.rencontre.date} onChange={this.majDate} hintText="Date de la rencontre"/>
             <TextField defaultValue={this.props.rencontre.hote.nom} onChange={this.majHote} hintText="Hote"/><br/>
             <TextField defaultValue={this.props.rencontre.visiteur.nom} onChange={this.majVisiteur} hintText="Visiteur"/><br/>
-            <RaisedButton onClick={this.sauver} primary={true} label="Ajouter"/>
           </CardText>
         </Card>
       </div>
