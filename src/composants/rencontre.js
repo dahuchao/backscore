@@ -30,18 +30,20 @@ if (areIntlLocalesSupported(['fr'])) {
 const Rencontre = React.createClass({
   getInitialState: function () {
     let rencontre = this.props.rencontre
-    return { date: rencontre.date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
+    let date = rencontre.date ? rencontre.date : new Date()
+    return { date: date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
-  majDate: function (e) {
-    this.setState({ date: e.target.value })
+  majDate: function (x, date) {
+    this.setState({ date: date })
+    console.info("MAJ date: " + JSON.stringify(this.state))
   },
   majHote: function (e) {
     this.setState({ hote: e.target.value })
-    console.info("Info: " + JSON.stringify(this.state))
+    console.info("MAJ Hote: " + JSON.stringify(this.state))
   },
   majVisiteur: function (e) {
     this.setState({ visiteur: e.target.value })
-    console.info("Info: " + JSON.stringify(this.state))
+    console.info("MAJ visiteur: " + JSON.stringify(this.state))
   },
   sauver: function () {
     this.props.sauver(this.state)
@@ -55,12 +57,11 @@ const Rencontre = React.createClass({
         <Card >
           <CardText>
             <DatePicker hintText="Date de la rencontre"
-              // value={this.props.rencontre.date}
+              defaultValue={this.props.rencontre.date}
               onChange={this.majDate}
               okLabel="OK"
               cancelLabel="Annuler"
-              DateTimeFormat={DateTimeFormat}
-              />
+              DateTimeFormat={DateTimeFormat} />
             <TextField hintText="Hote"
               defaultValue={this.props.rencontre.hote.nom}
               onChange={this.majHote} /><br/>
