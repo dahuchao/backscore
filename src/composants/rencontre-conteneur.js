@@ -12,7 +12,6 @@ const RencontreConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request(adresse, function (error, response, rencontre) {
       if (!error && response.statusCode == 200) {
-        console.info("Chargement rencontre : " + rencontre)
         let oRencontre = JSON.parse(rencontre)
         store.dispatch({
           type: types.GET_RENCONTRE_SUCCESS,
@@ -23,11 +22,9 @@ const RencontreConteneur = React.createClass({
   },
   sauver: function (infos) {
     let rencontre = this.props.rencontre
-    console.info("Info: " + JSON.stringify(infos))
     rencontre.date = infos.date
     rencontre.hote.nom = infos.hote
     rencontre.visiteur.nom = infos.visiteur
-    console.info("Rencontre mise à jour: " + JSON.stringify(rencontre))
     var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + this.props.rencontre.id
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "PUT", json: rencontre }, function (error, response, rencontre) {
@@ -41,7 +38,6 @@ const RencontreConteneur = React.createClass({
     })
   },
   editer: function () {
-    console.info("Editer rencontre : ")
     store.dispatch({
       type: types.EDITER_RENCONTRE
     })
@@ -56,7 +52,6 @@ const RencontreConteneur = React.createClass({
   }
 })
 const mapStateToProps = function (store) {
-  console.info("Nouvel état ... construction des propriétés: " + store.rencontreState.modeEdition)
   return {
     rencontre: store.rencontreState.rencontre,
     modeEdition: store.rencontreState.modeEdition

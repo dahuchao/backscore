@@ -12,7 +12,6 @@ const RencontresConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request(adresse, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
-        console.info("Initialisation des rencontres " + rencontres)
         let oRencontres = JSON.parse(rencontres)
         store.dispatch({
           type: types.GET_RENCONTRES_SUCCESS,
@@ -33,7 +32,6 @@ const RencontresConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "DELETE" }, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
-        console.info("Rencontre supprimée.")
         let oRencontres = JSON.parse(rencontres)
         store.dispatch({
           type: types.DELETE_RENCONTRE_SUCCESS,
@@ -53,7 +51,6 @@ const RencontresConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
-        console.info("Rencontre créée.")
         store.dispatch({
           type: types.POST_RENCONTRE_SUCCESS,
           rencontres: rencontres
@@ -76,7 +73,6 @@ const RencontresConteneur = React.createClass({
 })
 
 const mapStateToProps = function (store) {
-  console.log("Etat du magasin : " + JSON.stringify(store.rencontreState))
   return {
     rencontres: store.rencontreState.rencontres,
     rencontre: store.rencontreState.rencontre,

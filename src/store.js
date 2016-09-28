@@ -4,17 +4,20 @@ import * as types from "./actions/actions-types"
 const initState = {
     rencontres: [],
     modeEdition: false,
-    modeAjout:false
+    modeAjout: false
 }
 
 function rencontreReducer(state = initState, action) {
-    console.log("*** ACTION *** " + JSON.stringify(action))
+    console.log("##############################")
+    console.log("| ACTION: " + JSON.stringify(action.type))
     var nouveauState = state
     switch (action.type) {
         case types.GET_RENCONTRES_SUCCESS:
+            console.log("| rencontres: " + JSON.stringify(action.rencontres))
             nouveauState = Object.assign({}, state, { rencontres: action.rencontres })
             break;
         case types.GET_RENCONTRE_SUCCESS:
+            console.log("| rencontre: " + JSON.stringify(action.rencontre))
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre })
             break;
         case types.POST_RENCONTRE:
@@ -33,19 +36,23 @@ function rencontreReducer(state = initState, action) {
             nouveauState = Object.assign({}, state, { rencontre: initRencontre })
             break;
         case types.POST_RENCONTRE_SUCCESS:
+            console.log("| rencontres: " + JSON.stringify(action.rencontres))
             let rencontres = action.rencontres
             nouveauState = Object.assign({}, state, { rencontres: rencontres })
             nouveauState = Object.assign({}, nouveauState, { modeAjout: false })
             break;
         case types.PUT_RENCONTRE_SUCCESS:
+            console.log("| rencontre: " + JSON.stringify(action.rencontre))
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre })
             nouveauState = Object.assign({}, nouveauState, { modeEdition: false })
             break;
         case types.DELETE_RENCONTRE_SUCCESS:
+            console.log("| rencontres: " + JSON.stringify(action.rencontres))
             let delRencontres = action.rencontres
             nouveauState = Object.assign({}, state, { rencontres: delRencontres })
             break;
         case types.NOUVELLE_MARQUE:
+            console.log("| rencontre: " + JSON.stringify(action.rencontre))
             nouveauState = Object.assign({}, state, { rencontre: action.rencontre })
             break;
         case types.AJOUTER_RENCONTRE:
@@ -63,9 +70,11 @@ function rencontreReducer(state = initState, action) {
             }
             nouveauState = Object.assign({}, state, { rencontre: rencontre })
             nouveauState = Object.assign({}, nouveauState, { modeAjout: !state.modeAjout })
+            console.log("| Mode ajout: " + JSON.stringify(state.modeAjout))
             break;
         case types.EDITER_RENCONTRE:
             nouveauState = Object.assign({}, state, { modeEdition: !state.modeEdition })
+            console.log("| Mode édition: " + JSON.stringify(state.modeEdition))
             break;
     }
     console.log("Nouvel état: " + JSON.stringify(nouveauState))

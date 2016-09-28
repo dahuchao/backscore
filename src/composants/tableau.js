@@ -15,52 +15,51 @@ var Tableau = React.createClass({
   },
   componentWillUnmount: function () {
     const idRencontre = this.props.rencontre.id
-    console.info("Fermeture tableau rencontre " + idRencontre)
+    // console.info("Fermeture tableau rencontre " + idRencontre)
     this.socket.emit("fermerRencontre", idRencontre)
   },
   connexionTableMarque: function () {
     console.info("Connecté avec la table de marque")
     const idRencontre = this.props.rencontre.id
-    console.info("Identifiant rencontre: " + idRencontre)
+    // console.info("Identifiant rencontre: " + idRencontre)
     this.socket.on("nouvelleMarque", this.surNouvelleMarque)
   },
   ouvertureRencontre: function (idRencontre) {
-    console.info("Ouverture rencontre " + idRencontre)
+    // console.info("Ouverture rencontre " + idRencontre)
     this.socket.emit("ouvrirRencontre", idRencontre)
   },
   surNouvelleMarque: function (rencontre) {
-    console.info("Reception d'une nouvelle marque: " + JSON.stringify(rencontre))
+    // console.info("Reception d'une nouvelle marque: " + JSON.stringify(rencontre))
     store.dispatch({
       type: types.NOUVELLE_MARQUE,
       rencontre: rencontre
     })
   },
   surPanierHote: function () {
-    console.info("Panier marque: " + JSON.stringify(this.props.rencontre.hote.marque))
+    // console.info("Panier marque: " + JSON.stringify(this.props.rencontre.hote.marque))
     let marque = this.props.rencontre.hote.marque
     this.props.rencontre.hote.marque = marque + 1
     this.socket.emit('panierMarque', this.props.rencontre)
   },
   surPanierVisiteur: function () {
-    console.info("Panier marque: " + JSON.stringify(this.props.rencontre.visiteur.marque))
+    // console.info("Panier marque: " + JSON.stringify(this.props.rencontre.visiteur.marque))
     let marque = this.props.rencontre.visiteur.marque
     this.props.rencontre.visiteur.marque = marque + 1
     this.socket.emit('panierMarque', this.props.rencontre)
   },
   surCorrectionHote: function () {
-    console.info("Correction de la marque");
+    // console.info("Correction de la marque");
     let marque = this.props.rencontre.hote.marque
     this.props.rencontre.hote.marque = marque - 1
     this.socket.emit('panierMarque', this.props.rencontre)
   },
   surCorrectionVisiteur: function () {
-    console.info("Correction de la marque")
+    // console.info("Correction de la marque")
     let marque = this.props.rencontre.visiteur.marque
     this.props.rencontre.visiteur.marque = marque - 1
     this.socket.emit('panierMarque', this.props.rencontre)
   },
   render: function () {
-    console.info("Affichage rencontre " + JSON.stringify(this.props.rencontre))
     this.ouvertureRencontre(this.props.rencontre.id)
     return (
       <div id="tableau">
