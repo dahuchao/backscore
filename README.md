@@ -1,7 +1,13 @@
 # backscore
-Publication de tableau de marque de rencontre de basket.
+Publication des tableaux de marque de rencontre de basket.
 
-Projet en cours de développement.
+Les utilisateurs spectateurs d'une rencontre, peuvent noter l'évolution du résultat sur cette table de marque
+électronique. Les utilisateurs distant qui n'ont pas pu se déplacer, voient depuis leur canapé l'évolution
+du résultat en temps réel (sans avoir à raffraichir le tableau).
+
+Attention Projet en cours de développement.
+
+Mode SASS : https://backscore.herokuapp.com
 
 ## Installation
 
@@ -19,3 +25,13 @@ ouvrir l'application à l'adresse http://localhost
 ## Utilisation
 
 Lorsqu'un arbitre note la marque, elle est automatiquement notifiée à tous les tableaux de marque que sont les terminaux de la rencontre.
+
+## Architecture
+
+Cette application est un pretexte (POC) pour la mise en oeuvre des technologies suivantes : 
+* REACT
+* REDUX (FLUX)
+* Material-design (RWD)
+* Expressjs (API REST)
+* Socket.io (WebSocket)
+* Mongodb (NOSQL)
