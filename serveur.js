@@ -68,8 +68,6 @@ app.get("/api/rencontres/:id", function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
-      // Calcul du nom de la page recherchée
-      var idRencontre = req.params.id;
       console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
       rencontres.filter(function (rencontre) {
         return rencontre.id == idRencontre
@@ -103,9 +101,8 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("PUT rencontre: " + idRencontre)
-  console.log("body: " + JSON.stringify(req.body))
   let rencontreMAJ = req.body
-  console.log("mise à jour rencontre: " + rencontreMAJ)
+  console.log("mise à jour rencontre: " + JSON.stringify(rencontreMAJ))
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
@@ -159,6 +156,14 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
       // Retour de la nouvelle liste de rencontres
       res.jsonp(rencontres);
     } else {
+      let rencontres = db.collection("rencontres")
+        .find().toArray()
+      // Calcul du plus grand identifiant
+      idCalcule = rencontres
+        .reduce((max, rencontre) => rencontre.id > max ? rencontre.id : max, 0)
+      // Calcul de l'identifiant de la nouvelle rencontre
+      rencontre.id = idCalcule + 1
+      // Insertion de la nouvelle rencontre
       db.collection("rencontres").insert(rencontre, function (err, result) {
         if (err) {
           console.log("Chargement rencontres en erreur.");
@@ -184,17 +189,15 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       rencontres = rencontres.filter((rencontre) => rencontre.id != idRencontre)
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp(rencontres);
+      res.jsonp(rencontres)
     } else {
-      db.collection("rencontres").remove({
-        id: rencontre.id, function(err, result) {
-          if (err) {
-            console.log("Chargement rencontres en erreur.");
-          } else {
-            console.log("Rencontres chargées.");
-          }
-        }
-      })
+      // Suppression de la rencontre
+      db.collection("rencontres").remove({ id: idRencontre })
+      // Calcul de la nouvelle liste
+      let rencontres = db.collection("rencontres").find().toArray()
+      console.log("Nb rencontre dans la liste: " + rencontres.length)
+      // Retour de la nouvelle liste de rencontres
+      res.jsonp(rencontres)
     }
   })
 })
