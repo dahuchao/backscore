@@ -68,8 +68,6 @@ app.get("/api/rencontres/:id", function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
-      // Calcul du nom de la page recherchée
-      var idRencontre = req.params.id;
       console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
       rencontres.filter(function (rencontre) {
         return rencontre.id == idRencontre
