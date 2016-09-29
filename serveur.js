@@ -189,7 +189,7 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       rencontres = rencontres.filter((rencontre) => rencontre.id != idRencontre)
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp(rencontres)
+      res.jsonp()
     } else {
       // Suppression de la rencontre
       db.collection("rencontres").remove({ id: idRencontre })
@@ -197,7 +197,7 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       let rencontres = db.collection("rencontres").find().toArray()
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp(rencontres)
+      res.jsonp()
     }
   })
 })
