@@ -154,7 +154,7 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
       rencontres = [...rencontres, rencontre]
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp(rencontres);
+      res.jsonp();
     } else {
       let rencontres = db.collection("rencontres")
         .find().toArray()
