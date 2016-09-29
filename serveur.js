@@ -153,7 +153,7 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
       // Calcul de la nouvelle liste des rencontres
       rencontres = [...rencontres, rencontre]
       console.log("Nb rencontre dans la liste: " + rencontres.length)
-      // Retour de la nouvelle liste de rencontres
+      // Retour d'une URI sur la ressource nouvellement crée
       res.jsonp();
     } else {
       let rencontres = db.collection("rencontres")
