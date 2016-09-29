@@ -51,6 +51,7 @@ const RencontresConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontres) {
       if (!error && response.statusCode == 200) {
+        console.info("Reponse: " + response.location)
         store.dispatch({
           type: types.POST_RENCONTRE_SUCCESS,
           rencontres: rencontres

@@ -154,23 +154,34 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
       rencontres = [...rencontres, rencontre]
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp(rencontres);
+      res.location("/api/rencontre/" + rencontre.id);
+      res.jsonp();
+
     } else {
-      let rencontres = db.collection("rencontres")
-        .find().toArray()
-      // Calcul du plus grand identifiant
-      idCalcule = rencontres
-        .reduce((max, rencontre) => rencontre.id > max ? rencontre.id : max, 0)
-      // Calcul de l'identifiant de la nouvelle rencontre
-      rencontre.id = idCalcule + 1
-      // Insertion de la nouvelle rencontre
-      db.collection("rencontres").insert(rencontre, function (err, result) {
-        if (err) {
-          console.log("Chargement rencontres en erreur.");
-        } else {
-          console.log("Rencontres chargées.");
-        }
-      })
+      db.collection("rencontres")
+        .find()
+        .map(rencontre => rencontre.id)
+        .toArray(function (err, ids) {
+          let idCalcule = ids.reduce((max, id) => {
+            console.log("rencontre id/max: " + id + "/" + max);
+            return id > max ? id : max
+          }, 0)
+          // Calcul de l'identifiant de la nouvelle rencontre
+          idCalcule++
+          console.log("Nouvel id: " + idCalcule)
+          rencontre.id = idCalcule
+          // Insertion de la nouvelle rencontre
+          db.collection("rencontres")
+            .insert(rencontre, function (err, result) {
+              if (err) {
+                console.log("Chargement rencontres en erreur.");
+              } else {
+                console.log("Rencontres chargées.");
+                res.location("/api/rencontre/" + rencontre.id);
+                res.jsonp();
+              }
+            })
+        })
     }
   })
 })
