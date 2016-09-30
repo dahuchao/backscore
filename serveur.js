@@ -212,7 +212,7 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       db.collection("rencontres").find()
         .toArray(function (err, rencontres) {
           console.log("Nb rencontre dans la liste: " + rencontres.length)
-        }).forEach()
+        })
       // Retour de la nouvelle liste de rencontres
       res.sendStatus(204)
       db.close()
