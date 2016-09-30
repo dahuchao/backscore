@@ -29,7 +29,8 @@ app.use('/', express.static(repertoireSite));
 //**********************************************
 // Connection à la base de données
 //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
-var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
+// var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
@@ -176,12 +177,12 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
               if (err) {
                 console.log("Chargement rencontres en erreur.");
                 res
-                  .location("/api/rencontre/" + rencontre.id)
                   .sendStatus(500);
               } else {
-                console.log("Rencontres chargées.");
+                const localisation = "/api/rencontres/" + rencontre.id
+                console.log("Rencontres chargées: " + localisation);
                 res
-                  .location("/api/rencontre/" + rencontre.id)
+                  .location(localisation)
                   .sendStatus(201);
               }
             })
@@ -208,6 +209,11 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
     } else {
       // Suppression de la rencontre
       db.collection("rencontres").remove({ id: idRencontre })
+      db.collection("rencontres")
+        .find()
+        .forEach((rencontre) => {
+          console.log("rencontre: " + JSON.stringify(rencontre))
+        })
       // Calcul de la nouvelle liste
       db.collection("rencontres").find()
         .toArray(function (err, rencontres) {

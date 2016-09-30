@@ -39,6 +39,7 @@ const Rencontres = React.createClass({
           <CardText>
             <List id="rencontres" >
               {this.props.rencontres.map(rencontre => {
+                console.info("dqte Rencontres: " + JSON.stringify(rencontre.date))
                 return (
                   <ListItem
                     key={rencontre.id}

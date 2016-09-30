@@ -78,7 +78,6 @@ const RencontresConteneur = React.createClass({
 })
 
 const mapStateToProps = function (store) {
-  console.info("mapStateToProps Rencontres: " + JSON.stringify(store.rencontreState.rencontres))
   return {
     rencontres: store.rencontreState.rencontres,
     rencontre: store.rencontreState.rencontre,
