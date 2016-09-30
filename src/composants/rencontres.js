@@ -49,7 +49,7 @@ const Rencontres = React.createClass({
                       </Link>
                     }
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
-                    secondaryText={rencontre.date ? rencontre.date : null}
+                    secondaryText={rencontre.date ? rencontre.date : "date à préciser"}
                     rightIcon={<ActionInfo/>}
                     rightIconButton={
                       <RaisedButton onClick={ this.props.supprimeRencontre.bind(null, rencontre.id) }

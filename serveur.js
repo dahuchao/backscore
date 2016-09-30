@@ -154,8 +154,9 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
       rencontres = [...rencontres, rencontre]
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.location("/api/rencontre/" + rencontre.id);
-      res.jsonp();
+      res
+        .location("/api/rencontres/" + rencontre.id)
+        .sendStatus(201);
     } else {
       db.collection("rencontres")
         .find()
@@ -174,10 +175,14 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
             .insert(rencontre, function (err, result) {
               if (err) {
                 console.log("Chargement rencontres en erreur.");
+                res
+                  .location("/api/rencontre/" + rencontre.id)
+                  .sendStatus(500);
               } else {
                 console.log("Rencontres chargées.");
-                res.location("/api/rencontre/" + rencontre.id);
-                res.jsonp();
+                res
+                  .location("/api/rencontre/" + rencontre.id)
+                  .sendStatus(201);
               }
             })
         })
@@ -199,15 +204,15 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       rencontres = rencontres.filter((rencontre) => rencontre.id != idRencontre)
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp()
+      res.sendStatus(204)
     } else {
       // Suppression de la rencontre
       db.collection("rencontres").remove({ id: idRencontre })
       // Calcul de la nouvelle liste
-      let rencontres = db.collection("rencontres").find().toArray()
+      // let rencontres = db.collection("rencontres").find().toArray()
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       // Retour de la nouvelle liste de rencontres
-      res.jsonp()
+      res.sendStatus(204)
     }
   })
 })

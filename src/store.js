@@ -10,7 +10,7 @@ const initState = {
 function rencontreReducer(state = initState, action) {
     console.log("##############################")
     console.log("| ACTION: " + JSON.stringify(action.type))
-    var nouveauState = state
+    let nouveauState = state
     switch (action.type) {
         case types.GET_RENCONTRES_SUCCESS:
             console.log("| rencontres: " + JSON.stringify(action.rencontres))
@@ -36,9 +36,10 @@ function rencontreReducer(state = initState, action) {
             nouveauState = Object.assign({}, state, { rencontre: initRencontre })
             break;
         case types.POST_RENCONTRE_SUCCESS:
-            console.log("| rencontres: " + JSON.stringify(action.rencontres))
-            let rencontres = action.rencontres
-            // nouveauState = Object.assign({}, state, { rencontres: rencontres })
+            console.log("| rencontre (nouvelle): " + JSON.stringify(action.rencontre))
+            let liste = [...state.rencontres, action.rencontre]
+            // state.rencontres.push(action.rencontre)
+            nouveauState = Object.assign({}, state, { rencontres: liste })
             nouveauState = Object.assign({}, nouveauState, { modeAjout: false })
             break;
         case types.PUT_RENCONTRE_SUCCESS:
@@ -47,9 +48,9 @@ function rencontreReducer(state = initState, action) {
             nouveauState = Object.assign({}, nouveauState, { modeEdition: false })
             break;
         case types.DELETE_RENCONTRE_SUCCESS:
-            console.log("| rencontres: " + JSON.stringify(action.rencontres))
-            let delRencontres = action.rencontres
-            nouveauState = Object.assign({}, state, { rencontres: delRencontres })
+            console.log("| rencontre (supprimée): " + action.idRencontre)
+            let rencontres = state.rencontres.filter(rencontre => rencontre.id != action.idRencontre)
+            nouveauState = Object.assign({}, state, { rencontres: rencontres })
             break;
         case types.NOUVELLE_MARQUE:
             console.log("| rencontre: " + JSON.stringify(action.rencontre))

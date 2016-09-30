@@ -30,12 +30,11 @@ const RencontresConteneur = React.createClass({
     console.info("Suppression: " + idRencontre)
     var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + idRencontre
     console.info("Requete de l'API web: " + adresse)
-    request({ url: adresse, method: "DELETE" }, function (error, response, rencontres) {
-      if (!error && response.statusCode == 200) {
-        let oRencontres = JSON.parse(rencontres)
+    request({ url: adresse, method: "DELETE" }, function (error, response) {
+      if (!error && response.statusCode == 204) {
         store.dispatch({
           type: types.DELETE_RENCONTRE_SUCCESS,
-          rencontres: oRencontres
+          idRencontre: idRencontre
         })
       }
     })
@@ -50,11 +49,16 @@ const RencontresConteneur = React.createClass({
     var adresse = location.protocol + "//" + location.host + "/api/rencontres"
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "POST", json: rencontre }, function (error, response, rencontres) {
-      if (!error && response.statusCode == 200) {
-        console.info("Reponse: " + response.location)
+      if (!error && response.statusCode == 201) {
+        // Calcul de l'identifiant de la nouvelle rencontre
+        let [, id] = /^\/api\/rencontres\/(.*)$/.exec(response.headers.location);
+        // let id = response.headers.location.replace(new RegExp("/api\/rencontre\/(.*)"), "$1")
+        console.info("id: " + id)
+        rencontre.id = id
+        console.info("Rencontre: " + JSON.stringify(rencontre))
         store.dispatch({
           type: types.POST_RENCONTRE_SUCCESS,
-          rencontres: rencontres
+          rencontre: rencontre
         })
       }
     })
@@ -74,6 +78,7 @@ const RencontresConteneur = React.createClass({
 })
 
 const mapStateToProps = function (store) {
+  console.info("mapStateToProps Rencontres: " + JSON.stringify(store.rencontreState.rencontres))
   return {
     rencontres: store.rencontreState.rencontres,
     rencontre: store.rencontreState.rencontre,
