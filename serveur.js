@@ -209,12 +209,13 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       // Suppression de la rencontre
       db.collection("rencontres").remove({ id: idRencontre })
       // Calcul de la nouvelle liste
-      let rencontres = db.collection("rencontres").find()
+      db.collection("rencontres").find()
         .toArray(function (err, rencontres) {
           console.log("Nb rencontre dans la liste: " + rencontres.length)
-          // Retour de la nouvelle liste de rencontres
-          res.sendStatus(204)
-        })
+        }).forEach()
+      // Retour de la nouvelle liste de rencontres
+      res.sendStatus(204)
+      db.close()
     }
   })
 })
