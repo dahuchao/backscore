@@ -11,8 +11,8 @@ console.log("url de la base de donnée: " + url)
 
 MongoClient.connect(url, function (err, db) {
   db.collection("rencontres").remove({
-    // id: 0
-    "hote.nom": "test hote" 
+    id: 1
+    // "hote.nom": "test hote" 
   })
   let rencontres = db.collection("rencontres").find()
   rencontres.forEach((rencontre) => {

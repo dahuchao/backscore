@@ -38,7 +38,7 @@ function rencontreReducer(state = initState, action) {
         case types.POST_RENCONTRE_SUCCESS:
             console.log("| rencontres: " + JSON.stringify(action.rencontres))
             let rencontres = action.rencontres
-            nouveauState = Object.assign({}, state, { rencontres: rencontres })
+            // nouveauState = Object.assign({}, state, { rencontres: rencontres })
             nouveauState = Object.assign({}, nouveauState, { modeAjout: false })
             break;
         case types.PUT_RENCONTRE_SUCCESS:
