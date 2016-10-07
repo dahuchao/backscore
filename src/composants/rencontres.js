@@ -11,9 +11,10 @@ import {AppBar,
   TextField,
   DatePicker
 } from "material-ui"
-import ActionInfo from 'material-ui/svg-icons/action/info'
-import FileFolder from 'material-ui/svg-icons/file/folder'
-import ContentAdd from 'material-ui/svg-icons/content/add'
+import ActionInfo from "material-ui/svg-icons/action/info"
+import FileFolder from "material-ui/svg-icons/file/folder"
+import ContentAdd from "material-ui/svg-icons/content/add"
+// import moment from "moment/src/moment"
 
 const Rencontres = React.createClass({
   render: function () {
@@ -39,7 +40,12 @@ const Rencontres = React.createClass({
           <CardText>
             <List id="rencontres" >
               {this.props.rencontres.map(rencontre => {
-                console.info("dqte Rencontres: " + JSON.stringify(rencontre.date))
+                console.info("date Rencontres: " + JSON.stringify(rencontre.date))
+                // let date = moment().format("DD MM YYYY")
+                // let date = "2016-10-05"
+                let date = new Date()
+                let strdate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear()
+                // rencontre.date ? rencontre.date : "date à préciser"
                 return (
                   <ListItem
                     key={rencontre.id}

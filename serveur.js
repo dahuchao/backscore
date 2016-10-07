@@ -33,23 +33,23 @@ app.use('/', express.static(repertoireSite));
 // Connection à la base de données
 //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
 var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
-  // var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
-  //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
+// var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+//PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
 
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres
-app.get("/api/rencontres", function(req, res) {
+app.get("/api/rencontres", function (req, res) {
   console.log("GET rencontres.")
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
       console.log("Utilisation liste statique de test : " + JSON.stringify(rencontres))
       console.log("Nb rencontre dans la liste: " + rencontres.length)
       res.jsonp(rencontres);
     } else {
-      db.collection("rencontres").find().toArray(function(err, rencontres) {
+      db.collection("rencontres").find().toArray(function (err, rencontres) {
         if (err) {
           console.log("Les données rencontres indisponible: " + err)
         } else {
@@ -65,30 +65,30 @@ app.get("/api/rencontres", function(req, res) {
 
 //**********************************************
 // Traitement de la requête GET http://localhost/rencontres/2
-app.get("/api/rencontres/:id", function(req, res) {
+app.get("/api/rencontres/:id", function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("GET rencontre: " + idRencontre)
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
       console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
-      rencontres.filter(function(rencontre) {
+      rencontres.filter(function (rencontre) {
         return rencontre.id == idRencontre
-      }).forEach(function(rencontre) {
+      }).forEach(function (rencontre) {
         // Lecture de la rencontre
         res.jsonp(rencontre);
         console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
       })
     } else {
-      db.collection("rencontres").find().toArray(function(err, rencontres) {
+      db.collection("rencontres").find().toArray(function (err, rencontres) {
         if (err) {
           console.log("Les rencontres.")
         } else {
           console.log('Ouverture de la recontre:' + idRencontre)
-          rencontres.filter(function(rencontre) {
+          rencontres.filter(function (rencontre) {
             return rencontre.id == idRencontre
-          }).forEach(function(rencontre) {
+          }).forEach(function (rencontre) {
             // Lecture de la rencontre
             console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
             res.jsonp(rencontre);
@@ -101,33 +101,33 @@ app.get("/api/rencontres/:id", function(req, res) {
 
 //**********************************************
 // Traitement de la requête PUT http://localhost/rencontres/id
-app.put("/api/rencontres/:id", upload.array(), function(req, res) {
+app.put("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("PUT rencontre: " + idRencontre)
   let rencontreMAJ = req.body
   console.log("mise à jour rencontre: " + JSON.stringify(rencontreMAJ))
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
       console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
-      rencontres.filter(function(rencontre) {
-          return rencontre.id == idRencontre
-        }).map(function(rencontre) {
-          return rencontreMAJ
-        })
-        // Lecture de la rencontre
+      rencontres.filter(function (rencontre) {
+        return rencontre.id == idRencontre
+      }).map(function (rencontre) {
+        return rencontreMAJ
+      })
+      // Lecture de la rencontre
       res.jsonp(rencontreMAJ)
       console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
     } else {
-      db.collection("rencontres").find().toArray(function(err, rencontres) {
+      db.collection("rencontres").find().toArray(function (err, rencontres) {
         if (err) {
           console.log("Les rencontres.")
         } else {
           console.log('Ouverture de la recontre:' + idRencontre)
-          rencontres.filter(function(rencontre) {
+          rencontres.filter(function (rencontre) {
             return rencontre.id == idRencontre
-          }).forEach(function(rencontre) {
+          }).forEach(function (rencontre) {
             // rencontre.date=rencontreMAJ.date
             rencontre.hote.nom = rencontreMAJ.hote.nom
             rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
@@ -145,21 +145,21 @@ app.put("/api/rencontres/:id", upload.array(), function(req, res) {
 
 //**********************************************
 // Traitement de la requête POST http://localhost/rencontres
-app.post("/api/rencontres", upload.array(), function(req, res) {
+app.post("/api/rencontres", upload.array(), function (req, res) {
   let rencontre = req.body
   console.log("POST nouvelle rencontre: " + JSON.stringify(rencontre))
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible: " + err)
       console.log("Utilisation liste statique de test.")
-        // Calcul du plus grand identifiant
+      // Calcul du plus grand identifiant
       idCalcule = rencontres.reduce((max, rencontre) => rencontre.id > max ? rencontre.id : max, 0)
-        // Calcul de l'identifiant de la nouvelle rencontre
+      // Calcul de l'identifiant de la nouvelle rencontre
       rencontre.id = idCalcule + 1
-        // Calcul de la nouvelle liste des rencontres
+      // Calcul de la nouvelle liste des rencontres
       rencontres = [...rencontres, rencontre]
       console.log("Nb rencontre dans la liste: " + rencontres.length)
-        // Retour de la nouvelle liste de rencontres
+      // Retour de la nouvelle liste de rencontres
       res
         .location("/api/rencontres/" + rencontre.id)
         .sendStatus(201);
@@ -167,18 +167,18 @@ app.post("/api/rencontres", upload.array(), function(req, res) {
       db.collection("rencontres")
         .find()
         .map(rencontre => rencontre.id)
-        .toArray(function(err, ids) {
+        .toArray(function (err, ids) {
           let idCalcule = ids.reduce((max, id) => {
-              console.log("rencontre id/max: " + id + "/" + max);
-              return id > max ? id : max
-            }, 0)
-            // Calcul de l'identifiant de la nouvelle rencontre
+            console.log("rencontre id/max: " + id + "/" + max);
+            return id > max ? id : max
+          }, 0)
+          // Calcul de l'identifiant de la nouvelle rencontre
           idCalcule++
           console.log("Nouvel id: " + idCalcule)
           rencontre.id = idCalcule
-            // Insertion de la nouvelle rencontre
+          // Insertion de la nouvelle rencontre
           db.collection("rencontres")
-            .insert(rencontre, function(err, result) {
+            .insert(rencontre, function (err, result) {
               if (err) {
                 console.log("Chargement rencontres en erreur.");
                 res
@@ -198,18 +198,18 @@ app.post("/api/rencontres", upload.array(), function(req, res) {
 
 //**********************************************
 // Traitement de la requête DEL http://localhost/rencontres/id
-app.delete("/api/rencontres/:id", upload.array(), function(req, res) {
+app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = req.params.id
   console.log("DEL rencontre: " + idRencontre)
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log("Base de données indisponible.")
       console.log('Ouverture de la recontre de puis la liste statique :' + idRencontre)
-        // Suppression de la rencontre
+      // Suppression de la rencontre
       rencontres = rencontres.filter((rencontre) => rencontre.id != idRencontre)
       console.log("Nb rencontre dans la liste: " + rencontres.length)
-        // Retour de la nouvelle liste de rencontres
+      // Retour de la nouvelle liste de rencontres
       res.sendStatus(204)
     } else {
       // Suppression de la rencontre
@@ -239,25 +239,25 @@ app.delete("/api/rencontres/:id", upload.array(), function(req, res) {
       //   })
       //*****************************************
       db.collection("rencontres").remove({
-          "id": {
-            $eq: idRencontre
-          }
-        }, function(err, result) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(result);
-          // Calcul de la nouvelle liste
-          db.collection("rencontres").find()
-            .toArray(function(err, rencontres) {
-              console.log("Nb rencontre dans la liste: " + rencontres.length)
-            })
-            // Retour de la nouvelle liste de rencontres
-            // db.close()
-          db.close();
-          res.sendStatus(204)
-        })
-        //*****************************************
+        "id": {
+          $eq: idRencontre
+        }
+      }, function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+        // Calcul de la nouvelle liste
+        db.collection("rencontres").find()
+          .toArray(function (err, rencontres) {
+            console.log("Nb rencontre dans la liste: " + rencontres.length)
+          })
+        // Retour de la nouvelle liste de rencontres
+        // db.close()
+        db.close();
+        res.sendStatus(204)
+      })
+      //*****************************************
     }
   })
 })
@@ -275,75 +275,114 @@ var rencontres = [{
     marque: 11
   }
 }, {
-  id: 2,
-  date: new Date(),
-  hote: {
-    nom: "NEC",
-    marque: 22
-  },
-  visiteur: {
-    nom: "Montaigu",
-    marque: 22
-  }
-}, {
-  id: 3,
-  date: new Date(),
-  hote: {
-    nom: "NEC",
-    marque: 33
-  },
-  visiteur: {
-    nom: "Coulaine",
-    marque: 33
-  }
-}];
+    id: 2,
+    date: new Date(),
+    hote: {
+      nom: "NEC",
+      marque: 22
+    },
+    visiteur: {
+      nom: "Montaigu",
+      marque: 22
+    }
+  }, {
+    id: 3,
+    date: new Date(),
+    hote: {
+      nom: "NEC",
+      marque: 33
+    },
+    visiteur: {
+      nom: "Coulaine",
+      marque: 33
+    }
+  }];
 
 //**********************************************
 // Démarrage du serveur
-var serveur = app.listen(app.get('port'), function() {
-    console.log("Ecoute sur le port %d, à l'adresse http://localhost:80", serveur.address().port);
-  })
-  // Chargement de socket.io
+var serveur = app.listen(app.get('port'), function () {
+  console.log("Ecoute sur le port %d, à l'adresse http://localhost:80", serveur.address().port);
+})
+// Chargement de socket.io
 var io = require('socket.io').listen(serveur);
 // Socket des abonnés au flux de publication des mesures de la sonde de température
 var socketAbonnes = Immutable.Map();
 // Quand on client se connecte, on le note dans la console
-io.sockets.on('connect', function(socket) {
+io.sockets.on('connect', function (socket) {
   socket.emit('message', 'Vous êtes bien connecté au comité !');
   // Quand la table de marque recoit une demande d'abonnement à un tableau de marque
-  socket.on('ouvrirRencontre', function(idRencontre) {
+  socket.on('ouvrirRencontre', function (idRencontre) {
     console.log('Abonnement à la recontre:' + idRencontre)
-    rencontres.filter(function(rencontre) {
-      return rencontre.id == idRencontre
-    }).forEach(function(rencontre) {
-      socketAbonnes = socketAbonnes.set(socket, idRencontre);
-      console.log("Nouvel abonnement rencontre: " + rencontre.id);
-      console.log("Nombres abonnés: " + socketAbonnes.count());
+    MongoClient.connect(url, function (err, db) {
+      if (err) {
+        console.log("Base de données indisponible.")
+        rencontres.filter(function (rencontre) {
+          return rencontre.id == idRencontre
+        }).forEach(function (rencontre) {
+          socketAbonnes = socketAbonnes.set(socket, idRencontre);
+          console.log("Nouvel abonnement rencontre: " + rencontre.id);
+          console.log("Nombres abonnés: " + socketAbonnes.count());
+        })
+      } else {
+        db.collection("rencontres").find().toArray(function (err, rencontres) {
+          if (err) {
+            console.log("Les rencontres.")
+          } else {
+            rencontres.filter(function (rencontre) {
+              return rencontre.id == idRencontre
+            }).forEach(function (rencontre) {
+              socketAbonnes = socketAbonnes.set(socket, idRencontre);
+              console.log("Nouvel abonnement rencontre: " + rencontre.id);
+              console.log("Nombres abonnés: " + socketAbonnes.count());
+            })
+          }
+        })
+      }
     })
   });
   // Quand la table de marque recoit une demande d'abonnement à un tableau de marque
-  socket.on('fermerRencontre', function(idRencontre) {
+  socket.on('fermerRencontre', function (idRencontre) {
     console.log('Des-abonnement à la recontre:' + idRencontre)
-    rencontres.filter(function(rencontre) {
-      return rencontre.id == idRencontre
-    }).forEach(function(rencontre) {
-      socketAbonnes = socketAbonnes.delete(socket);
-      console.log("Fermeture abonnement rencontre: " + rencontre.id);
-      console.log("Nombres abonnés: " + socketAbonnes.count());
+    MongoClient.connect(url, function (err, db) {
+      if (err) {
+        console.log("Base de données indisponible.")
+        rencontres.filter(function (rencontre) {
+          return rencontre.id == idRencontre
+        }).forEach(function (rencontre) {
+          socketAbonnes = socketAbonnes.delete(socket);
+          console.log("Fermeture abonnement rencontre: " + rencontre.id);
+          console.log("Nombres abonnés: " + socketAbonnes.count());
+        })
+      } else {
+        db.collection("rencontres").find().toArray(function (err, rencontres) {
+          if (err) {
+            console.log("Les rencontres.")
+          } else {
+            rencontres.filter(function (rencontre) {
+              return rencontre.id == idRencontre
+            }).forEach(function (rencontre) {
+              socketAbonnes = socketAbonnes.delete(socket);
+              console.log("Fermeture abonnement rencontre: " + rencontre.id);
+              console.log("Nombres abonnés: " + socketAbonnes.count());
+            })
+          }
+        })
+      }
     })
   });
   // Un panier est marqué
-  socket.on('panierMarque', function(rencontre) {
+  socket.on('panierMarque', function (rencontre) {
     console.log("Panier marqué !");
     console.log("Nouvelle marque:" + JSON.stringify(rencontre));
-    socketAbonnes.filter(function(idRencontre) {
+    console.log("Nb abonnés:" + socketAbonnes.count());
+    socketAbonnes.filter(function (idRencontre) {
       return idRencontre == rencontre.id
-    }).forEach(function(idRencontre, soc) {
+    }).forEach(function (idRencontre, soc) {
       console.log("id: " + JSON.stringify(idRencontre));
       soc.emit("nouvelleMarque", rencontre);
       console.log("Envoie de la nouvelle marque ! " + JSON.stringify(rencontre));
     })
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
       if (err) {
         console.log("Base de données indisponible.")
       } else {
@@ -351,11 +390,11 @@ io.sockets.on('connect', function(socket) {
         db.collection("rencontres").update({
           id: rencontre.id
         }, {
-          $set: {
-            "hote.marque": rencontre.hote.marque,
-            "visiteur.marque": rencontre.visiteur.marque
-          }
-        })
+            $set: {
+              "hote.marque": rencontre.hote.marque,
+              "visiteur.marque": rencontre.visiteur.marque
+            }
+          })
       }
     })
   })

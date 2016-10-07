@@ -28,6 +28,9 @@ const RencontreAjout = React.createClass({
     console.info("Ajout visiteur: " + JSON.stringify(this.state))
   },
   sauver: function () {
+    let date = this.state.date
+    let strdate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
+    this.state.date=strdate
     this.props.ajoutRencontre(this.state)
   },
   render: function () {

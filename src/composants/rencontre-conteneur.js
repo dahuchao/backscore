@@ -44,10 +44,12 @@ const RencontreConteneur = React.createClass({
   },
   render: function () {
     return (
-      !this.props.rencontre ? null : <Rencontre rencontre={this.props.rencontre}
-        editer={this.editer}
-        sauver={this.sauver}
-        modeEdition={this.props.modeEdition} />
+      !this.props.rencontre ? null :
+        <Rencontre
+          rencontre={this.props.rencontre}
+          editer={this.editer}
+          sauver={this.sauver}
+          modeEdition={this.props.modeEdition} />
     )
   }
 })

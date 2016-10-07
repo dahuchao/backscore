@@ -15,13 +15,14 @@ var Tableau = React.createClass({
   },
   componentWillUnmount: function () {
     const idRencontre = this.props.rencontre.id
-    // console.info("Fermeture tableau rencontre " + idRencontre)
+    console.info("Fermeture tableau rencontre " + idRencontre)
     this.socket.emit("fermerRencontre", idRencontre)
   },
   connexionTableMarque: function () {
     console.info("Connecté avec la table de marque")
     const idRencontre = this.props.rencontre.id
     // console.info("Identifiant rencontre: " + idRencontre)
+    this.socket.emit("ouvrirRencontre", idRencontre)
     this.socket.on("nouvelleMarque", this.surNouvelleMarque)
   },
   ouvertureRencontre: function (idRencontre) {
@@ -29,7 +30,7 @@ var Tableau = React.createClass({
     this.socket.emit("ouvrirRencontre", idRencontre)
   },
   surNouvelleMarque: function (rencontre) {
-    // console.info("Reception d'une nouvelle marque: " + JSON.stringify(rencontre))
+    // console.debug("Reception d'une nouvelle marque: " + JSON.stringify(rencontre))
     store.dispatch({
       type: types.NOUVELLE_MARQUE,
       rencontre: rencontre
