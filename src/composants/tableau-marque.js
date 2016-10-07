@@ -5,8 +5,10 @@ export default React.createClass({
     return (
       <div id="marque">
         <div className="compteur">
-          <span className="hote" onClick={this.props.surCorrectionHote}>{this.props.hote}</span>-
-          <span className="visiteur" onClick={this.props.surCorrectionVisiteur}>{this.props.visiteur}</span>
+          <span className="hote"
+            onClick={this.props.surCorrectionHote}>{this.props.hote}</span>-
+          <span className="visiteur"
+            onClick={this.props.surCorrectionVisiteur}>{this.props.visiteur}</span>
         </div>
       </div>
     )

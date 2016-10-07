@@ -1,4 +1,8 @@
 $vert: #99cc00;
+$mobile: "(max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1023px)";
+$desktop: "(min-width: 1024px)";
+
 body {
   display: flex;
   flex-direction: column;
@@ -54,6 +58,10 @@ header {
   .equipe {
     @include element;
     cursor: pointer;
+      user-select: none;
+    @media #{$mobile} {
+       font-size: 1em;
+    }
     font-size: 3em;
     color: white;
     flex: 2;
@@ -70,6 +78,10 @@ header {
     .compteur {
       color: black;
       font-weight: bold;
+      user-select: none;
+      @media #{$mobile} {
+        font-size: 1.5em;
+      }
       font-size: 2.5em;
       border-radius: 10%;
       padding: 15px;

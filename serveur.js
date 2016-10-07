@@ -32,8 +32,8 @@ app.use('/', express.static(repertoireSite));
 //**********************************************
 // Connection à la base de données
 //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
-var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
-// var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+// var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
+var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
@@ -56,9 +56,9 @@ app.get("/api/rencontres", function (req, res) {
           // Lecture de la liste des rencontres
           console.log("Nombre de rencontre en base", rencontres.length)
           res.jsonp(rencontres);
-          //db.close()
         }
       })
+      db.close()
     }
   })
 })
@@ -67,7 +67,7 @@ app.get("/api/rencontres", function (req, res) {
 // Traitement de la requête GET http://localhost/rencontres/2
 app.get("/api/rencontres/:id", function (req, res) {
   // Calcul du nom de la page recherchée
-  let idRencontre = req.params.id
+  let idRencontre = parseInt(req.params.id)
   console.log("GET rencontre: " + idRencontre)
   MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -81,18 +81,15 @@ app.get("/api/rencontres/:id", function (req, res) {
         console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
       })
     } else {
-      db.collection("rencontres").find().toArray(function (err, rencontres) {
+      db.collection("rencontres").find({
+        id: idRencontre
+      }).each(function (err, rencontre) {
         if (err) {
-          console.log("Les rencontres.")
+          console.log("Erreur: " + err)
         } else {
-          console.log('Ouverture de la recontre:' + idRencontre)
-          rencontres.filter(function (rencontre) {
-            return rencontre.id == idRencontre
-          }).forEach(function (rencontre) {
-            // Lecture de la rencontre
-            console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
-            res.jsonp(rencontre);
-          })
+          // Lecture de la rencontre
+          console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+          res.jsonp(rencontre);
         }
       })
     }
@@ -103,7 +100,7 @@ app.get("/api/rencontres/:id", function (req, res) {
 // Traitement de la requête PUT http://localhost/rencontres/id
 app.put("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
-  let idRencontre = req.params.id
+  let idRencontre = parseInt(req.params.id)
   console.log("PUT rencontre: " + idRencontre)
   let rencontreMAJ = req.body
   console.log("mise à jour rencontre: " + JSON.stringify(rencontreMAJ))
@@ -120,23 +117,20 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
       res.jsonp(rencontreMAJ)
       console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontreMAJ));
     } else {
-      db.collection("rencontres").find().toArray(function (err, rencontres) {
+      db.collection("rencontres").find({
+        id: idRencontre
+      }).each(function (err, rencontre) {
         if (err) {
-          console.log("Les rencontres.")
+          console.log("Erreur: " + err)
         } else {
-          console.log('Ouverture de la recontre:' + idRencontre)
-          rencontres.filter(function (rencontre) {
-            return rencontre.id == idRencontre
-          }).forEach(function (rencontre) {
-            // rencontre.date=rencontreMAJ.date
-            rencontre.hote.nom = rencontreMAJ.hote.nom
-            rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
-            db.collection("rencontres").update({
-              _id: rencontre._id
-            }, rencontre)
-            res.jsonp(rencontre);
-            console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
-          })
+          // rencontre.date=rencontreMAJ.date
+          rencontre.hote.nom = rencontreMAJ.hote.nom
+          rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
+          db.collection("rencontres").update({
+            _id: rencontre._id
+          }, rencontre)
+          res.jsonp(rencontre);
+          console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
         }
       })
     }
@@ -181,13 +175,11 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
             .insert(rencontre, function (err, result) {
               if (err) {
                 console.log("Chargement rencontres en erreur.");
-                res
-                  .sendStatus(500);
+                res.sendStatus(500);
               } else {
                 const localisation = "/api/rencontres/" + rencontre.id
                 console.log("Rencontres chargées: " + localisation);
-                res
-                  .location(localisation)
+                res.location(localisation)
                   .sendStatus(201);
               }
             })
@@ -200,7 +192,7 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
 // Traitement de la requête DEL http://localhost/rencontres/id
 app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
-  let idRencontre = req.params.id
+  let idRencontre = parseInt(req.params.id)
   console.log("DEL rencontre: " + idRencontre)
   MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -213,51 +205,23 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
       res.sendStatus(204)
     } else {
       // Suppression de la rencontre
-      //*****************************************
-      // db.collection("rencontres")
-      //   .find({
-      //     id: idRencontre
-      //   })
-      //   .forEach((rencontre) => {
-      //     console.log("rencontre (à supprimer) : " + JSON.stringify(rencontre))
-      //     console.log("rencontre (_id): " + rencontre._id)
-      //     db.collection("rencontres").remove({
-      //       "_id": ObjectId(rencontre._id)
-      //     }, function(err, result) {
-      //       if (err) {
-      //         console.log(err);
-      //       }
-      //       console.log(result);
-      //       db.collection("rencontres")
-      //         .find()
-      //         .forEach((rencontre) => {
-      //           console.log("rencontre: " + JSON.stringify(rencontre))
-      //         })
-      //       res.sendStatus(204)
-      //       db.close();
-      //     })
-      //   })
-      //*****************************************
       db.collection("rencontres").remove({
-        "id": {
-          $eq: idRencontre
-        }
+        id: idRencontre
       }, function (err, result) {
         if (err) {
-          console.log(err);
+          console.log("Erreur: " + err);
         }
-        console.log(result);
+        console.log("Résultat: " + result);
         // Calcul de la nouvelle liste
-        db.collection("rencontres").find()
+        db.collection("rencontres")
+          .find()
           .toArray(function (err, rencontres) {
             console.log("Nb rencontre dans la liste: " + rencontres.length)
           })
         // Retour de la nouvelle liste de rencontres
-        // db.close()
         db.close();
         res.sendStatus(204)
       })
-      //*****************************************
     }
   })
 })

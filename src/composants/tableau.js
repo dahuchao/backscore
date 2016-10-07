@@ -64,9 +64,17 @@ var Tableau = React.createClass({
     this.ouvertureRencontre(this.props.rencontre.id)
     return (
       <div id="tableau">
-        <Equipe nom={this.props.rencontre.hote.nom} surPanier={this.surPanierHote} />
-        <Marque hote={this.props.rencontre.hote.marque} visiteur={this.props.rencontre.visiteur.marque} surCorrectionHote={this.surCorrectionHote} surCorrectionVisiteur={this.surCorrectionVisiteur} />
-        <Equipe nom={this.props.rencontre.visiteur.nom} surPanier={this.surPanierVisiteur} />
+        <Equipe
+          nom={this.props.rencontre.hote.nom}
+          surPanier={this.surPanierHote} />
+        <Marque
+          hote={this.props.rencontre.hote.marque}
+          visiteur={this.props.rencontre.visiteur.marque}
+          surCorrectionHote={this.surCorrectionHote}
+          surCorrectionVisiteur={this.surCorrectionVisiteur} />
+        <Equipe
+          nom={this.props.rencontre.visiteur.nom}
+          surPanier={this.surPanierVisiteur} />
       </div>
     )
   }

@@ -30,7 +30,7 @@ const RencontreAjout = React.createClass({
   sauver: function () {
     let date = this.state.date
     let strdate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
-    this.state.date=strdate
+    this.state.date = strdate
     this.props.ajoutRencontre(this.state)
   },
   render: function () {
@@ -40,9 +40,15 @@ const RencontreAjout = React.createClass({
           iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack/></IconButton>} />
         <Card>
           <CardText>
-            <DatePicker defaultValue={this.props.rencontre.date} onChange={this.majDate} hintText="Date de la rencontre"/>
-            <TextField defaultValue={this.props.rencontre.hote.nom} onChange={this.majHote} hintText="Hote"/><br/>
-            <TextField defaultValue={this.props.rencontre.visiteur.nom} onChange={this.majVisiteur} hintText="Visiteur"/><br/>
+            <DatePicker hintText="Date de la rencontre"
+              defaultValue={this.props.rencontre.date}
+              onChange={this.majDate} />
+            <TextField hintText="Hote"
+              defaultValue={this.props.rencontre.hote.nom}
+              onChange={this.majHote} /><br/>
+            <TextField hintText="Visiteur"
+              defaultValue={this.props.rencontre.visiteur.nom}
+              onChange={this.majVisiteur} /><br/>
           </CardText>
         </Card>
       </div>
