@@ -86,7 +86,8 @@ app.get("/api/rencontres/:id", function (req, res) {
       }).each(function (err, rencontre) {
         if (err) {
           console.log("Erreur: " + err)
-        } else {
+        }
+        if (rencontre != null) {
           // Lecture de la rencontre
           console.log("Envoie de la rencontre: " + JSON.stringify(rencontre));
           res.jsonp(rencontre);
@@ -123,7 +124,7 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
         if (err) {
           console.log("Erreur: " + err)
         }
-        if(rencontre!=null) {
+        if (rencontre != null) {
           // rencontre.date=rencontreMAJ.date
           rencontre.hote.nom = rencontreMAJ.hote.nom
           rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
