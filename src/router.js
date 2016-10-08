@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default (
   <MuiThemeProvider>
-    <Router history={hashHistory} >
+    <Router >
       <Route path="/" component={AccueilConteneur} >
         <IndexRedirect to="/rencontres" />
         <Route path="/rencontres/:idRencontre" component={RencontreConteneur} />

@@ -88,7 +88,7 @@ app.get("/api/rencontres/:id", function (req, res) {
           console.log("Erreur: " + err)
         } else {
           // Lecture de la rencontre
-          console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
+          console.log("Envoie de la rencontre: " + JSON.stringify(rencontre));
           res.jsonp(rencontre);
         }
       })
@@ -97,7 +97,7 @@ app.get("/api/rencontres/:id", function (req, res) {
 })
 
 //**********************************************
-// Traitement de la requête PUT http://localhost/rencontres/id
+// Traitement de la requête PUT http://localhos t/rencontres/id
 app.put("/api/rencontres/:id", upload.array(), function (req, res) {
   // Calcul du nom de la page recherchée
   let idRencontre = parseInt(req.params.id)
@@ -122,7 +122,8 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
       }).each(function (err, rencontre) {
         if (err) {
           console.log("Erreur: " + err)
-        } else {
+        }
+        if(rencontre!=null) {
           // rencontre.date=rencontreMAJ.date
           rencontre.hote.nom = rencontreMAJ.hote.nom
           rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
