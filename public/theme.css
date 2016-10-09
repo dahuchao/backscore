@@ -57,26 +57,31 @@ header {
       height: 40%;
       max-width: 110px; }
   #tableau #marque {
+    flex-direction: column;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1; }
+    #tableau #marque .periode {
+      color: white;
+      padding: 2px; }
     #tableau #marque .compteur {
       color: black;
       font-weight: bold;
       user-select: none;
       font-size: 2.5em;
       border-radius: 10%;
-      padding: 15px;
       background-color: white; }
       @media (max-width: 767px) {
         #tableau #marque .compteur {
           font-size: 1.5em; } }
       #tableau #marque .compteur .hote {
-        cursor: pointer; }
+        cursor: pointer;
+        padding: 1em; }
       #tableau #marque .compteur .visiteur {
-        cursor: pointer; }
+        cursor: pointer;
+        padding: 1em; }
 
 footer {
   color: white;

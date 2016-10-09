@@ -73,8 +73,13 @@ header {
     }
   }
   #marque {
-    @include element;
+    flex-direction: column;
+    @include element; 
     flex: 1;
+    .periode {
+      color: white;
+      padding: 2px;
+    }
     .compteur {
       color: black;
       font-weight: bold;
@@ -84,13 +89,14 @@ header {
       }
       font-size: 2.5em;
       border-radius: 10%;
-      padding: 15px;
       background-color: white;
       .hote {
         cursor: pointer;
+        padding: 1em;
       }
       .visiteur {
         cursor: pointer;
+        padding: 1em;
       }
     }
   }
