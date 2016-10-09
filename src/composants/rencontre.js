@@ -33,8 +33,13 @@ const Rencontre = React.createClass({
     let date = rencontre.date ? rencontre.date : new Date()
     return { date: date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
-  majDate: function (x, date) {
-    this.setState({ date: date })
+  // majDate: function (x, date) {
+  //   console.info("MAJ datejjjjjjjjjjjjj: " + JSON.stringify(date))
+  //   this.setState({ date: date })
+  //   console.info("MAJ date: " + JSON.stringify(this.state))
+  // },
+  majDate: function (e) {
+    this.setState({ date: e.target.value })
     console.info("MAJ date: " + JSON.stringify(this.state))
   },
   majHote: function (e) {
@@ -56,12 +61,9 @@ const Rencontre = React.createClass({
           iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack/></IconButton>} />
         <Card >
           <CardText>
-            <DatePicker hintText="Date de la rencontre"
+            <TextField hintText="Date"
               defaultValue={this.props.rencontre.date}
-              onChange={this.majDate}
-              okLabel="OK"
-              cancelLabel="Annuler"
-              DateTimeFormat={DateTimeFormat} />
+              onChange={this.majDate} /><br/>
             <TextField hintText="Hote"
               defaultValue={this.props.rencontre.hote.nom}
               onChange={this.majHote} /><br/>

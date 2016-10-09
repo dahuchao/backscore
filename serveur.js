@@ -125,7 +125,7 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
           console.log("Erreur: " + err)
         }
         if (rencontre != null) {
-          // rencontre.date=rencontreMAJ.date
+          rencontre.date=rencontreMAJ.date
           rencontre.hote.nom = rencontreMAJ.hote.nom
           rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
           db.collection("rencontres").update({

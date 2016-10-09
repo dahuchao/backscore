@@ -29,7 +29,7 @@ const RencontreConteneur = React.createClass({
     console.info("Requete de l'API web: " + adresse)
     request({ url: adresse, method: "PUT", json: rencontre }, function (error, response, rencontre) {
       if (!error && response.statusCode == 200) {
-        console.info("Rencontre modifiée :" + rencontre)
+        console.info("Rencontre modifiée :" + JSON.stringify(rencontre))
         store.dispatch({
           type: types.PUT_RENCONTRE_SUCCESS,
           rencontre: rencontre
