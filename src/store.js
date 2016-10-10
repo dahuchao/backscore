@@ -24,6 +24,7 @@ function rencontreReducer(state = initState, action) {
             let initRencontre = {
                 id: 0,
                 date: new Date(),
+                periode: 1,
                 hote: {
                     nom: "",
                     marque: 0
@@ -76,6 +77,10 @@ function rencontreReducer(state = initState, action) {
         case types.EDITER_RENCONTRE:
             nouveauState = Object.assign({}, state, { modeEdition: !state.modeEdition })
             console.log("| Mode édition: " + JSON.stringify(state.modeEdition))
+            break;
+        case types.NOUVELLE_PERIODE:
+            console.log("| Nouvelle période: " + JSON.stringify(action.rencontre.periode))
+            nouveauState = Object.assign({}, state, { rencontre: action.rencontre })
             break;
     }
     console.log("Nouvel état: " + JSON.stringify(nouveauState))

@@ -58,6 +58,7 @@ app.get("/api/rencontres", function (req, res) {
           res.jsonp(rencontres);
         }
       })
+      // Fermeture de la base de données
       db.close()
     }
   })
@@ -93,6 +94,8 @@ app.get("/api/rencontres/:id", function (req, res) {
           res.jsonp(rencontre);
         }
       })
+      // Fermeture de la base de données
+      db.close();
     }
   })
 })
@@ -125,12 +128,15 @@ app.put("/api/rencontres/:id", upload.array(), function (req, res) {
           console.log("Erreur: " + err)
         }
         if (rencontre != null) {
-          rencontre.date=rencontreMAJ.date
+          rencontre.date = rencontreMAJ.date
           rencontre.hote.nom = rencontreMAJ.hote.nom
           rencontre.visiteur.nom = rencontreMAJ.visiteur.nom
           db.collection("rencontres").update({
             _id: rencontre._id
           }, rencontre)
+          // Fermeture de la base de données
+          db.close();
+          // Retour de la ressource
           res.jsonp(rencontre);
           console.log('Envoie de la rencontre ! ' + JSON.stringify(rencontre));
         }
@@ -181,6 +187,8 @@ app.post("/api/rencontres", upload.array(), function (req, res) {
               } else {
                 const localisation = "/api/rencontres/" + rencontre.id
                 console.log("Rencontres chargées: " + localisation);
+                // Fermeture de la base de données
+                db.close();
                 res.location(localisation)
                   .sendStatus(201);
               }
@@ -220,8 +228,9 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
           .toArray(function (err, rencontres) {
             console.log("Nb rencontre dans la liste: " + rencontres.length)
           })
-        // Retour de la nouvelle liste de rencontres
+        // Fermeture de la base de données
         db.close();
+        // Retour de la nouvelle liste de rencontres
         res.sendStatus(204)
       })
     }
@@ -231,7 +240,7 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
 // Serveur de publication mesures de la sonde de température
 var rencontres = [{
   id: 1,
-  date: new Date(),
+  date: "10-09-2016",
   hote: {
     nom: "NEC",
     marque: 11
@@ -242,7 +251,7 @@ var rencontres = [{
   }
 }, {
     id: 2,
-    date: new Date(),
+    date: "10-09-2016",
     hote: {
       nom: "NEC",
       marque: 22
@@ -253,7 +262,7 @@ var rencontres = [{
     }
   }, {
     id: 3,
-    date: new Date(),
+    date: "10-09-2016",
     hote: {
       nom: "NEC",
       marque: 33

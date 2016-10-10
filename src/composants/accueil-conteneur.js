@@ -1,17 +1,17 @@
 import React from "react"
 
 export default function (props) {
+  let date = new Date()
+  let strDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+  let strHeure = date.getHours() + ":" + date.getMinutes()
   return (
     <div>
       {props.children}
       <footer>
-        <div className="info">
-          <div className="organisateur">
-            Ligue régionale de basket des Pays de la Loire, Saison régulière
-          </div>
-          <div className="date">
-            Dim.10 janvier 2016
-          </div>
+        <div id="info">
+          <span className="date">
+            {strDate} {strHeure}
+          </span>
         </div>
       </footer>
     </div>

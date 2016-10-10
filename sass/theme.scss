@@ -76,27 +76,40 @@ header {
     flex-direction: column;
     @include element; 
     flex: 1;
-    .periode {
-      color: white;
-      padding: 2px;
+    @media #{$mobile} {
+      font-size: 1.5em;
+    }
+    font-size: 2.5em;
+    #periodes {
+      @media #{$mobile} {
+        font-size: 0.5em;
+      }
+      font-size: 1em;
+      .periode {
+        color: white;
+        padding: 5px;
+      }
     }
     .compteur {
+      @media #{$mobile} {
+        padding: 0.4em;
+        min-width: 2em;
+      }
+      flex-direction: row;
+      display:flex;
+      justify-content: center;
+      padding: 0.5em;
+      min-width: 3em;
       color: black;
       font-weight: bold;
       user-select: none;
-      @media #{$mobile} {
-        font-size: 1.5em;
-      }
-      font-size: 2.5em;
       border-radius: 10%;
       background-color: white;
       .hote {
         cursor: pointer;
-        padding: 1em;
       }
       .visiteur {
         cursor: pointer;
-        padding: 1em;
       }
     }
   }
@@ -106,4 +119,8 @@ footer {
   background-color: grey;
   //margin-top: 1em;
   padding: 0.8em;
+  #info{
+    display: flex;
+    justify-content: flex-end;
+  }
 }

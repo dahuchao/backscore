@@ -1,10 +1,10 @@
 import React from "react"
 import Marque from "./tableau-marque.js"
 import Equipe from "./tableau-equipe.js"
-import store from '../store'
+import store from "../store"
 import io from "socket.io-client"
 import request from "request"
-import * as types from '../actions/actions-types'
+import * as types from "../actions/actions-types"
 
 var Tableau = React.createClass({
   componentWillMount: function () {
@@ -70,6 +70,8 @@ var Tableau = React.createClass({
         <Marque
           hote={this.props.rencontre.hote.marque}
           visiteur={this.props.rencontre.visiteur.marque}
+          rencontre={this.props.rencontre}
+          surCorrectionHote={this.surCorrectionHote}
           surCorrectionHote={this.surCorrectionHote}
           surCorrectionVisiteur={this.surCorrectionVisiteur} />
         <Equipe
