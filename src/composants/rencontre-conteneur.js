@@ -23,6 +23,7 @@ const RencontreConteneur = React.createClass({
   sauver: function (infos) {
     let rencontre = this.props.rencontre
     rencontre.date = infos.date
+    rencontre.periode = infos.periode
     rencontre.hote.nom = infos.hote
     rencontre.visiteur.nom = infos.visiteur
     var adresse = location.protocol + "//" + location.host + "/api/rencontres/" + this.props.rencontre.id
@@ -42,10 +43,21 @@ const RencontreConteneur = React.createClass({
       type: types.EDITER_RENCONTRE
     })
   },
+  surPeriode(periode) {
+    let rencontre = this.props.rencontre
+    rencontre.periode = periode
+    console.debug("Nouvelle periode: " + JSON.stringify(rencontre))
+    store.dispatch({
+      type: types.NOUVELLE_PERIODE,
+      rencontre: rencontre
+    })
+  },
   render: function () {
+    console.debug("Conteneurrrrrr.")
     return (
       !this.props.rencontre ? null :
         <Rencontre
+          surPeriode={this.surPeriode}
           rencontre={this.props.rencontre}
           editer={this.editer}
           sauver={this.sauver}
@@ -54,6 +66,7 @@ const RencontreConteneur = React.createClass({
   }
 })
 const mapStateToProps = function (store) {
+  console.debug("Conteneur.")
   return {
     rencontre: store.rencontreState.rencontre,
     modeEdition: store.rencontreState.modeEdition

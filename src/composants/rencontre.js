@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from 'react-router'
-import { AppBar,
+import {
+  AppBar,
   Card,
   IconButton,
   FlatButton,
@@ -8,7 +9,8 @@ import { AppBar,
   ContentAdd,
   CardText,
   TextField,
-  DatePicker } from "material-ui"
+  DatePicker
+} from "material-ui"
 import NavigationClose from "material-ui/svg-icons/navigation/close"
 import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 import Tableau from "./tableau"
@@ -55,21 +57,22 @@ const Rencontre = React.createClass({
   },
   render: function () {
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
+    console.debug("Conteneur2.")
     return this.props.modeEdition ? (
       <div>
         <AppBar title="Edition rencontre"
-          iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack/></IconButton>} />
+          iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack /></IconButton>} />
         <Card >
           <CardText>
             <TextField hintText="Date"
               defaultValue={this.props.rencontre.date}
-              onChange={this.majDate} /><br/>
+              onChange={this.majDate} /><br />
             <TextField hintText="Hote"
               defaultValue={this.props.rencontre.hote.nom}
-              onChange={this.majHote} /><br/>
+              onChange={this.majHote} /><br />
             <TextField hintText="Visiteur"
               defaultValue={this.props.rencontre.visiteur.nom}
-              onChange={this.majVisiteur} /><br/>
+              onChange={this.majVisiteur} /><br />
           </CardText>
         </Card >
       </div>
@@ -79,12 +82,14 @@ const Rencontre = React.createClass({
             iconElementLeft={
               <Link to="/rencontres">
                 <IconButton>
-                  <NavigationArrowBack/>
+                  <NavigationArrowBack />
                 </IconButton>
               </Link>}
             iconElementRight={<FlatButton label={labelBouton} onClick={this.props.editer} />}
             />
-          <Tableau rencontre={this.props.rencontre}/>
+          <Tableau
+            rencontre={this.props.rencontre}
+            surPeriode={this.props.surPeriode} />
         </div>
       )
   }

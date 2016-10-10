@@ -13,7 +13,7 @@ import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 const RencontreAjout = React.createClass({
   getInitialState: function () {
     let rencontre = this.props.rencontre
-    return { date: rencontre.date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
+    return { date: rencontre.date, periode: 1, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
   majDate: function (x, date) {
     this.setState({ date: date })

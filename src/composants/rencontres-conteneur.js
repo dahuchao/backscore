@@ -43,6 +43,7 @@ const RencontresConteneur = React.createClass({
     let rencontre = this.props.rencontre
     console.info("Info: " + JSON.stringify(infos))
     rencontre.date = infos.date
+    rencontre.periode = infos.periode
     rencontre.hote.nom = infos.hote
     rencontre.visiteur.nom = infos.visiteur
     console.log("Ajout rencontre : " + JSON.stringify(rencontre))

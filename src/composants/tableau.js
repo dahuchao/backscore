@@ -1,9 +1,9 @@
 import React from "react"
 import Marque from "./tableau-marque.js"
 import Equipe from "./tableau-equipe.js"
-import store from "../store"
 import io from "socket.io-client"
 import request from "request"
+import store from "../store"
 import * as types from "../actions/actions-types"
 
 var Tableau = React.createClass({
@@ -61,6 +61,7 @@ var Tableau = React.createClass({
     this.socket.emit('panierMarque', this.props.rencontre)
   },
   render: function () {
+    console.debug("Conteneur3.")
     this.ouvertureRencontre(this.props.rencontre.id)
     return (
       <div id="tableau">
@@ -68,10 +69,8 @@ var Tableau = React.createClass({
           nom={this.props.rencontre.hote.nom}
           surPanier={this.surPanierHote} />
         <Marque
-          hote={this.props.rencontre.hote.marque}
-          visiteur={this.props.rencontre.visiteur.marque}
           rencontre={this.props.rencontre}
-          surCorrectionHote={this.surCorrectionHote}
+          surPeriode={this.props.surPeriode}
           surCorrectionHote={this.surCorrectionHote}
           surCorrectionVisiteur={this.surCorrectionVisiteur} />
         <Equipe

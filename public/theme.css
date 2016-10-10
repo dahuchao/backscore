@@ -73,6 +73,7 @@ header {
         #tableau #marque #periodes {
           font-size: 0.5em; } }
       #tableau #marque #periodes .periode {
+        cursor: pointer;
         color: white;
         padding: 5px; }
     #tableau #marque .compteur {
