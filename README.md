@@ -2,10 +2,10 @@
 Publication des tableaux de marque de rencontre de basket.
 
 Les utilisateurs spectateurs d'une rencontre, peuvent noter l'évolution du résultat sur cette table de marque
-électronique. Les utilisateurs distant qui n'ont pas pu se déplacer, voient depuis leur canapé l'évolution
+électronique. Les utilisateurs distants qui n'ont pas pu se déplacer, voient depuis leur canapé l'évolution
 du résultat en temps réel (sans avoir à raffraichir le tableau).
 
-Attention Projet en cours de développement.
+Attention Projet en cours de développement : stabilité non garantie.
 
 Mode SASS : https://backscore.herokuapp.com
 

@@ -16,19 +16,6 @@ import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 import Tableau from "./tableau"
 import areIntlLocalesSupported from "intl-locales-supported"
 
-let DateTimeFormat;
-
-/**
- * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
- */
-if (areIntlLocalesSupported(['fr'])) {
-  DateTimeFormat = global.Intl.DateTimeFormat;
-} else {
-  const IntlPolyfill = require('intl');
-  DateTimeFormat = IntlPolyfill.DateTimeFormat;
-  require('intl/locale-data/jsonp/fr');
-}
-
 const Rencontre = React.createClass({
   getInitialState: function () {
     let rencontre = this.props.rencontre
@@ -89,6 +76,7 @@ const Rencontre = React.createClass({
             />
           <Tableau
             rencontre={this.props.rencontre}
+            surNouvelleMarque={this.props.surNouvelleMarque}
             surPeriode={this.props.surPeriode} />
         </div>
       )

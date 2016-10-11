@@ -32,8 +32,8 @@ app.use('/', express.static(repertoireSite));
 //**********************************************
 // Connection à la base de données
 //var urlParDefaut = "mongodb://dahu:dahu@localhost:27017/test"
-// var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
-var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
+var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
+// var urlParDefaut = "mongodb://orgsanisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
@@ -237,10 +237,11 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
   })
 })
 
-// Serveur de publication mesures de la sonde de température
+// Liste des rencontes utilisées lorsque la base de données est inaccessible
 var rencontres = [{
   id: 1,
   date: "10-09-2016",
+  periode: 1,
   hote: {
     nom: "NEC",
     marque: 11
@@ -250,28 +251,30 @@ var rencontres = [{
     marque: 11
   }
 }, {
-    id: 2,
-    date: "10-09-2016",
-    hote: {
-      nom: "NEC",
-      marque: 22
-    },
-    visiteur: {
-      nom: "Montaigu",
-      marque: 22
-    }
-  }, {
-    id: 3,
-    date: "10-09-2016",
-    hote: {
-      nom: "NEC",
-      marque: 33
-    },
-    visiteur: {
-      nom: "Coulaine",
-      marque: 33
-    }
-  }];
+  id: 2,
+  date: "10-09-2016",
+  periode: 1,
+  hote: {
+    nom: "NEC",
+    marque: 22
+  },
+  visiteur: {
+    nom: "Montaigu",
+    marque: 22
+  }
+}, {
+  id: 3,
+  periode: 1,
+  date: "10-09-2016",
+  hote: {
+    nom: "NEC",
+    marque: 33
+  },
+  visiteur: {
+    nom: "Coulaine",
+    marque: 33
+  }
+}];
 
 //**********************************************
 // Démarrage du serveur

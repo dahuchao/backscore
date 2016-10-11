@@ -3,11 +3,24 @@ import { connect } from "react-redux"
 import store from "../store"
 import * as types from "../actions/actions-types"
 import request from "request"
+import io from "socket.io-client"
 import Rencontre from "./rencontre"
 
 const RencontreConteneur = React.createClass({
+  componentWillMount: function () {
+    var adresse = location.href
+    console.info("Adresse web socket: " + adresse)
+    this.socket = io(adresse)
+    this.socket.on("connect", this.connexionTableMarque)
+  },
+  componentWillUnmount: function () {
+    const idRencontre = this.props.rencontre.id
+    console.info("Fermeture tableau rencontre " + idRencontre)
+    this.socket.emit("fermerRencontre", idRencontre)
+  },
   componentDidMount: function () {
     const idRencontre = this.props.params.idRencontre
+    this.socket.emit("ouvrirRencontre", idRencontre)
     let adresse = location.protocol + "//" + location.host + "/api/rencontres/" + idRencontre
     console.info("Requete de l'API web: " + adresse)
     request(adresse, function (error, response, rencontre) {
@@ -18,6 +31,32 @@ const RencontreConteneur = React.createClass({
           rencontre: oRencontre
         })
       }
+    })
+  },
+  connexionTableMarque: function () {
+    console.info("Connecté avec la table de marque")
+    const idRencontre = this.props.params.idRencontre
+    // console.info("Identifiant rencontre: " + idRencontre)
+    this.socket.emit("ouvrirRencontre", idRencontre)
+    this.socket.on("nouvelleMarque", this.surReceptionNouvelleMarque)
+  },
+  surReceptionNouvelleMarque: function (rencontre) {
+    // console.debug("Reception d'une nouvelle marque: " + JSON.stringify(rencontre))
+    store.dispatch({
+      type: types.NOUVELLE_MARQUE,
+      rencontre: rencontre
+    })
+  },
+  surNouvelleMarque: function (rencontre) {
+    this.socket.emit('panierMarque', this.props.rencontre)
+  },
+  surPeriode(periode) {
+    // let rencontre = this.props.rencontre
+    // rencontre.periode = periode
+    console.debug("Nouvelle periode: " + JSON.stringify(periode))
+    store.dispatch({
+      type: types.NOUVELLE_PERIODE,
+      periode: periode
     })
   },
   sauver: function (infos) {
@@ -43,22 +82,14 @@ const RencontreConteneur = React.createClass({
       type: types.EDITER_RENCONTRE
     })
   },
-  surPeriode(periode) {
-    let rencontre = this.props.rencontre
-    rencontre.periode = periode
-    console.debug("Nouvelle periode: " + JSON.stringify(rencontre))
-    store.dispatch({
-      type: types.NOUVELLE_PERIODE,
-      rencontre: rencontre
-    })
-  },
   render: function () {
     console.debug("Conteneurrrrrr.")
     return (
       !this.props.rencontre ? null :
         <Rencontre
-          surPeriode={this.surPeriode}
           rencontre={this.props.rencontre}
+          surNouvelleMarque={this.surNouvelleMarque}
+          surPeriode={this.surPeriode}
           editer={this.editer}
           sauver={this.sauver}
           modeEdition={this.props.modeEdition} />
