@@ -1,6 +1,6 @@
 import React from "react"
 
-var Equipe = React.createClass({
+export default React.createClass({
   render() {
     return (
       <div className="equipe" onClick={this.props.surPanier}>
@@ -10,5 +10,3 @@ var Equipe = React.createClass({
     )
   }
 })
-
-export default Equipe;

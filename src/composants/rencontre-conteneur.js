@@ -6,7 +6,7 @@ import request from "request"
 import io from "socket.io-client"
 import Rencontre from "./rencontre"
 
-const RencontreConteneur = React.createClass({
+let RencontreConteneur = React.createClass({
   componentWillMount: function () {
     var adresse = location.href
     console.info("Adresse web socket: " + adresse)

@@ -2,7 +2,7 @@ import React from "react"
 import Marque from "./tableau-marque.js"
 import Equipe from "./tableau-equipe.js"
 
-var Tableau = React.createClass({
+export default React.createClass({
   surPanierHote: function () {
     // console.info("Panier marque: " + JSON.stringify(this.props.rencontre.hote.marque))
     let marque = this.props.rencontre.hote.marque
@@ -52,4 +52,3 @@ var Tableau = React.createClass({
   }
 })
 
-export default Tableau
