@@ -5,7 +5,6 @@ console.log("Lancement de l'utilitaire: ")
 //var urlParDefaut = "mongodb://admin:pass@localhost:27017/test"
 // var urlParDefaut = "mongodb://@localhost:27017/baskoredb"
 // var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
-var urlParDefaut = "mongodb://organisateur:orga123@ds055905.mongolab.com:55905/heroku_5cn196b4"
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)
