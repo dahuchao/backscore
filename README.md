@@ -12,7 +12,7 @@ Mode SASS : https://backscore.herokuapp.com
 ## Installation
 
 ```
-npm Install
+npm install
 ```
 
 ## Lancement de l'application
@@ -21,10 +21,6 @@ npm Install
 npm start
 ```
 ouvrir l'application à l'adresse http://localhost
-
-## Utilisation
-
-Lorsqu'un arbitre note la marque, elle est automatiquement notifiée à tous les tableaux de marque que sont les terminaux de la rencontre.
 
 ## Architecture
 
