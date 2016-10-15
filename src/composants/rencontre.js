@@ -40,11 +40,11 @@ const Rencontre = React.createClass({
   },
   majHote(e) {
     this.setState({ hote: e.target.value })
-    // console.info("MAJ Hote: " + JSON.stringify(this.state))
+    // console.debug("MAJ Hote: " + JSON.stringify(this.state))
   },
   majVisiteur(e) {
     this.setState({ visiteur: e.target.value })
-    // console.info("MAJ visiteur: " + JSON.stringify(this.state))
+    // console.debug("MAJ visiteur: " + JSON.stringify(this.state))
   },
   sauver() {
     console.debug(`Rencontre(sauver).`)
@@ -52,21 +52,25 @@ const Rencontre = React.createClass({
   },
   render() {
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
+    let date = this.props.rencontre.date ? new Date(this.props.rencontre.date) : new Date()
     console.debug("Conteneur2.")
     return this.props.modeEdition ? (
       <div>
-        <AppBar title="Edition rencontre"
+        <AppBar
+          title="Edition rencontre"
           iconElementLeft={
             <IconButton onClick={this.sauver}>
               <NavigationArrowBack />
-            </IconButton>} />
+            </IconButton>
+          }
+          />
         <Card >
           <CardText>
             <DatePicker floatingLabelText="Date de la rencontre"
-              defaultDate={new Date(this.props.rencontre.date)}
+              defaultDate={date}
               onChange={this.majDate} />
             <TimePicker floatingLabelText="Heure de la rencontre"
-              defaultTime={new Date(this.props.rencontre.date)}
+              defaultTime={date}
               format="24hr"
               onChange={this.majHeure} />
             <TextField floatingLabelText="Club Hote"

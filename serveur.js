@@ -238,7 +238,6 @@ app.delete("/api/rencontres/:id", upload.array(), function (req, res) {
 // Liste des rencontes utilisées lorsque la base de données est inaccessible
 var rencontres = [{
   id: 1,
-  date: new Date("2016-09-01"),
   periode: 1,
   hote: {
     nom: "NEC",
