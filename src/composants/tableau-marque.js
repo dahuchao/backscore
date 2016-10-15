@@ -56,14 +56,14 @@ export default React.createClass({
             style={style}
             labelStyle={labelStyle}
             onClick={this.props.surCorrectionHote}
-            label={this.props.rencontre.hote.marque}
+            label={this.props.rencontre.hote.marque.toString()}
             />
           <FlatButton
             className="visiteur"
             style={style}
             labelStyle={labelStyle}
             onClick={this.props.surCorrectionVisiteur}
-            label={this.props.rencontre.visiteur.marque}
+            label={this.props.rencontre.visiteur.marque.toString()}
             />
         </div>
       </div>

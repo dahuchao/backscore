@@ -39,6 +39,8 @@ const Rencontre = React.createClass({
   },
   render: function () {
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
+    let date = new Date(this.props.rencontre.date)
+    let strDate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
     console.debug("Conteneur2.")
     return this.props.modeEdition ? (
       <div>
@@ -60,7 +62,7 @@ const Rencontre = React.createClass({
       </div>
     ) : (
         <div>
-          <AppBar title={'Rencontre ' + this.props.rencontre.date}
+          <AppBar title={'Rencontre ' + strDate}
             iconElementLeft={
               <Link to="/rencontres">
                 <IconButton>
