@@ -53,7 +53,7 @@ const Rencontre = React.createClass({
   render() {
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
     let date = this.props.rencontre.date ? new Date(this.props.rencontre.date) : new Date()
-    console.debug("Conteneur2.")
+    console.debug(`test: ${date}`)
     return this.props.modeEdition ? (
       <div>
         <AppBar

@@ -21,34 +21,42 @@ MongoClient.connect(url, function(err, db) {
   //   console.log("Insertion rencontre: " + rencontre.id)
   // })
 })
+
+// Liste des rencontes utilisées lorsque la base de données est inaccessible
 var rencontres = [{
   id: 1,
+  date: new Date("2016-09-01"),
+  periode: 1,
   hote: {
     nom: "NEC",
-    marque: 111
+    marque: 11
   },
   visiteur: {
     nom: "USJA",
-    marque: 111
+    marque: 11
   }
 }, {
   id: 2,
+  date: new Date("2016-09-02"),
+  periode: 1,
   hote: {
     nom: "NEC",
-    marque: 222
+    marque: 22
   },
   visiteur: {
     nom: "Montaigu",
-    marque: 222
+    marque: 22
   }
 }, {
   id: 3,
+  periode: 1,
+  date: new Date("2016-10-16"),
   hote: {
     nom: "NEC",
-    marque: 333
+    marque: 33
   },
   visiteur: {
     nom: "Coulaine",
-    marque: 333
+    marque: 33
   }
-}]
+}];

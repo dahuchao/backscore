@@ -15,26 +15,21 @@ MongoClient.connect(url, function (err, db) {
   } else {
     db.collection("rencontres")
       .find({
-        // id: 2
+        id: 2
       })
       .each((err, rencontre) => {
         if (err) {
           console.log("Erreur: " + err)
         }
         console.log("rencontre: " + JSON.stringify(rencontre))
+        if (rencontre != null) {
+          rencontre.date = new Date()
+          db.collection("rencontres").update({
+            _id: rencontre._id
+          }, rencontre)
+          // Fermeture de la base de données
+          db.close();
+        }
       })
-    db.collection("rencontres").count((err, nb) => {
-      console.log("Taille de la base de donnée: " + nb)
-    })
-    db.close()
-
-    // db.collection("rencontres")
-    //   .find()
-    //   .toArray(function (err, rencontres) {
-    //     rencontres.forEach(rencontre =>
-    //       console.log("Nouvel r: " + JSON.stringify(rencontre))
-    //     )
-    //     db.close()
-    //   })
   }
 })
