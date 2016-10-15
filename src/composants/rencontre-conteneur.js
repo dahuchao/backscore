@@ -60,8 +60,11 @@ let RencontreConteneur = React.createClass({
     })
   },
   sauver: function (infos) {
+    let strInfo = JSON.stringify(infos)
+    console.debug(`Rencontre cont(sauver): ${strInfo}`)
     let rencontre = this.props.rencontre
     rencontre.date = infos.date
+    console.debug(`rencontre.date: ${rencontre.date}`)
     rencontre.periode = infos.periode
     rencontre.hote.nom = infos.hote
     rencontre.visiteur.nom = infos.visiteur
@@ -83,7 +86,7 @@ let RencontreConteneur = React.createClass({
     })
   },
   render: function () {
-    console.debug("Conteneurrrrrr.")
+    // console.debug("Raffraichissement.")
     return (
       !this.props.rencontre ? null :
         <Rencontre
@@ -97,7 +100,7 @@ let RencontreConteneur = React.createClass({
   }
 })
 const mapStateToProps = function (store) {
-  console.debug("Conteneur.")
+  // console.debug("Modification des proprités.")
   return {
     rencontre: store.rencontreState.rencontre,
     modeEdition: store.rencontreState.modeEdition

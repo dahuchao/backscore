@@ -8,6 +8,7 @@ import {
   RaisedButton,
   ContentAdd,
   CardText,
+  TimePicker,
   TextField,
   DatePicker
 } from "material-ui"
@@ -17,52 +18,69 @@ import Tableau from "./tableau"
 import areIntlLocalesSupported from "intl-locales-supported"
 
 const Rencontre = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     let rencontre = this.props.rencontre
     let date = rencontre.date ? rencontre.date : new Date()
     return { date: date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
-  majDate: function (x, date) {
-    this.setState({ date: date })
-    // console.debug("MAJ date: " + JSON.stringify(this.state))
+  majDate(x, date) {
+    let dateState = this.state.date
+    dateState.setDate(date.getDate())
+    dateState.setMonth(date.getMonth())
+    dateState.setFullYear(date.getFullYear())
+    this.setState({ date: dateState })
+    console.debug("MAJ date: " + JSON.stringify(this.state))
   },
-  majHote: function (e) {
+  majHeure(x, heure) {
+    let dateState = new Date(this.props.rencontre.date)
+    dateState.setHours(heure.getHours() + 2)
+    dateState.setMinutes(heure.getMinutes())
+    this.setState({ date: dateState })
+    console.debug("MAJ heure: " + JSON.stringify(dateState))
+  },
+  majHote(e) {
     this.setState({ hote: e.target.value })
     // console.info("MAJ Hote: " + JSON.stringify(this.state))
   },
-  majVisiteur: function (e) {
+  majVisiteur(e) {
     this.setState({ visiteur: e.target.value })
     // console.info("MAJ visiteur: " + JSON.stringify(this.state))
   },
-  sauver: function () {
+  sauver() {
+    console.debug(`Rencontre(sauver).`)
     this.props.sauver(this.state)
   },
-  render: function () {
+  render() {
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
-    let date = new Date(this.props.rencontre.date)
-    let strDate = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
     console.debug("Conteneur2.")
     return this.props.modeEdition ? (
       <div>
         <AppBar title="Edition rencontre"
-          iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack /></IconButton>} />
+          iconElementLeft={
+            <IconButton onClick={this.sauver}>
+              <NavigationArrowBack />
+            </IconButton>} />
         <Card >
           <CardText>
             <DatePicker floatingLabelText="Date de la rencontre"
               defaultDate={new Date(this.props.rencontre.date)}
-              onChange={this.majDate} /><br />
+              onChange={this.majDate} />
+            <TimePicker floatingLabelText="Heure de la rencontre"
+              defaultTime={new Date(this.props.rencontre.date)}
+              format="24hr"
+              onChange={this.majHeure} />
             <TextField floatingLabelText="Club Hote"
               defaultValue={this.props.rencontre.hote.nom}
               onChange={this.majHote} /><br />
             <TextField floatingLabelText="Club Visiteur"
               defaultValue={this.props.rencontre.visiteur.nom}
-              onChange={this.majVisiteur} /><br />
+              onChange={this.majVisiteur} />
           </CardText>
         </Card >
       </div>
     ) : (
         <div>
-          <AppBar title={'Rencontre ' + strDate}
+          <AppBar title="Rencontre"
             iconElementLeft={
               <Link to="/rencontres">
                 <IconButton>

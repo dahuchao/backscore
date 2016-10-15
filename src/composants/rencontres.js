@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, browserHistory } from "react-router"
+import { Link } from "react-router"
 import {
   AppBar,
   Card,
@@ -15,27 +15,18 @@ import {
 import ActionInfo from "material-ui/svg-icons/action/info"
 import FileFolder from "material-ui/svg-icons/file/folder"
 import ContentAdd from "material-ui/svg-icons/content/add"
-// import moment from "moment/src/moment"
 
 const Rencontres = React.createClass({
-  onOuverture(id) {
-    console.debug("onOuverture: " + id)
-    this.transitionTo("/#/rencontres/" + id)
-  },
   preparationDate(date) {
     let dateRencontre = new Date(date)
-    console.info("date Rencontres: " + JSON.stringify(dateRencontre))
-    // let date = moment().format("DD MM YYYY")
-    // let date = "2016-10-05"
+    console.debug("date Rencontres: " + JSON.stringify(dateRencontre))
     let jour = new Date()
-    console.info("date jour: " + JSON.stringify(jour))
-    console.info("rencontredate < date: " + (dateRencontre < jour))
     let strdate
     !dateRencontre ?
       strdate = "date à préciser" :
       dateRencontre < jour ?
-        strdate = jour.getDay() + "-" + jour.getMonth() + "-" + jour.getFullYear() :
-        strdate = jour.getDay() + "-" + jour.getMonth()
+        strdate = `${jour.toLocaleDateString()}` :
+        strdate = `${dateRencontre.toLocaleDateString()} ${dateRencontre.getHours()}:${dateRencontre.getMinutes()}`
     return strdate
   },
   render() {
@@ -68,13 +59,12 @@ const Rencontres = React.createClass({
                     leftAvatar={<Avatar icon={<FileFolder />} />}
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                     secondaryText={strdate}
-                    containerElement={<Link to={"/rencontres/" + rencontre.id}/>}
+                    containerElement={<Link to={"/rencontres/" + rencontre.id} />}
                     rightIcon={<ActionInfo />}
                     rightIconButton={
                       <RaisedButton onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}
                         label="Supprimer" primary={true} />
                     }
-                    //onClick={this.onOuverture.bind(this, rencontre.id)}
                     />
                 )
               })}

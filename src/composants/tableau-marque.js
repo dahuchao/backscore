@@ -11,11 +11,11 @@ export default React.createClass({
   },
   render() {
     const style = {
-      minWidth: "2.5em",
-      height: "1.7em"
+      minWidth: "2em",
+      height: "1.5em"
     }
     const labelStyle = {
-      fontSize: "1.5em",
+      fontSize: "1.3em",
       paddingLeft: "0",
       paddingRight: "0"
     }
@@ -26,10 +26,12 @@ export default React.createClass({
         <div id="periodes">{
           [1, 2, 3, 4].map(periode => {
             let style = {
-              minWidth: "0"
+              minWidth: "0",
+              lineHeight: "1.3em",
+              height: "1.3em"
             }
             let labelStyle = {
-              fontSize: "0.8em",
+              fontSize: "1em",
               paddingLeft: "0.5em",
               paddingRight: "0.5em"
             }
