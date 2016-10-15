@@ -22,22 +22,17 @@ const Rencontre = React.createClass({
     let date = rencontre.date ? rencontre.date : new Date()
     return { date: date, hote: rencontre.hote.nom, visiteur: rencontre.visiteur.nom }
   },
-  // majDate: function (x, date) {
-  //   console.info("MAJ datejjjjjjjjjjjjj: " + JSON.stringify(date))
-  //   this.setState({ date: date })
-  //   console.info("MAJ date: " + JSON.stringify(this.state))
-  // },
-  majDate: function (e) {
-    this.setState({ date: e.target.value })
-    console.info("MAJ date: " + JSON.stringify(this.state))
+  majDate: function (x, date) {
+    this.setState({ date: date })
+    // console.debug("MAJ date: " + JSON.stringify(this.state))
   },
   majHote: function (e) {
     this.setState({ hote: e.target.value })
-    console.info("MAJ Hote: " + JSON.stringify(this.state))
+    // console.info("MAJ Hote: " + JSON.stringify(this.state))
   },
   majVisiteur: function (e) {
     this.setState({ visiteur: e.target.value })
-    console.info("MAJ visiteur: " + JSON.stringify(this.state))
+    // console.info("MAJ visiteur: " + JSON.stringify(this.state))
   },
   sauver: function () {
     this.props.sauver(this.state)
@@ -51,13 +46,13 @@ const Rencontre = React.createClass({
           iconElementLeft={<IconButton onClick={this.sauver}><NavigationArrowBack /></IconButton>} />
         <Card >
           <CardText>
-            <TextField hintText="Date"
-              defaultValue={this.props.rencontre.date}
+            <DatePicker floatingLabelText="Date de la rencontre"
+              defaultDate={new Date(this.props.rencontre.date)}
               onChange={this.majDate} /><br />
-            <TextField hintText="Hote"
+            <TextField floatingLabelText="Club Hote"
               defaultValue={this.props.rencontre.hote.nom}
               onChange={this.majHote} /><br />
-            <TextField hintText="Visiteur"
+            <TextField floatingLabelText="Club Visiteur"
               defaultValue={this.props.rencontre.visiteur.nom}
               onChange={this.majVisiteur} /><br />
           </CardText>

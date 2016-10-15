@@ -74,7 +74,7 @@ function rencontreReducer(state = initState, action) {
             nouveauState = Object.assign({}, nouveauState, { modeAjout: !state.modeAjout })
             console.log("| Mode ajout: " + JSON.stringify(state.modeAjout))
             break;
-        case types.NOUVELLE_PERIODE:
+        case types.NOUVELLE:
             console.log("| Nouvelle période: " + JSON.stringify(action.periode))
             console.log("| Nouvelle période (rencontre): " + JSON.stringify(state.rencontre))
             let nouvelleRencontre = Object.assign(state.rencontre, { periode: action.periode })

@@ -1,6 +1,7 @@
 import React from "react"
-import { Link } from "react-router"
-import {AppBar,
+import { Link, browserHistory } from "react-router"
+import {
+  AppBar,
   Card,
   CardText,
   List,
@@ -17,7 +18,27 @@ import ContentAdd from "material-ui/svg-icons/content/add"
 // import moment from "moment/src/moment"
 
 const Rencontres = React.createClass({
-  render: function () {
+  onOuverture(id) {
+    console.debug("onOuverture: " + id)
+    this.transitionTo("/#/rencontres/" + id)
+  },
+  preparationDate(date) {
+    let dateRencontre = new Date(date)
+    console.info("date Rencontres: " + JSON.stringify(dateRencontre))
+    // let date = moment().format("DD MM YYYY")
+    // let date = "2016-10-05"
+    let jour = new Date()
+    console.info("date jour: " + JSON.stringify(jour))
+    console.info("rencontredate < date: " + (dateRencontre < jour))
+    let strdate
+    !dateRencontre ?
+      strdate = "date à préciser" :
+      dateRencontre < jour ?
+        strdate = jour.getDay() + "-" + jour.getMonth() + "-" + jour.getFullYear() :
+        strdate = jour.getDay() + "-" + jour.getMonth()
+    return strdate
+  },
+  render() {
     const style = {
       marginRight: 20
     }
@@ -32,7 +53,7 @@ const Rencontres = React.createClass({
           <div className="flottant">
             <FloatingActionButton style={style}
               onMouseDown={this.props.ajouterRencontre}>
-              <ContentAdd/>
+              <ContentAdd />
             </FloatingActionButton>
           </div>
         </AppBar>
@@ -40,30 +61,23 @@ const Rencontres = React.createClass({
           <CardText>
             <List id="rencontres" >
               {this.props.rencontres.map(rencontre => {
-                console.info("date Rencontres: " + JSON.stringify(rencontre.date))
-                // let date = moment().format("DD MM YYYY")
-                // let date = "2016-10-05"
-                let date = new Date()
-                let strdate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear()
-                // rencontre.date ? rencontre.date : "date à préciser"
+                let strdate = this.preparationDate(rencontre.date)
                 return (
                   <ListItem
                     key={rencontre.id}
-                    leftAvatar={
-                      <Link style={styleRencontre}
-                        key={rencontre.id} to={'/rencontres/' + rencontre.id}>
-                        <Avatar icon={<FileFolder/>}/>
-                      </Link>
-                    }
+                    leftAvatar={<Avatar icon={<FileFolder />} />}
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
-                    secondaryText={rencontre.date ? rencontre.date : "date à préciser"}
-                    rightIcon={<ActionInfo/>}
+                    secondaryText={strdate}
+                    containerElement={<Link to={"/rencontres/" + rencontre.id}/>}
+                    rightIcon={<ActionInfo />}
                     rightIconButton={
-                      <RaisedButton onClick={ this.props.supprimeRencontre.bind(null, rencontre.id) }
+                      <RaisedButton onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}
                         label="Supprimer" primary={true} />
-                    }/>
+                    }
+                    //onClick={this.onOuverture.bind(this, rencontre.id)}
+                    />
                 )
-              }) }
+              })}
             </List>
           </CardText>
         </Card>

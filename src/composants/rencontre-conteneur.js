@@ -55,7 +55,7 @@ let RencontreConteneur = React.createClass({
     // rencontre.periode = periode
     console.debug("Nouvelle periode: " + JSON.stringify(periode))
     store.dispatch({
-      type: types.NOUVELLE_PERIODE,
+      type: types.NOUVELLE,
       periode: periode
     })
   },
