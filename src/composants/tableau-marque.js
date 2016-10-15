@@ -11,7 +11,8 @@ export default React.createClass({
   },
   render() {
     const style = {
-      minWidth: "2em"
+      minWidth: "2.5em",
+      height: "1.7em"
     }
     const labelStyle = {
       fontSize: "1.5em",
@@ -49,7 +50,7 @@ export default React.createClass({
           })
         }
         </div>
-        <div className="compteur">
+        <div id="compteurs">
           <FlatButton
             className="hote"
             style={style}

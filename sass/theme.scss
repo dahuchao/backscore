@@ -84,37 +84,29 @@ header {
       @media #{$mobile} {
         font-size: 0.5em;
       }
-      font-size: 1em;
       display:flex;
       flex-direction: row;
       justify-content: space-around;
-      min-width: 11em;
+      min-width: 8em;
       .periode {
-        cursor: pointer;
         color: white;
         padding: 5px;
+        margin: 10px;
       }
     }
-    .compteur {
+    #compteurs {
       @media #{$mobile} {
         padding: 0.4em;
         min-width: 2em;
       }
-      flex-direction: row;
       display:flex;
+      flex-direction: row;
       justify-content: center;
-      min-width: 3em;
       color: black;
       font-weight: bold;
       user-select: none;
       border-radius: 10%;
       background-color: white;
-      .hote {
-        cursor: pointer;
-      }
-      .visiteur {
-        cursor: pointer;
-      }
     }
   }
 }
