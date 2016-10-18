@@ -4,6 +4,7 @@ import {
   AppBar,
   Card,
   CardText,
+  IconButton,
   List,
   ListItem,
   RaisedButton,
@@ -15,6 +16,7 @@ import {
 import ActionInfo from "material-ui/svg-icons/action/info"
 import FileFolder from "material-ui/svg-icons/file/folder"
 import ContentAdd from "material-ui/svg-icons/content/add"
+import ActionDelete from "material-ui/svg-icons/action/delete"
 
 const Rencontres = React.createClass({
   preparationDate(date) {
@@ -28,6 +30,10 @@ const Rencontres = React.createClass({
         strdate = `${jour.toLocaleDateString()}` :
         strdate = `${dateRencontre.toLocaleDateString()} ${dateRencontre.getHours()}:${dateRencontre.getMinutes()}`
     return strdate
+  },
+  fonct() {
+    console.debug("lien.")
+    // this.context.router.push("/rencontres/2")
   },
   render() {
     const style = {
@@ -56,16 +62,17 @@ const Rencontres = React.createClass({
                 return (
                   <ListItem
                     key={rencontre.id}
-                    leftAvatar={<Avatar icon={<FileFolder />} />}
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                     secondaryText={strdate}
-                    containerElement={<Link to={"/rencontres/" + rencontre.id} />}
-                    rightIcon={<ActionInfo />}
+                    onKeyboardFocus={this.fonct}
                     rightIconButton={
-                      <RaisedButton onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}
-                        label="Supprimer" primary={true} />
-                    }
-                    />
+                      <IconButton
+                        onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}>
+                        <ActionDelete />
+                      </IconButton>}
+                    >
+                    <Link to={"/rencontres/" + rencontre.id} />
+                  </ListItem>
                 )
               })}
             </List>

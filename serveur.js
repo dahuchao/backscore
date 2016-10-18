@@ -31,7 +31,8 @@ app.use('/', express.static(repertoireSite));
 
 //**********************************************
 // Connection à la base de données
-var urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
+// vars urlParDefaut = "mongodb://dahu:azerty@localhost:27017/baskoredb"
+var urlParDefaut = "mongodb://@localhost:27017/baskoredb"
 //PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1/dbname
 const url = (process.env.MONGOLAB_URI || urlParDefaut)
 console.log("url de la base de donnée: " + url)

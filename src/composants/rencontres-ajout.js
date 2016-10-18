@@ -55,7 +55,6 @@ const RencontreAjout = React.createClass({
         <Card>
           <CardText>
             <DatePicker hintText="Date de la rencontre"
-              defaultValue={this.props.rencontre.date}
               onChange={this.majDate} />
             <TimePicker hintText="Heure de la rencontre"
               format="24hr"
