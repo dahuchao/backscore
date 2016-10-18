@@ -17,17 +17,23 @@ import FileFolder from "material-ui/svg-icons/file/folder"
 import ContentAdd from "material-ui/svg-icons/content/add"
 
 const Rencontres = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func.isRequired
+  },
   preparationDate(date) {
     let dateRencontre = new Date(date)
     console.debug("date Rencontres: " + JSON.stringify(dateRencontre))
     let jour = new Date()
-    let strdate
-    !dateRencontre ?
-      strdate = "date à préciser" :
+    let strdate = !dateRencontre ?
+      "date à préciser" :
       dateRencontre < jour ?
-        strdate = `${jour.toLocaleDateString()}` :
-        strdate = `${dateRencontre.toLocaleDateString()} ${dateRencontre.getHours()}:${dateRencontre.getMinutes()}`
+        `${jour.toLocaleDateString()}` :
+        `${dateRencontre.toLocaleDateString()} ${dateRencontre.getHours()}:${dateRencontre.getMinutes()}`
     return strdate
+  },
+  zoom(idRencontre) {
+    console.debug(`Ouverture de la rencontre: ${idRencontre}`)
+    this.context.router.push(`/rencontres/${idRencontre}`)
   },
   render() {
     const style = {
@@ -59,7 +65,7 @@ const Rencontres = React.createClass({
                     leftAvatar={<Avatar icon={<FileFolder />} />}
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                     secondaryText={strdate}
-                    containerElement={<Link to={"/rencontres/" + rencontre.id} />}
+                    onTouchTap={this.zoom.bind(this,rencontre.id)}
                     rightIcon={<ActionInfo />}
                     rightIconButton={
                       <RaisedButton onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}
