@@ -7,8 +7,6 @@ import {
   IconButton,
   List,
   ListItem,
-  RaisedButton,
-  Avatar,
   FloatingActionButton,
   TextField,
   DatePicker

@@ -4,19 +4,14 @@ import {
   AppBar,
   Card,
   IconButton,
-  FlatButton,
-  RaisedButton,
-  ContentAdd,
   CardText,
   TimePicker,
   TextField,
   DatePicker
 } from "material-ui"
-import NavigationClose from "material-ui/svg-icons/navigation/close"
 import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
 import ModeEdit from "material-ui/svg-icons/editor/mode-edit"
 import Tableau from "./tableau"
-import areIntlLocalesSupported from "intl-locales-supported"
 
 const Rencontre = React.createClass({
   getInitialState() {
