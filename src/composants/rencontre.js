@@ -14,6 +14,7 @@ import {
 } from "material-ui"
 import NavigationClose from "material-ui/svg-icons/navigation/close"
 import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back"
+import ModeEdit from "material-ui/svg-icons/editor/mode-edit"
 import Tableau from "./tableau"
 import areIntlLocalesSupported from "intl-locales-supported"
 
@@ -51,6 +52,9 @@ const Rencontre = React.createClass({
     this.props.sauver(this.state)
   },
   render() {
+    const style = {
+      color: "white"
+    }
     let labelBouton = this.props.modeEdition ? "Sauver" : "Edition"
     let date = this.props.rencontre.date ? new Date(this.props.rencontre.date) : new Date()
     console.debug(`test: ${date}`)
@@ -87,12 +91,18 @@ const Rencontre = React.createClass({
           <AppBar title="Rencontre"
             iconElementLeft={
               <Link to="/rencontres">
-                <IconButton>
+                <IconButton
+                  iconStyle={style}>
                   <NavigationArrowBack />
                 </IconButton>
               </Link>}
-            iconElementRight={<FlatButton label={labelBouton} onClick={this.props.editer} />}
-            />
+            iconElementRight={
+              <IconButton
+                onClick={this.props.editer}
+                iconStyle={style}>
+                <ModeEdit />
+              </IconButton>
+            } />
           <Tableau
             rencontre={this.props.rencontre}
             surNouvelleMarque={this.props.surNouvelleMarque}

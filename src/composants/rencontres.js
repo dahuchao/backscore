@@ -38,6 +38,20 @@ const Rencontres = React.createClass({
     this.context.router.push(`/rencontres/${idRencontre}`)
   },
   render() {
+    const poubelle = {
+      style: {
+        width: 72,
+        height: 72,
+        padding: 20,
+        top:0,
+        right:0
+      },
+      icon: {
+        width: 36,
+        height: 36,
+        color: "rgb(0, 188, 212)"
+      }
+    }
     const style = {
       marginRight: 20
     }
@@ -66,10 +80,11 @@ const Rencontres = React.createClass({
                     key={rencontre.id}
                     primaryText={rencontre.hote.nom + '-' + rencontre.visiteur.nom}
                     secondaryText={strdate}
-                    onTouchTap={this.zoom.bind(this,rencontre.id)}
-                    rightIcon={<ActionInfo />}
+                    onTouchTap={this.zoom.bind(this, rencontre.id)}
                     rightIconButton={
                       <IconButton
+                        style={poubelle.style}
+                        iconStyle={poubelle.icon}
                         onClick={this.props.supprimeRencontre.bind(null, rencontre.id)}>
                         <ActionDelete />
                       </IconButton>}

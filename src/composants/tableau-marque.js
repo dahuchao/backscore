@@ -19,7 +19,7 @@ export default React.createClass({
       paddingLeft: "0",
       paddingRight: "0"
     }
-    console.debug("Conteneur4.")
+    // console.debug("Conteneur4.")
     console.debug("Rencontre: " + JSON.stringify(this.props.rencontre))
     return (
       <div id="marque">
